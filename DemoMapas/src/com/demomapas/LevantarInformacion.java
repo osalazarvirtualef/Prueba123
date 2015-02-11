@@ -2,10 +2,10 @@ package com.demomapas;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import com.demomapas.deviceinfoendpoint.Deviceinfoendpoint;
 import com.demomapas.deviceinfoendpoint.model.DeviceInfo;
 import com.demomapas.model.usuarioendpoint.Usuarioendpoint;
@@ -17,6 +17,7 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -46,12 +47,15 @@ public class LevantarInformacion extends Activity{
 	private EditText apm;
 	private EditText app;
 	private EditText delito;
+	static Bitmap imagenphoto;
 	LinearLayout contenedor;
+	public static String path;
 	private VideoView mVideoView;
 	private Uri mVideoUri;
 	private Bitmap mImageBitmap;
 	private String mCurrentPhotoPath;
 	private static final int ACTION_TAKE_PHOTO_B = 1;
+	
 	private static final String JPEG_FILE_PREFIX = "IMG_";
 	private static final String JPEG_FILE_SUFFIX = ".jpg";
 	private static final int ACTION_TAKE_PHOTO_S = 2;
@@ -99,8 +103,11 @@ public class LevantarInformacion extends Activity{
 
 		/* Decode the JPEG file into a Bitmap */
 		Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+		imagenphoto = bitmap;
+		path = mCurrentPhotoPath;
 		
 		/* Associate the Bitmap to the ImageView */
+		
 		mImageView.setImageBitmap(bitmap);
 		mVideoUri = null;
 		mImageView.setVisibility(View.VISIBLE);
@@ -215,7 +222,8 @@ public class LevantarInformacion extends Activity{
 		private File createImageFile() throws IOException {
 			// Create an image file name
 			String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-			String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_";
+			//String imageFileName = JPEG_FILE_PREFIX + timeStamp;
+			String imageFileName = "vfdc";
 			File albumF = getAlbumDir();
 			File imageF = File.createTempFile(imageFileName, JPEG_FILE_SUFFIX, albumF);
 			return imageF;
@@ -328,7 +336,40 @@ public class LevantarInformacion extends Activity{
 		protected Void doInBackground(Void... params) {
 			Utl_HttpClient resposeGson = new Utl_HttpClient();
 			String urlBlobStore = resposeGson.getUrlBlobStore("http://1-dot-civic-athlete-851.appspot.com/blob/androidserveurl");
+			Utl_Imagen.procesarImagen(path);
 			Log.i("la url para insertar es: +",urlBlobStore);
+			if(urlBlobStore != null){
+				try {
+				//	int formato = Utl_Imagen.getFormatoInt(imagen.getFormato());
+					resposeGson.setMultimedia(urlBlobStore, path,
+							new String(),new String(), 
+							new String(), new String(), 
+							new String(), new String());
+
+					//if(blobStore != null){
+					//	Log.i("BlobStore url", blobStore.getServingUrl());
+					//	Log.i("BlobStore blobKey", blobStore.getBlobKey());
+						//ContentValues values = new ContentValues();
+
+						///values.put(ConstantesBD.ColMultimedia[6], blobStore.getServingUrl());
+						//values.put(ConstantesBD.ColMultimedia[7], blobStore.getBlobKey());
+						//values.put(ConstantesBD.ColMultimedia[8], Utl_Constantes.REG_SINC);
+
+					//	int val = bus_obras.updateMultimedia(imagen.getIdMultimedia(), values);
+					//	Log.i(Utl_Constantes.TAG_UPDATE_MULTIMEDIA, val + "");
+						//return true;
+				//	}else{
+						Log.i("BlobStore","null");
+						//return false;
+				//	}
+					// Actualizar BD
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					//Log.i(TAG, "Error :" + e);
+					//Toast.makeText(context, "Error de Red", Toast.LENGTH_SHORT).show();
+					//return false;
+				}
+			}
 		
 			// TODO Auto-generated method stub
 			

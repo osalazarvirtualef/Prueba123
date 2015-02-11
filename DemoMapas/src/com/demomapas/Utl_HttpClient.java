@@ -21,8 +21,10 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -53,36 +55,50 @@ public class Utl_HttpClient {
 		return data;
 	}
 	
-	public Mod_BlobStore setMultimedia(String urlBlobStore, String path, String idReferencia, 
-			String tipoArchivo, String formato, String tipoReferencia, String descripcion, String mimeType) throws UnsupportedEncodingException{
+	public void setMultimedia(String urlBlobStore, String path, String idReferencia, 
+			String tipoArchivo, String formato, String tipoReferencia, String descripcion, String mimeType ) throws UnsupportedEncodingException{
 		
 		Type arrayListType = new TypeToken<Mod_BlobStore>(){}.getType();
 		Gson gson = new Gson();
 		Mod_BlobStore blobStore = new Mod_BlobStore();
-		FileBody fileBody;
+		FileBody fileBody = null;
 		
 		HttpClient httpClient = Utl_HttpClient.HttpClient();
 		HttpPost httpPost = new HttpPost(urlBlobStore);
 		
 		MultipartEntity multipartEntity = new MultipartEntity();
-//		if(mimeType.isEmpty()){
+		if(mimeType.isEmpty()){
 //			fileBody = new FileBody(new File(path), ContentType.create(
 //					Utl_Imagen.getMimeType(Uri.fromFile(new File(path)).toString())),
 //					Utl_Imagen.getNombreImagen(path));
-//		}else{
-//			fileBody = new FileBody(new File(path), ContentType.create(mimeType), Utl_Imagen.getNombreImagen(path));
-//		}
+			fileBody = new FileBody(new File(path), ContentType.create(
+					Utl_Imagen.getMimeType(Uri.fromFile(new File(path)).toString())),"hola.jpeg");
+		}else{
+			fileBody = new FileBody(new File(path), ContentType.create(mimeType), Utl_Imagen.getNombreImagen(path));
+		}
 		
 //		Log.i("ContentType", fileBody.getContentType().toString());
 		
-//		multipartEntity.addPart("file", fileBody);
-		//multipartEntity.addPart(Utl_Constantes.MULTIPART_ID_REFERENCIA, new StringBody(idReferencia));
-		//multipartEntity.addPart(Utl_Constantes.MULTIPART_TIPO_ARCHIVO, new StringBody(tipoArchivo));
-		//multipartEntity.addPart(Utl_Constantes.MULTIPART_FORMATO, new StringBody(formato));
-		//multipartEntity.addPart(Utl_Constantes.MULTIPART_TIPO_REFERENCIA, new StringBody(tipoReferencia));
-		//multipartEntity.addPart(Utl_Constantes.MULTIPART_DESCRIPCION, new StringBody(descripcion));
+		multipartEntity.addPart("file", fileBody);
+		Log.i("tamaño",fileBody.getContentLength()+"");
+		multipartEntity.addPart("idReferencia", new StringBody("1"));
+		multipartEntity.addPart("tipoArchivo", new StringBody("1"));
+		multipartEntity.addPart("formato", new StringBody("1"));
+		multipartEntity.addPart("tipoReferencia", new StringBody("1"));
+		multipartEntity.addPart("descripcion", new StringBody("1"));
+		
+		/*
+		 *
+		 * 	public static final String MULTIPART_FILE = "file";
+	public static final String MULTIPART_ID_REFERENCIA = "idReferencia";
+	public static final String MULTIPART_TIPO_ARCHIVO = "tipoArchivo";
+	public static final String MULTIPART_FORMATO = "formato";
+	public static final String MULTIPART_TIPO_REFERENCIA = "tipoReferencia";
+	public static final String MULTIPART_DESCRIPCION = "descripcion";
+		 */
 		
 		httpPost.setEntity(multipartEntity);
+		
 		
 		try {
 			HttpResponse response = httpClient.execute(httpPost);
@@ -94,6 +110,6 @@ public class Utl_HttpClient {
 			blobStore = null;
 		}
 		
-		return blobStore;
+		//return blobStore;
 	}
 }

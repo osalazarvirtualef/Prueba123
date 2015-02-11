@@ -50,6 +50,7 @@ public class Upload extends HttpServlet {
 	throws ServletException, IOException {
 	//	XmppSincronizacion xmpp = new XmppSincronizacion();
 	//	xmpp.enviaMensaje("osalazar@adquem.com", "llegue a la peticion");
+		log.warning("llegue al upload");
 		List<BlobKey> blobs = blobstoreService.getUploads(req).get("file");
 		BlobInfoFactory bi = new BlobInfoFactory();
 		BlobKey blobKey = blobs.get(0);
