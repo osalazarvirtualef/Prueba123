@@ -1,0 +1,212 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://civic-athlete-851.appspot.com/_ah/api",
+  "name" : "tareaendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://civic-athlete-851.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "demomapas.com",
+  "ownerName" : "demomapas.com",
+  "packagePath" : "model",
+  "methods" : {
+    "tareaendpoint.insertTarea" : {
+      "path" : "tarea",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.demomapas.model.TareaEndpoint.insertTarea",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "tareaendpoint.listTarea" : {
+      "path" : "tarea",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.demomapas.model.TareaEndpoint.listTarea",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "tareaendpoint.getTarea" : {
+      "path" : "tarea/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.demomapas.model.TareaEndpoint.getTarea",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "tareaendpoint.removeTarea" : {
+      "path" : "tarea/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.demomapas.model.TareaEndpoint.removeTarea",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "tareaendpoint.updateTarea" : {
+      "path" : "tarea",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.demomapas.model.TareaEndpoint.updateTarea",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "Tarea" : {
+        "id" : "Tarea",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "calle" : {
+            "type" : "string"
+          },
+          "colonia" : {
+            "type" : "string"
+          },
+          "cp" : {
+            "type" : "string"
+          },
+          "municipio" : {
+            "type" : "string"
+          },
+          "estado" : {
+            "type" : "string"
+          },
+          "lat" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "longitud" : {
+            "type" : "string",
+            "format" : "int64"
+          }
+        }
+      },
+      "CollectionResponse_Tarea" : {
+        "id" : "CollectionResponse_Tarea",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Tarea"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "com.demomapas.model.TareaEndpoint.insertTarea" : {
+        "request" : {
+          "$ref" : "Tarea"
+        },
+        "response" : {
+          "$ref" : "Tarea"
+        }
+      },
+      "com.demomapas.model.TareaEndpoint.listTarea" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Tarea"
+        }
+      },
+      "com.demomapas.model.TareaEndpoint.getTarea" : {
+        "response" : {
+          "$ref" : "Tarea"
+        }
+      },
+      "com.demomapas.model.TareaEndpoint.removeTarea" : {
+      },
+      "com.demomapas.model.TareaEndpoint.updateTarea" : {
+        "request" : {
+          "$ref" : "Tarea"
+        },
+        "response" : {
+          "$ref" : "Tarea"
+        }
+      }
+    }
+  }
+}

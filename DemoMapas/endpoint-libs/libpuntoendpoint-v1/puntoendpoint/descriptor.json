@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/puntoendpoint/v1/20150210234756/java/1.18.0-rc/demomapas.com-puntoendpoint-v1-20150210234756-java-1.18.0-rc-sources.jar", 
-      "path": "demomapas.com-puntoendpoint-v1-20150210234756-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/puntoendpoint/v1/20150211224952/java/1.18.0-rc/demomapas.com-puntoendpoint-v1-20150211224952-java-1.18.0-rc-sources.jar", 
+      "path": "demomapas.com-puntoendpoint-v1-20150211224952-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2015-02-10 23:47"
+      "timestamp": "2015-02-11 22:49"
     }, 
     {
-      "path": "demomapas.com-puntoendpoint-v1-20150210234756-java-1.18.0-rc.jar.properties", 
+      "path": "demomapas.com-puntoendpoint-v1-20150211224952-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -674,5 +674,5 @@
   "version": "v1", 
   "language_version": "1.18.0-rc", 
   "id": "puntoendpoint:v1", 
-  "revision": 20150210234756
+  "revision": 20150211224952
 }

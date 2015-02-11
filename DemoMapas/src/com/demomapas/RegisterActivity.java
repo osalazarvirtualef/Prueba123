@@ -84,6 +84,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    setTitle("Registro de Usuario");
     Preferences = getApplicationContext().getSharedPreferences(
 			"settings", 0);
     boolean initialized = Preferences.getBoolean("FirstTime", false);

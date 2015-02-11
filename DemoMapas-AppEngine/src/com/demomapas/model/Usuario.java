@@ -11,7 +11,8 @@ public class Usuario {
 	private String name;
 	private String app;
 	private String apm;
-	private String password;
+	private String sexo;
+	private Long edad;
 	public Long getId() {
 		return id;
 	}
@@ -36,14 +37,21 @@ public class Usuario {
 	public void setApm(String apm) {
 		this.apm = apm;
 	}
-	public String getPassword() {
-		return password;
+	public String getSexo() {
+		return sexo;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+	public Long getEdad() {
+		return edad;
+	}
+	public void setEdad(Long edad) {
+		this.edad = edad;
 	}
 	
 	
 	
+
 	
 }

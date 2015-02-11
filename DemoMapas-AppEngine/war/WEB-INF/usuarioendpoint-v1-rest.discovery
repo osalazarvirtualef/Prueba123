@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/1vlRr3ZASnrev93xMAki_ExNxq8\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/O7Jr37eejsVOYBAkm7Xv4nIPrpA\"",
  "discoveryVersion": "v1",
  "id": "usuarioendpoint:v1",
  "name": "usuarioendpoint",
@@ -99,6 +99,10 @@
     "app": {
      "type": "string"
     },
+    "edad": {
+     "type": "string",
+     "format": "int64"
+    },
     "id": {
      "type": "string",
      "format": "int64"
@@ -106,7 +110,7 @@
     "name": {
      "type": "string"
     },
-    "password": {
+    "sexo": {
      "type": "string"
     }
    }

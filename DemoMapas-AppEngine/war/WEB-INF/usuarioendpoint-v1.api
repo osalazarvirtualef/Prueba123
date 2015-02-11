@@ -146,8 +146,12 @@
           "apm" : {
             "type" : "string"
           },
-          "password" : {
+          "sexo" : {
             "type" : "string"
+          },
+          "edad" : {
+            "type" : "string",
+            "format" : "int64"
           }
         }
       },
