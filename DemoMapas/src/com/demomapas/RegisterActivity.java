@@ -7,6 +7,9 @@ import com.demomapas.deviceinfoendpoint.model.DeviceInfo;
 import com.demomapas.messageEndpoint.MessageEndpoint;
 import com.demomapas.messageEndpoint.model.CollectionResponseMessageData;
 import com.demomapas.messageEndpoint.model.MessageData;
+import com.demomapas.model.agenteendpoint.Agenteendpoint;
+import com.demomapas.model.agenteendpoint.Agenteendpoint.GetAgente;
+import com.demomapas.model.agenteendpoint.model.Agente;
 import com.demomapas.model.usuarioendpoint.Usuarioendpoint;
 import com.demomapas.model.usuarioendpoint.model.CollectionResponseUsuario;
 import com.demomapas.model.usuarioendpoint.model.Usuario;
@@ -63,8 +66,8 @@ import android.widget.Toast;
 public class RegisterActivity extends Activity implements OnClickListener {
 	DeviceInfo device = new DeviceInfo();
 	Deviceinfoendpoint deviceiInfoendpoint = null;
-	Usuarioendpoint usuarioEndpoint = null;
-	Usuario Usuario = new Usuario();
+	Agenteendpoint agenteEndpoint = null;
+	Agente Agente = new Agente();
 	private EditText usuariotext;
 	private EditText password;
 	private boolean userExist = false;
@@ -324,8 +327,8 @@ protected void onStop() {
 		Context context;
 		DeviceInfo device = new DeviceInfo();
 		Deviceinfoendpoint deviceiInfoendpoint = null;
-		Usuarioendpoint usuarioEndpoint = null;
-		Usuario Usuario = new Usuario();
+		Agenteendpoint agentEndpoint = null;
+		Agente Agent = new  Agente();
 		
 		private validarUsuario(Context context) {
 	        this.context = context.getApplicationContext();
@@ -352,7 +355,7 @@ protected void onStop() {
 //					deviceInfoendpointbuilder).build();
 			
 			
-			Usuarioendpoint.Builder usuariosbuilder = new Usuarioendpoint.Builder(
+			Agenteendpoint.Builder agentebuilder = new Agenteendpoint.Builder(
 			AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
 			new HttpRequestInitializer() {
 
@@ -361,16 +364,14 @@ protected void onStop() {
 					// TODO Auto-generated method stub
 				}
 			});
-			usuarioEndpoint = CloudEndpointUtils.updateBuilder(
-			usuariosbuilder).build();
+			agenteEndpoint = CloudEndpointUtils.updateBuilder(
+			agentebuilder).build();
 			try {
-				CollectionResponseUsuario usuario = usuarioEndpoint.listUsuario().execute();
-				for (Usuario items : usuario.getItems()) {
-					if(items.getName().equalsIgnoreCase(usuariotext.getText().toString()) && items.getPassword().equalsIgnoreCase(password.getText().toString())){
-						Log.i("validacion de usuario", "el usuario si existe");
-						userExist=true;
-						}
-					}
+				Agente = agenteEndpoint.getAgente(0l, "oswaldo", "oswaldo").execute();
+				Log.i("", "");
+				userExist = true;
+				
+			
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -399,6 +400,7 @@ protected void onStop() {
 	              startActivity(new Intent(RegisterActivity.this, MapView.class));
 	              editor = Preferences.edit();
 	              editor.putBoolean("FirstTime", true);
+	              editor.putLong("idAgente", Agente.getId());
 	              editor.commit();
 	              finish();
 	           

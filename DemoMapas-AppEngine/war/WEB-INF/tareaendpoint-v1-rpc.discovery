@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/XSyCvE7OhjMsR5HBSKVQfXyC9FM\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/lUiHN1QNS5VjhCFGh5YXjzGd5Fs\"",
  "discoveryVersion": "v1",
  "id": "tareaendpoint:v1",
  "name": "tareaendpoint",
@@ -108,12 +108,10 @@
      "format": "int64"
     },
     "lat": {
-     "type": "string",
-     "format": "int64"
+     "type": "string"
     },
     "longitud": {
-     "type": "string",
-     "format": "int64"
+     "type": "string"
     },
     "municipio": {
      "type": "string"

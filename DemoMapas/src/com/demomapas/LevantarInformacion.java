@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 import com.demomapas.deviceinfoendpoint.Deviceinfoendpoint;
 import com.demomapas.deviceinfoendpoint.model.DeviceInfo;
 import com.demomapas.model.usuarioendpoint.Usuarioendpoint;
@@ -20,6 +21,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
@@ -54,6 +56,8 @@ public class LevantarInformacion extends Activity{
 	private Uri mVideoUri;
 	private Bitmap mImageBitmap;
 	private String mCurrentPhotoPath;
+	static SharedPreferences.Editor editor;
+	static SharedPreferences Preferences;
 	private static final int ACTION_TAKE_PHOTO_B = 1;
 	
 	private static final String JPEG_FILE_PREFIX = "IMG_";
@@ -269,6 +273,10 @@ public class LevantarInformacion extends Activity{
 		super.onCreate(savedInstanceState);
 		setTitle("Hello StackOverflow");
 	setContentView(R.layout.infouser);
+	 Preferences = getApplicationContext().getSharedPreferences(
+				"settings", 0);
+	   Long usuario = Preferences.getLong("idAgente", 0l);
+	   Log.i("el id del usuario en el mapa es: ", usuario.toString());
 	contenedor = (LinearLayout)findViewById(R.id.contenedorInfo);
 	nombre = (EditText)findViewById(R.id.nombre);
 	app = (EditText)findViewById(R.id.app);

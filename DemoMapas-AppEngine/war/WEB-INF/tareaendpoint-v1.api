@@ -153,12 +153,10 @@
             "type" : "string"
           },
           "lat" : {
-            "type" : "string",
-            "format" : "int64"
+            "type" : "string"
           },
           "longitud" : {
-            "type" : "string",
-            "format" : "int64"
+            "type" : "string"
           }
         }
       },

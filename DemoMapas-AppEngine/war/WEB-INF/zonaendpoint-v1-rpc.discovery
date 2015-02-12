@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/6Xn2yjYuSAy7Mwnk-Envg8qUSHY\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/5-IiagBlDMkoRZ8TkmlXJRPwB70\"",
  "discoveryVersion": "v1",
  "id": "zonaendpoint:v1",
  "name": "zonaendpoint",
@@ -108,12 +108,10 @@
      "format": "int64"
     },
     "lat": {
-     "type": "string",
-     "format": "int64"
+     "type": "string"
     },
     "longitud": {
-     "type": "string",
-     "format": "int64"
+     "type": "string"
     },
     "municipio": {
      "type": "string"

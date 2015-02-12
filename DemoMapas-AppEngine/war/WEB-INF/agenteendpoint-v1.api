@@ -53,7 +53,7 @@
       }
     },
     "agenteendpoint.getAgente" : {
-      "path" : "agente/{id}",
+      "path" : "agente/{id}/{usuario}/{password}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
@@ -64,6 +64,14 @@
         "parameters" : {
           "id" : {
             "type" : "int64",
+            "required" : true
+          },
+          "usuario" : {
+            "type" : "string",
+            "required" : true
+          },
+          "password" : {
+            "type" : "string",
             "required" : true
           }
         },

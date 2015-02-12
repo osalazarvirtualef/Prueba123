@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/sbkNFkJBri4ts081erORWKdlT8c\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/Rd0F9knMMlWIMMKfNzhqPiK59A4\"",
  "discoveryVersion": "v1",
  "id": "agenteendpoint:v1",
  "name": "agenteendpoint",
@@ -132,10 +132,20 @@
      "type": "string",
      "required": true,
      "format": "int64"
+    },
+    "password": {
+     "type": "string",
+     "required": true
+    },
+    "usuario": {
+     "type": "string",
+     "required": true
     }
    },
    "parameterOrder": [
-    "id"
+    "id",
+    "usuario",
+    "password"
    ],
    "returns": {
     "$ref": "Agente"

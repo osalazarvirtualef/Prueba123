@@ -1,7 +1,6 @@
 package com.demomapas.model;
 
 import com.demomapas.EMF;
-
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -17,6 +16,8 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import sun.management.resources.agent;
 
 @Api(name = "agenteendpoint", namespace = @ApiNamespace(ownerDomain = "demomapas.com", ownerName = "demomapas.com", packagePath = "model"))
 public class AgenteEndpoint {
@@ -37,10 +38,12 @@ public class AgenteEndpoint {
 		EntityManager mgr = null;
 		Cursor cursor = null;
 		List<Agente> execute = null;
+		Query query;
 
 		try {
 			mgr = getEntityManager();
-			Query query = mgr.createQuery("select from Agente as Agente");
+			
+		    query = mgr.createQuery("select from Agente as Agente");
 			if (cursorString != null && cursorString != "") {
 				cursor = Cursor.fromWebSafeString(cursorString);
 				query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
@@ -75,9 +78,25 @@ public class AgenteEndpoint {
 	 * @return The entity with primary key id.
 	 */
 	@ApiMethod(name = "getAgente")
-	public Agente getAgente(@Named("id") Long id) {
+	public Agente getAgente(@Named("id") Long id,@Named("usuario")String usuario,@Named("password")String password) {
 		EntityManager mgr = getEntityManager();
 		Agente agente = null;
+		Long id2 = 0l;
+		if(id==0){
+			CollectionResponse<Agente> agentes = new AgenteEndpoint().listAgente(null, null);
+			for (Agente elementos : agentes.getItems()) {
+				if(elementos.getUsuario().equalsIgnoreCase(usuario)&&elementos.getPassword().equalsIgnoreCase(password)){
+					
+					id2 = elementos.getId();
+				}
+				try {
+					agente = mgr.find(Agente.class, id2);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		}
+		else
 		try {
 			agente = mgr.find(Agente.class, id);
 		} finally {

@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/sbkNFkJBri4ts081erORWKdlT8c\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/Rd0F9knMMlWIMMKfNzhqPiK59A4\"",
  "discoveryVersion": "v1",
  "id": "agenteendpoint:v1",
  "name": "agenteendpoint",
@@ -128,7 +128,7 @@
  "methods": {
   "getAgente": {
    "id": "agenteendpoint.getAgente",
-   "path": "agente/{id}",
+   "path": "agente/{id}/{usuario}/{password}",
    "httpMethod": "GET",
    "parameters": {
     "id": {
@@ -136,10 +136,22 @@
      "required": true,
      "format": "int64",
      "location": "path"
+    },
+    "password": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    },
+    "usuario": {
+     "type": "string",
+     "required": true,
+     "location": "path"
     }
    },
    "parameterOrder": [
-    "id"
+    "id",
+    "usuario",
+    "password"
    ],
    "response": {
     "$ref": "Agente"
