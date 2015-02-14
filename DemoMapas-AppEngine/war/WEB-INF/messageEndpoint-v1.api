@@ -123,11 +123,11 @@
           "name" : {
             "type" : "string"
           },
-          "parent" : {
-            "$ref" : "Key"
-          },
           "namespace" : {
             "type" : "string"
+          },
+          "parent" : {
+            "$ref" : "Key"
           },
           "complete" : {
             "type" : "boolean"

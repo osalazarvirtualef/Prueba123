@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/tareaendpoint/v1/20150213001307/java/1.18.0-rc/demomapas.com-tareaendpoint-v1-20150213001307-java-1.18.0-rc-sources.jar", 
-      "path": "demomapas.com-tareaendpoint-v1-20150213001307-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/tareaendpoint/v1/20150214204818/java/1.18.0-rc/demomapas.com-tareaendpoint-v1-20150214204818-java-1.18.0-rc-sources.jar", 
+      "path": "demomapas.com-tareaendpoint-v1-20150214204818-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2015-02-13 00:13"
+      "timestamp": "2015-02-14 20:48"
     }, 
     {
-      "path": "demomapas.com-tareaendpoint-v1-20150213001307-java-1.18.0-rc.jar.properties", 
+      "path": "demomapas.com-tareaendpoint-v1-20150214204818-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "model", 
   "language_version": "1.18.0-rc", 
   "id": "tareaendpoint:v1", 
-  "revision": 20150213001307
+  "revision": 20150214204818
 }

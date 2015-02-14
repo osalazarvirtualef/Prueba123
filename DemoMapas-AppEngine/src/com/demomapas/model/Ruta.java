@@ -11,7 +11,7 @@ public class Ruta {
 	@Id
 	private Long id;
 	private Long idAgente;
-	private long[] tareasId;
+	private long[] tareasIds;
 	public Long getId() {
 		return id;
 	}
@@ -25,10 +25,10 @@ public class Ruta {
 		this.idAgente = idAgente;
 	}
 	public long[] getTareasId() {
-		return tareasId;
+		return tareasIds;
 	}
 	public void setTareasId(long[] tareasId) {
-		this.tareasId = tareasId;
+		this.tareasIds = tareasId;
 	}
 	
 	

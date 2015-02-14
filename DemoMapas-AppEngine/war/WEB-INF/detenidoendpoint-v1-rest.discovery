@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/Q9-M6SMFoBj_RrkDlyNqJ9Yve28\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/DOpONWzZzWxquAGLax6quPCgXmU\"",
  "discoveryVersion": "v1",
  "id": "detenidoendpoint:v1",
  "name": "detenidoendpoint",
@@ -93,31 +93,15 @@
    "id": "Detenido",
    "type": "object",
    "properties": {
-    "apm": {
-     "type": "string"
-    },
-    "app": {
-     "type": "string"
-    },
     "cargo": {
      "type": "string"
     },
     "delito": {
      "type": "string"
     },
-    "edad": {
-     "type": "string",
-     "format": "int64"
-    },
     "id": {
      "type": "string",
      "format": "int64"
-    },
-    "name": {
-     "type": "string"
-    },
-    "sexo": {
-     "type": "string"
     }
    }
   }

@@ -3,31 +3,38 @@ package com.demomapas.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 @Entity
 public class Tarea extends Zona {
 
-	
-	private Agente agente;
-	private Detenido detenido;
-	private Date fecha;
+	@Id
+	private Long id;
+	private Long idAgente;
+	private Long idDetenido;
+	private String fecha;
 	private boolean estado;
-	
-	public Agente getAgente() {
-		return agente;
+	public Long getId() {
+		return id;
 	}
-	public void setAgente(Agente agente) {
-		this.agente = agente;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public Detenido getDetenido() {
-		return detenido;
+	public Long getIdAgente() {
+		return idAgente;
 	}
-	public void setDetenido(Detenido detenido) {
-		this.detenido = detenido;
+	public void setIdAgente(Long idAgente) {
+		this.idAgente = idAgente;
 	}
-	public Date getFecha() {
+	public Long getIdDetenido() {
+		return idDetenido;
+	}
+	public void setIdDetenido(Long idDetenido) {
+		this.idDetenido = idDetenido;
+	}
+	public String getFecha() {
 		return fecha;
 	}
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 	public boolean isEstado() {
