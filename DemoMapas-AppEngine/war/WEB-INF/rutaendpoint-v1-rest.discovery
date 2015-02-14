@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/MYKa346kkIWmHGbRsY2DhlOINts\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/l1GlxA9m8YzinYxMezMPLHn2PHc\"",
  "discoveryVersion": "v1",
  "id": "rutaendpoint:v1",
  "name": "rutaendpoint",
@@ -101,42 +101,12 @@
      "type": "string",
      "format": "int64"
     },
-    "ruta": {
+    "tareasId": {
      "type": "array",
      "items": {
-      "$ref": "Tarea"
+      "type": "string",
+      "format": "int64"
      }
-    }
-   }
-  },
-  "Tarea": {
-   "id": "Tarea",
-   "type": "object",
-   "properties": {
-    "calle": {
-     "type": "string"
-    },
-    "colonia": {
-     "type": "string"
-    },
-    "cp": {
-     "type": "string"
-    },
-    "estado": {
-     "type": "string"
-    },
-    "id": {
-     "type": "string",
-     "format": "int64"
-    },
-    "lat": {
-     "type": "string"
-    },
-    "longitud": {
-     "type": "string"
-    },
-    "municipio": {
-     "type": "string"
     }
    }
   }

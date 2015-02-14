@@ -109,10 +109,9 @@ public class GCMIntentService extends GCMBaseIntentService {
    */
   @Override
   public void onMessage(Context context, Intent intent) {
+	 
     sendNotificationIntent(
-        context,
-        "Message received via Google Cloud Messaging:\n\n"
-            + intent.getStringExtra("message"), true, false);
+        context, intent.getStringExtra("message"), true, false);
   }
 
   /**
@@ -251,6 +250,7 @@ public class GCMIntentService extends GCMBaseIntentService {
    */
   private void sendNotificationIntent(Context context, String message,
       boolean isError, boolean isRegistrationMessage) {
+	  Log.i("notificacion: ", message);
     Intent notificationIntent = new Intent(context, RegisterActivity.class);
     notificationIntent.putExtra("gcmIntentServiceMessage", true);
     notificationIntent.putExtra("registrationMessage",

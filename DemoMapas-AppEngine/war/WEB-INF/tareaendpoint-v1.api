@@ -150,12 +150,89 @@
             "type" : "string"
           },
           "estado" : {
-            "type" : "string"
+            "type" : "boolean"
           },
           "lat" : {
             "type" : "string"
           },
           "longitud" : {
+            "type" : "string"
+          },
+          "agente" : {
+            "$ref" : "Agente"
+          },
+          "detenido" : {
+            "$ref" : "Detenido"
+          },
+          "fecha" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "Agente" : {
+        "id" : "Agente",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "app" : {
+            "type" : "string"
+          },
+          "apm" : {
+            "type" : "string"
+          },
+          "sexo" : {
+            "type" : "string"
+          },
+          "edad" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "matricula" : {
+            "type" : "string"
+          },
+          "usuario" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Detenido" : {
+        "id" : "Detenido",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "app" : {
+            "type" : "string"
+          },
+          "apm" : {
+            "type" : "string"
+          },
+          "sexo" : {
+            "type" : "string"
+          },
+          "edad" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "cargo" : {
+            "type" : "string"
+          },
+          "delito" : {
             "type" : "string"
           }
         }

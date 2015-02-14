@@ -141,42 +141,12 @@
             "type" : "string",
             "format" : "int64"
           },
-          "ruta" : {
+          "tareasId" : {
             "type" : "array",
             "items" : {
-              "$ref" : "Tarea"
+              "type" : "string",
+              "format" : "int64"
             }
-          }
-        }
-      },
-      "Tarea" : {
-        "id" : "Tarea",
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "calle" : {
-            "type" : "string"
-          },
-          "colonia" : {
-            "type" : "string"
-          },
-          "cp" : {
-            "type" : "string"
-          },
-          "municipio" : {
-            "type" : "string"
-          },
-          "estado" : {
-            "type" : "string"
-          },
-          "lat" : {
-            "type" : "string"
-          },
-          "longitud" : {
-            "type" : "string"
           }
         }
       },

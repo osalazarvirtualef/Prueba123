@@ -1,6 +1,7 @@
 package com.demomapas;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -10,9 +11,9 @@ import com.demomapas.model.agenteendpoint.model.Agente;
 import com.demomapas.model.rutaendpoint.Rutaendpoint;
 import com.demomapas.model.rutaendpoint.model.CollectionResponseRuta;
 import com.demomapas.model.rutaendpoint.model.Ruta;
-import com.demomapas.model.rutaendpoint.model.Tarea;
 import com.demomapas.model.tareaendpoint.Tareaendpoint;
 import com.demomapas.model.tareaendpoint.model.CollectionResponseTarea;
+import com.demomapas.model.tareaendpoint.model.Tarea;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -62,10 +63,10 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 	 AlertDialog.Builder dialog ;
 	 Rutaendpoint rutaEndpoint = null;
 	Ruta ruta = new Ruta();
-	Tareaendpoint tareaEndpoint = null;
-	Tarea tarea = new Tarea();
-	List<Tarea>tareas;
-	
+	Tareaendpoint tareaEndpoint;
+
+//	List<Tarea>tareas;
+//	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -155,7 +156,7 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 		String country = addresses.get(0).getAddressLine(2);
 		//TextView direccion = (TextView) findViewById(R.id.direccion);
 		//direccion.setText(address+" "+city+" "+country);
-		pintarMarcadores();
+		
 		
 	///////esto no lo ocupe
 		//mMapFragment.getView().setLayoutParams(params);
@@ -262,7 +263,16 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 								rutaPropia=elementos;
 							}	
 					}
-						 tareas = rutaPropia.getRuta();
+						List<Long> tareas = rutaPropia.getTareasId();
+						
+					List<Tarea> tareasUsuario = new ArrayList<Tarea>();
+					for (long item : tareas) {
+						Tarea t = tareaEndpoint.getTarea(item).execute();
+						tareasUsuario.add(t);
+						Log.i("tarea",t.getId()+ "es el id de la tarea");
+					}
+					
+					
 						
 						
 					} catch (IOException e) {
@@ -275,13 +285,13 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 		@Override
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
-			for (int i = 0; i < tareas.size(); i++) {
-				Tarea t = tareas.get(i);
-				LatLng parametros2 = new LatLng(t.getLat(),t.getLongitud());
-				mMap.addMarker(new MarkerOptions().position(parametros2).title(t.getId().toString()) .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-					
-				
-			}
+//			for (int i = 0; i < tareas.size(); i++) {
+//				Tarea t = tareas.get(i);
+//				LatLng parametros2 = new LatLng(t.getLat(),t.getLongitud());
+//				mMap.addMarker(new MarkerOptions().position(parametros2).title(t.getId().toString()) .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+//					
+//				
+//			}
 			dialog.setCancelable(true);
 		
 			super.onPostExecute(result);

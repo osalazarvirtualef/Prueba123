@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/lUiHN1QNS5VjhCFGh5YXjzGd5Fs\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/B-fkqXxu56wb1d8eflfrTdU2A18\"",
  "discoveryVersion": "v1",
  "id": "tareaendpoint:v1",
  "name": "tareaendpoint",
@@ -74,6 +74,41 @@
   }
  },
  "schemas": {
+  "Agente": {
+   "id": "Agente",
+   "type": "object",
+   "properties": {
+    "apm": {
+     "type": "string"
+    },
+    "app": {
+     "type": "string"
+    },
+    "edad": {
+     "type": "string",
+     "format": "int64"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "matricula": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "password": {
+     "type": "string"
+    },
+    "sexo": {
+     "type": "string"
+    },
+    "usuario": {
+     "type": "string"
+    }
+   }
+  },
   "CollectionResponse_Tarea": {
    "id": "CollectionResponse_Tarea",
    "type": "object",
@@ -89,10 +124,45 @@
     }
    }
   },
+  "Detenido": {
+   "id": "Detenido",
+   "type": "object",
+   "properties": {
+    "apm": {
+     "type": "string"
+    },
+    "app": {
+     "type": "string"
+    },
+    "cargo": {
+     "type": "string"
+    },
+    "delito": {
+     "type": "string"
+    },
+    "edad": {
+     "type": "string",
+     "format": "int64"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "name": {
+     "type": "string"
+    },
+    "sexo": {
+     "type": "string"
+    }
+   }
+  },
   "Tarea": {
    "id": "Tarea",
    "type": "object",
    "properties": {
+    "agente": {
+     "$ref": "Agente"
+    },
     "calle": {
      "type": "string"
     },
@@ -102,8 +172,15 @@
     "cp": {
      "type": "string"
     },
+    "detenido": {
+     "$ref": "Detenido"
+    },
     "estado": {
-     "type": "string"
+     "type": "boolean"
+    },
+    "fecha": {
+     "type": "string",
+     "format": "date-time"
     },
     "id": {
      "type": "string",
