@@ -52,27 +52,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "agenteendpoint.removeAgente" : {
-      "path" : "agente/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.AgenteEndpoint.removeAgente",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
     "agenteendpoint.getAgente" : {
       "path" : "agente/{id}/{usuario}/{password}",
       "httpMethod" : "GET",
@@ -100,6 +79,27 @@
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "agenteendpoint.removeAgente" : {
+      "path" : "agente/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.demomapas.model.AgenteEndpoint.removeAgente",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
       }
     },
     "agenteendpoint.updateAgente" : {
@@ -181,12 +181,12 @@
           "$ref" : "CollectionResponse_Agente"
         }
       },
-      "com.demomapas.model.AgenteEndpoint.removeAgente" : {
-      },
       "com.demomapas.model.AgenteEndpoint.getAgente" : {
         "response" : {
           "$ref" : "Agente"
         }
+      },
+      "com.demomapas.model.AgenteEndpoint.removeAgente" : {
       },
       "com.demomapas.model.AgenteEndpoint.updateAgente" : {
         "request" : {

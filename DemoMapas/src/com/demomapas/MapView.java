@@ -269,7 +269,7 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 					for (long item : tareas) {
 						Tarea t = tareaEndpoint.getTarea(item).execute();
 						tareasUsuario.add(t);
-						Log.i("tarea",t.getId()+ "es el id de la tarea");
+						//Log.i("tarea",t.getId())
 					}
 					
 					
