@@ -272,7 +272,10 @@ public class LevantarInformacion extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setTitle("Hello StackOverflow");
-	setContentView(R.layout.infouser);
+		Bundle bundle = getIntent().getExtras();
+		String a = bundle.getString("idTask");
+		Log.i("id de la tarea", a);
+		setContentView(R.layout.infouser);
 	 Preferences = getApplicationContext().getSharedPreferences(
 				"settings", 0);
 	   Long usuario = Preferences.getLong("idAgente", 0l);

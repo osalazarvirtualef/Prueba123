@@ -8,7 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Usuario {
 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	@Id
 	private Long id;
 	private String name;

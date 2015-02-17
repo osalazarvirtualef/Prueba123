@@ -85,6 +85,22 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "rutaendpoint.insertRuta" : {
+      "path" : "ruta",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.demomapas.model.RutaEndpoint.insertRuta",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "rutaendpoint.listRuta" : {
       "path" : "ruta",
       "httpMethod" : "GET",
@@ -109,22 +125,6 @@
       "response" : {
         "body" : "autoTemplate(backendResponse)"
       }
-    },
-    "rutaendpoint.insertRuta" : {
-      "path" : "ruta",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.RutaEndpoint.insertRuta",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
     }
   },
   "descriptor" : {
@@ -141,7 +141,7 @@
             "type" : "string",
             "format" : "int64"
           },
-          "tareasId" : {
+          "tareasIds" : {
             "type" : "array",
             "items" : {
               "type" : "string",
@@ -182,17 +182,17 @@
           "$ref" : "Ruta"
         }
       },
-      "com.demomapas.model.RutaEndpoint.listRuta" : {
-        "response" : {
-          "$ref" : "CollectionResponse_Ruta"
-        }
-      },
       "com.demomapas.model.RutaEndpoint.insertRuta" : {
         "request" : {
           "$ref" : "Ruta"
         },
         "response" : {
           "$ref" : "Ruta"
+        }
+      },
+      "com.demomapas.model.RutaEndpoint.listRuta" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Ruta"
         }
       }
     }

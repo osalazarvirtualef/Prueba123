@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/5-IiagBlDMkoRZ8TkmlXJRPwB70\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/Z3hgO_fieiSc_iSBtLm_NCD_BXw\"",
  "discoveryVersion": "v1",
  "id": "zonaendpoint:v1",
  "name": "zonaendpoint",
@@ -110,10 +110,12 @@
      "format": "int64"
     },
     "lat": {
-     "type": "string"
+     "type": "number",
+     "format": "double"
     },
     "longitud": {
-     "type": "string"
+     "type": "number",
+     "format": "double"
     },
     "municipio": {
      "type": "string"

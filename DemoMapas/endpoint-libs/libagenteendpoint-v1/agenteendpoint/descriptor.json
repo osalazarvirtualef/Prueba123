@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/agenteendpoint/v1/20150214205006/java/1.18.0-rc/demomapas.com-agenteendpoint-v1-20150214205006-java-1.18.0-rc-sources.jar", 
-      "path": "demomapas.com-agenteendpoint-v1-20150214205006-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/agenteendpoint/v1/20150216202320/java/1.18.0-rc/demomapas.com-agenteendpoint-v1-20150216202320-java-1.18.0-rc-sources.jar", 
+      "path": "demomapas.com-agenteendpoint-v1-20150216202320-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2015-02-14 20:50"
+      "timestamp": "2015-02-16 20:23"
     }, 
     {
-      "path": "demomapas.com-agenteendpoint-v1-20150214205006-java-1.18.0-rc.jar.properties", 
+      "path": "demomapas.com-agenteendpoint-v1-20150216202320-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "model", 
   "language_version": "1.18.0-rc", 
   "id": "agenteendpoint:v1", 
-  "revision": 20150214205006
+  "revision": 20150216202320
 }

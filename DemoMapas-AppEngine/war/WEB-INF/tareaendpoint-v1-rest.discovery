@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/ybrnSXDvKcbnb_opWB4peUY0E_o\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/PwdyYditAU8pruPPYpjQGeGpxJ4\"",
  "discoveryVersion": "v1",
  "id": "tareaendpoint:v1",
  "name": "tareaendpoint",
@@ -93,15 +93,6 @@
    "id": "Tarea",
    "type": "object",
    "properties": {
-    "calle": {
-     "type": "string"
-    },
-    "colonia": {
-     "type": "string"
-    },
-    "cp": {
-     "type": "string"
-    },
     "estado": {
      "type": "boolean"
     },
@@ -120,14 +111,9 @@
      "type": "string",
      "format": "int64"
     },
-    "lat": {
-     "type": "string"
-    },
-    "longitud": {
-     "type": "string"
-    },
-    "municipio": {
-     "type": "string"
+    "idZona": {
+     "type": "string",
+     "format": "int64"
     }
    }
   }

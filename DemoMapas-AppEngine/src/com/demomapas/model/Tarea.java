@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 @Entity
-public class Tarea extends Zona {
+public class Tarea {
 
 	@Id
 	private Long id;
@@ -13,6 +13,8 @@ public class Tarea extends Zona {
 	private Long idDetenido;
 	private String fecha;
 	private boolean estado;
+	private Long idZona;
+	
 	public Long getId() {
 		return id;
 	}
@@ -42,6 +44,12 @@ public class Tarea extends Zona {
 	}
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+	public Long getIdZona() {
+		return idZona;
+	}
+	public void setIdZona(Long idZona) {
+		this.idZona = idZona;
 	}
 	
 	

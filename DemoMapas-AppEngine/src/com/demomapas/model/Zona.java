@@ -14,8 +14,8 @@ public class Zona {
 	protected String cp;
 	protected String municipio;
 	protected String estado;
-	protected String lat;
-	protected String longitud;
+	protected double lat;
+	protected double longitud;
 	
 	
 	public Long getId() {
@@ -54,18 +54,20 @@ public class Zona {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public String getLat() {
+	public double getLat() {
 		return lat;
 	}
-	public void setLat(String lat) {
+	public void setLat(double lat) {
 		this.lat = lat;
 	}
-	public String getLongitud() {
+	public double getLongitud() {
 		return longitud;
 	}
-	public void setLongitud(String longitud) {
+	public void setLongitud(double longitud) {
 		this.longitud = longitud;
 	}
+	
+ 
 
 	
 	

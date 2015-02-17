@@ -5,15 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.demomapas.RegisterActivity.validarUsuario;
 import com.demomapas.messageEndpoint.model.CollectionResponseMessageData;
 import com.demomapas.model.agenteendpoint.Agenteendpoint;
 import com.demomapas.model.agenteendpoint.model.Agente;
 import com.demomapas.model.rutaendpoint.Rutaendpoint;
+import com.demomapas.model.rutaendpoint.Rutaendpoint.ListRuta;
 import com.demomapas.model.rutaendpoint.model.CollectionResponseRuta;
 import com.demomapas.model.rutaendpoint.model.Ruta;
 import com.demomapas.model.tareaendpoint.Tareaendpoint;
 import com.demomapas.model.tareaendpoint.model.CollectionResponseTarea;
 import com.demomapas.model.tareaendpoint.model.Tarea;
+import com.demomapas.model.zonaendpoint.Zonaendpoint;
+import com.demomapas.model.zonaendpoint.model.Zona;
+import com.google.android.gms.internal.lt;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -64,6 +69,11 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 	 Rutaendpoint rutaEndpoint = null;
 	Ruta ruta = new Ruta();
 	Tareaendpoint tareaEndpoint;
+	Zonaendpoint zonaEndpoint;
+	ArrayList<Tarea> tareasUsuario = new ArrayList<Tarea>();
+	public static Zona z = new Zona();
+	
+	
 
 //	List<Tarea>tareas;
 //	
@@ -119,7 +129,7 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 		CameraUpdate center=
 		        CameraUpdateFactory.newLatLng(new LatLng(latitude,
 		                                                 longitude));
-		    CameraUpdate zoom=CameraUpdateFactory.zoomTo(17);
+		    CameraUpdate zoom=CameraUpdateFactory.zoomTo(12);
 
 		 
 		
@@ -154,6 +164,7 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 		String address = addresses.get(0).getAddressLine(0);
 		String city = addresses.get(0).getAddressLine(1);
 		String country = addresses.get(0).getAddressLine(2);
+		new validarUsuario(getApplicationContext()).execute();
 		//TextView direccion = (TextView) findViewById(R.id.direccion);
 		//direccion.setText(address+" "+city+" "+country);
 		
@@ -194,6 +205,20 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 						});
 						tareaEndpoint = CloudEndpointUtils.updateBuilder(
 						tareabuilder).build();
+						
+				
+						
+						Zonaendpoint.Builder zonabuilder = new Zonaendpoint.Builder(
+								AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+								new HttpRequestInitializer() {
+
+									@Override
+									public void initialize(HttpRequest arg0) {
+										// TODO Auto-generated method stub
+									}
+								});
+								zonaEndpoint = CloudEndpointUtils.updateBuilder(
+								zonabuilder).build();
 		
 	}
 
@@ -236,12 +261,19 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 		// TODO Auto-generated method stub
 		Log.i("marker clicked", marker.getTitle());
 		  Intent intent = new Intent(MapView.this,LevantarInformacion.class);
+		  intent.putExtra("idTask", marker.getTitle());
           startActivity(intent);
 
 		return false;
 	}
-	public class validarUsuario extends AsyncTask<Void, Void, Void> {
+	public class validarUsuario extends AsyncTask<Void, Void,ArrayList<TareasUsuario>> {
+		 Zona z = new Zona();
+		 Context context;
+		 ArrayList<TareasUsuario> points = new ArrayList<TareasUsuario>();
 
+		 private validarUsuario(Context context) {
+		        this.context = context.getApplicationContext();
+		    }
 		@Override
 		protected void onPreExecute() {
 			// TODO Auto-generated method stub
@@ -252,49 +284,74 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 			super.onPreExecute();
 		}
 		@Override
-		protected Void doInBackground(Void... params) {
+		protected ArrayList<TareasUsuario> doInBackground(Void... params) {
 			// TODO Auto-generated method stub
-			
+					
+					ArrayList<Ruta> rutaUsuario = new ArrayList<Ruta>();
 					Ruta rutaPropia = new Ruta();
 					try {
 						CollectionResponseRuta Rutas = rutaEndpoint.listRuta().execute();
+						System.out.println();
 						for (Ruta elementos : Rutas.getItems()) {
 							if (elementos.getIdAgente() == usuario) {
-								rutaPropia=elementos;
+								int m = elementos.getTareasIds().size();
+								for(int t=0 ; t<elementos.getTareasIds().size() ; t++){
+									tareasUsuario.add(tareaEndpoint.getTarea(elementos.getTareasIds().get(t)).execute());
+									
+								}
 							}	
 					}
-						List<Long> tareas = rutaPropia.getTareasId();
+					Log.i("la cantidad de elementos es: ", tareasUsuario.size()+"");
+					//LatLng parametros2 = new LatLng(19.428524, -99.170938);
+					for (Tarea  items : tareasUsuario) {
 						
-					List<Tarea> tareasUsuario = new ArrayList<Tarea>();
-					for (long item : tareas) {
-						Tarea t = tareaEndpoint.getTarea(item).execute();
-						tareasUsuario.add(t);
-						//Log.i("tarea",t.getId())
+						try {
+							MapView.z = zonaEndpoint.getZona(items.getIdZona()).execute();
+						
+							TareasUsuario t = new TareasUsuario();
+							t.setUbicacion(new LatLng(MapView.z.getLat(), MapView.z.getLongitud()));
+							t.setStatus(items.getEstado());
+							t.setIdTarea(items.getId());
+							points.add(t);
+							
+					
+						
+							
+						//	mMap.addMarker(new MarkerOptions().position(new LatLng(z.getLat(), z.getLongitud())).title("marcador2") .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					
 					}
-					
-					
-						
-						
+				
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+
 					
-			return null;
+			return points;
 		}
-		@Override
-		protected void onPostExecute(Void result) {
-			// TODO Auto-generated method stub
-//			for (int i = 0; i < tareas.size(); i++) {
-//				Tarea t = tareas.get(i);
-//				LatLng parametros2 = new LatLng(t.getLat(),t.getLongitud());
-//				mMap.addMarker(new MarkerOptions().position(parametros2).title(t.getId().toString()) .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-//					
-//				
-//			}
-			dialog.setCancelable(true);
-		
-			super.onPostExecute(result);
+@Override
+protected void onPostExecute(ArrayList points ) {
+	// TODO Auto-generated method stub
+	for(int u = 0 ; u<points.size() ; u ++){
+	//	LatLng a = (LatLng) points.get(u);
+		TareasUsuario t = (TareasUsuario) points.get(u);
+		if(t.isStatus()){
+			
+			mMap.addMarker(new MarkerOptions().position(t.getUbicacion()).title(t.getIdTarea()+"") .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));	
 		}
+		else
+		mMap.addMarker(new MarkerOptions().position(t.getUbicacion()).title(""+t.getIdTarea()) .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+	}
+//	double longi = MapView.z.getLongitud();
+//	
+//	
+//	dialog.setCancelable(true);
+//	super.onPostExecute(result);
+}
+
 		}
 }

@@ -153,10 +153,10 @@
             "type" : "string"
           },
           "lat" : {
-            "type" : "string"
+            "type" : "number"
           },
           "longitud" : {
-            "type" : "string"
+            "type" : "number"
           }
         }
       },

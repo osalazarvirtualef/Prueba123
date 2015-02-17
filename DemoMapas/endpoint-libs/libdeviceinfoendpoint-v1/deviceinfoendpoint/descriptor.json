@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/deviceinfoendpoint/v1/20150214204931/java/1.18.0-rc/demomapas.com-deviceinfoendpoint-v1-20150214204931-java-1.18.0-rc-sources.jar", 
-      "path": "demomapas.com-deviceinfoendpoint-v1-20150214204931-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/deviceinfoendpoint/v1/20150216202316/java/1.18.0-rc/demomapas.com-deviceinfoendpoint-v1-20150216202316-java-1.18.0-rc-sources.jar", 
+      "path": "demomapas.com-deviceinfoendpoint-v1-20150216202316-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2015-02-14 20:49"
+      "timestamp": "2015-02-16 20:23"
     }, 
     {
-      "path": "demomapas.com-deviceinfoendpoint-v1-20150214204931-java-1.18.0-rc.jar.properties", 
+      "path": "demomapas.com-deviceinfoendpoint-v1-20150216202316-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -674,5 +674,5 @@
   "version": "v1", 
   "language_version": "1.18.0-rc", 
   "id": "deviceinfoendpoint:v1", 
-  "revision": 20150214204931
+  "revision": 20150216202316
 }

@@ -137,27 +137,6 @@
             "type" : "string",
             "format" : "int64"
           },
-          "calle" : {
-            "type" : "string"
-          },
-          "colonia" : {
-            "type" : "string"
-          },
-          "cp" : {
-            "type" : "string"
-          },
-          "municipio" : {
-            "type" : "string"
-          },
-          "estado" : {
-            "type" : "boolean"
-          },
-          "lat" : {
-            "type" : "string"
-          },
-          "longitud" : {
-            "type" : "string"
-          },
           "idAgente" : {
             "type" : "string",
             "format" : "int64"
@@ -168,6 +147,13 @@
           },
           "fecha" : {
             "type" : "string"
+          },
+          "estado" : {
+            "type" : "boolean"
+          },
+          "idZona" : {
+            "type" : "string",
+            "format" : "int64"
           }
         }
       },
