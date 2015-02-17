@@ -34,6 +34,7 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -72,6 +73,7 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 	Zonaendpoint zonaEndpoint;
 	ArrayList<Tarea> tareasUsuario = new ArrayList<Tarea>();
 	public static Zona z = new Zona();
+	ProgressDialog progressDialog;
 	
 	
 
@@ -81,6 +83,25 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+	      //Create a new progress dialog.  
+		
+        progressDialog = new ProgressDialog(MapView.this);  
+        //Set the progress dialog to display a horizontal bar .  
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);  
+        //Set the dialog title to 'Loading...'.  
+        progressDialog.setTitle("Mostrando Ordenes...");  
+        //Set the dialog message to 'Loading application View, please wait...'.  
+        progressDialog.setMessage("Descargando Informacion...");  
+        //This dialog can't be canceled by pressing the back key.  
+        progressDialog.setCancelable(false);  
+        //This dialog isn't indeterminate.  
+        progressDialog.setIndeterminate(false);  
+        //The maximum number of progress items is 100.  
+        progressDialog.setMax(100);  
+        //Set the current progress to zero.  
+        progressDialog.setProgress(0);  
+        //Display the progress dialog.  
+        progressDialog.show();  
 		 dialog = new AlertDialog.Builder(this);
 		 inicializaEndpoints();
 		//LinearLayout rLGreen = ((LinearLayout) button.getParent());
@@ -277,11 +298,8 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 		@Override
 		protected void onPreExecute() {
 			// TODO Auto-generated method stub
-			 
-			    dialog.setIcon(R.drawable.ic_launcher);
-			    dialog.setTitle("Descargando Informacion...."); 
-			      dialog.show();
 			super.onPreExecute();
+	
 		}
 		@Override
 		protected ArrayList<TareasUsuario> doInBackground(Void... params) {
@@ -346,6 +364,7 @@ protected void onPostExecute(ArrayList points ) {
 		else
 		mMap.addMarker(new MarkerOptions().position(t.getUbicacion()).title(""+t.getIdTarea()) .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 	}
+	progressDialog.dismiss();
 //	double longi = MapView.z.getLongitud();
 //	
 //	

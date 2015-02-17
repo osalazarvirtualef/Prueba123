@@ -20,6 +20,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -325,6 +326,7 @@ protected void onStop() {
 	public class validarUsuario extends AsyncTask<Void, Void, Void> {
 
 		Context context;
+		ProgressDialog progress;
 		DeviceInfo device = new DeviceInfo();
 		Deviceinfoendpoint deviceiInfoendpoint = null;
 		Agenteendpoint agentEndpoint = null;
@@ -367,8 +369,9 @@ protected void onStop() {
 			agenteEndpoint = CloudEndpointUtils.updateBuilder(
 			agentebuilder).build();
 			try {
-				Agente = agenteEndpoint.getAgente(0l, "oswaldo", "oswaldo").execute();
+				Agente = agenteEndpoint.getAgente(0l,usuariotext.getText().toString(),password.getText().toString()).execute();
 				Log.i("", "");
+				if(Agente != null)
 				userExist = true;
 				
 			
