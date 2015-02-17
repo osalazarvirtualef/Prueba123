@@ -7,15 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.demomapas.deviceinfoendpoint.Deviceinfoendpoint;
-import com.demomapas.deviceinfoendpoint.model.DeviceInfo;
-import com.demomapas.model.usuarioendpoint.Usuarioendpoint;
-import com.demomapas.model.usuarioendpoint.model.CollectionResponseUsuario;
-import com.demomapas.model.usuarioendpoint.model.Usuario;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.json.jackson2.JacksonFactory;
 
 import android.app.Activity;
 import android.content.ContentValues;
