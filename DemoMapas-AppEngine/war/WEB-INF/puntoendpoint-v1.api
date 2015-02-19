@@ -51,27 +51,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "puntoendpoint.removePunto" : {
-      "path" : "punto/{id}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.PuntoEndpoint.removePunto",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
-      }
-    },
     "puntoendpoint.getPunto" : {
       "path" : "punto/{id}",
       "httpMethod" : "GET",
@@ -91,6 +70,27 @@
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "puntoendpoint.removePunto" : {
+      "path" : "punto/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.demomapas.model.PuntoEndpoint.removePunto",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
       }
     },
     "puntoendpoint.insertPunto" : {
@@ -198,12 +198,12 @@
           "$ref" : "CollectionResponse_Punto"
         }
       },
-      "com.demomapas.model.PuntoEndpoint.removePunto" : {
-      },
       "com.demomapas.model.PuntoEndpoint.getPunto" : {
         "response" : {
           "$ref" : "Punto"
         }
+      },
+      "com.demomapas.model.PuntoEndpoint.removePunto" : {
       },
       "com.demomapas.model.PuntoEndpoint.insertPunto" : {
         "request" : {

@@ -369,6 +369,8 @@ protected void onStop() {
 			agenteEndpoint = CloudEndpointUtils.updateBuilder(
 			agentebuilder).build();
 			try {
+				Log.i("usuario", usuariotext.getText().toString());
+				Log.i("password", password.getText().toString());
 				Agente = agenteEndpoint.getAgente(0l,usuariotext.getText().toString(),password.getText().toString()).execute();
 				Log.i("", "");
 				if(Agente != null)

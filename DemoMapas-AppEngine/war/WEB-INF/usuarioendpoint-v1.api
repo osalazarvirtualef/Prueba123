@@ -27,6 +27,22 @@
   "ownerName" : "demomapas.com",
   "packagePath" : "model",
   "methods" : {
+    "usuarioendpoint.updateUsuario" : {
+      "path" : "usuario",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.demomapas.model.UsuarioEndpoint.updateUsuario",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "usuarioendpoint.removeUsuario" : {
       "path" : "usuario/{id}",
       "httpMethod" : "DELETE",
@@ -46,22 +62,6 @@
       },
       "response" : {
         "body" : "empty"
-      }
-    },
-    "usuarioendpoint.updateUsuario" : {
-      "path" : "usuario",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.UsuarioEndpoint.updateUsuario",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
       }
     },
     "usuarioendpoint.getLast" : {
@@ -197,8 +197,6 @@
       }
     },
     "methods" : {
-      "com.demomapas.model.UsuarioEndpoint.removeUsuario" : {
-      },
       "com.demomapas.model.UsuarioEndpoint.updateUsuario" : {
         "request" : {
           "$ref" : "Usuario"
@@ -206,6 +204,8 @@
         "response" : {
           "$ref" : "Usuario"
         }
+      },
+      "com.demomapas.model.UsuarioEndpoint.removeUsuario" : {
       },
       "com.demomapas.model.UsuarioEndpoint.getLast" : {
         "response" : {
