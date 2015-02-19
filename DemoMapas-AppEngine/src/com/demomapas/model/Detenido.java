@@ -11,6 +11,7 @@ public class Detenido {
 	private String cargo;
 	private String delito;
 	private Long idUsuario;
+	private String evidencia;
 	
 	
 	public Long getId() {
@@ -31,6 +32,19 @@ public class Detenido {
 	public void setDelito(String delito) {
 		this.delito = delito;
 	}
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+	public String getEvidencia() {
+		return evidencia;
+	}
+	public void setEvidencia(String evidencia) {
+		this.evidencia = evidencia;
+	}
+	
 	
 	
 }

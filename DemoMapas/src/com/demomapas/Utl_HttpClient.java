@@ -55,7 +55,7 @@ public class Utl_HttpClient {
 		return data;
 	}
 	
-	public void setMultimedia(String urlBlobStore, String path, String idReferencia, 
+	public String setMultimedia(String urlBlobStore, String path, String idReferencia, 
 			String tipoArchivo, String formato, String tipoReferencia, String descripcion, String mimeType ) throws UnsupportedEncodingException{
 		
 		Type arrayListType = new TypeToken<Mod_BlobStore>(){}.getType();
@@ -105,11 +105,12 @@ public class Utl_HttpClient {
 			HttpEntity entity = response.getEntity();
 			Reader reader = new InputStreamReader(entity.getContent());
 			blobStore = gson.fromJson(reader, arrayListType);
+			Log.i("blobstore", blobStore+"");
 		} catch (Exception e) {
 			// TODO: handle exception
 			blobStore = null;
 		}
 		
-		//return blobStore;
+		return blobStore.getBlobKey();
 	}
 }

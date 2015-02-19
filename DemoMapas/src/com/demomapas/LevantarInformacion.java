@@ -3,10 +3,25 @@ package com.demomapas;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.demomapas.model.agenteendpoint.Agenteendpoint;
+import com.demomapas.model.detenidoendpoint.Detenidoendpoint;
+import com.demomapas.model.detenidoendpoint.model.CollectionResponseDetenido;
+import com.demomapas.model.detenidoendpoint.model.Detenido;
+import com.demomapas.model.rutaendpoint.Rutaendpoint;
+import com.demomapas.model.tareaendpoint.Tareaendpoint;
+import com.demomapas.model.usuarioendpoint.Usuarioendpoint;
+import com.demomapas.model.usuarioendpoint.model.CollectionResponseUsuario;
+import com.demomapas.model.usuarioendpoint.model.Usuario;
+import com.demomapas.model.zonaendpoint.Zonaendpoint;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -49,6 +64,11 @@ public class LevantarInformacion extends Activity{
 	private String mCurrentPhotoPath;
 	static SharedPreferences.Editor editor;
 	static SharedPreferences Preferences;
+	Usuarioendpoint usuarioEndpoint;
+	Detenidoendpoint detenidoEndpoint;
+	
+	private Long detenido;
+	
 	private static final int ACTION_TAKE_PHOTO_B = 1;
 	
 	private static final String JPEG_FILE_PREFIX = "IMG_";
@@ -69,6 +89,41 @@ public class LevantarInformacion extends Activity{
 	        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
 	    }
 	}
+	
+	private void inicializa_endpoints(){
+		/*
+		 * inicializamos los endpoints
+		 */
+		Usuarioendpoint.Builder usuariobuilder = new Usuarioendpoint.Builder(
+				AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+				new HttpRequestInitializer() {
+
+					@Override
+					public void initialize(HttpRequest arg0) {
+						// TODO Auto-generated method stub
+					}
+				});
+				usuarioEndpoint = CloudEndpointUtils.updateBuilder(usuariobuilder).build();
+		
+		/*
+		 * 
+		 * inicializacion endpoint detenido
+		 */
+				
+		Detenidoendpoint.Builder detenidobuilder = new Detenidoendpoint.Builder(
+				AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+				new HttpRequestInitializer() {
+
+					@Override
+					public void initialize(HttpRequest arg0) {
+						// TODO Auto-generated method stub
+					}
+		      	});
+				detenidoEndpoint = CloudEndpointUtils.updateBuilder(detenidobuilder).build();
+		
+	}
+	
+	
 	private void setPic() {
 
 		/* There isn't enough memory to open up more than a couple camera photos */
@@ -258,55 +313,55 @@ public class LevantarInformacion extends Activity{
 
 			startActivityForResult(takePictureIntent, actionCode);
 		}
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		setTitle("Hello StackOverflow");
-		Bundle bundle = getIntent().getExtras();
-		String a = bundle.getString("idTask");
-		Log.i("id de la tarea", a);
-		setContentView(R.layout.infouser);
-	 Preferences = getApplicationContext().getSharedPreferences(
-				"settings", 0);
-	   Long usuario = Preferences.getLong("idAgente", 0l);
-	   Log.i("el id del usuario en el mapa es: ", usuario.toString());
-	contenedor = (LinearLayout)findViewById(R.id.contenedorInfo);
-	nombre = (EditText)findViewById(R.id.nombre);
-	app = (EditText)findViewById(R.id.app);
-	apm = (EditText)findViewById(R.id.apm);
-	delito = (EditText)findViewById(R.id.delito);
-	mImageView = (ImageView)findViewById(R.id.foto);
-	Button picBtn = (Button) findViewById(R.id.boton);
-	setBtnListenerOrDisable( 
-			picBtn, 
-			mTakePicOnClickListener,
-			MediaStore.ACTION_IMAGE_CAPTURE
-	);
-	Button enviar = new Button(getApplicationContext());
-	enviar.setText("enviar informacion");
-	enviar.setOnClickListener(new View.OnClickListener() {
-		
 		@Override
-		public void onClick(View v) {
+		protected void onCreate(Bundle savedInstanceState) {
 			// TODO Auto-generated method stub
-			Toast.makeText(getApplicationContext(), "listo para enviar informacion", Toast.LENGTH_LONG).show();
-			new EnviarInformacion().execute();
-		
+			super.onCreate(savedInstanceState);
+			setTitle("Informacion Detenido");
+			inicializa_endpoints();
+			Bundle bundle = getIntent().getExtras();
+			String Detenido = bundle.getString("idDetenido");
+			Log.i("id de la tarea", Detenido);
+			setContentView(R.layout.infouser);
+			Preferences = getApplicationContext().getSharedPreferences("settings", 0);
+			detenido = Preferences.getLong("idAgente", 0l);
+			Log.i("el id del usuario en el mapa es: ", detenido.toString());
+			contenedor = (LinearLayout)findViewById(R.id.contenedorInfo);
+			nombre = (EditText)findViewById(R.id.nombre);
+			app = (EditText)findViewById(R.id.app);
+			apm = (EditText)findViewById(R.id.apm);
+			delito = (EditText)findViewById(R.id.delito);
+			mImageView = (ImageView)findViewById(R.id.foto);
+			Button picBtn = (Button) findViewById(R.id.boton);
+			setBtnListenerOrDisable( 
+					picBtn, 
+					mTakePicOnClickListener,
+					MediaStore.ACTION_IMAGE_CAPTURE
+					);
+			Button enviar = new Button(getApplicationContext());
+			enviar.setText("enviar informacion");
+			enviar.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Toast.makeText(getApplicationContext(), "listo para enviar informacion", Toast.LENGTH_LONG).show();
+					new EnviarInformacion().execute();
+
+				}
+			});
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+				mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
+			} else {
+				mAlbumStorageDirFactory = new BaseAlbumDirFactory();
+			}
+			contenedor.addView(enviar);
+
+
+
+
+
 		}
-	});
-	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-		mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
-	} else {
-		mAlbumStorageDirFactory = new BaseAlbumDirFactory();
-	}
-	contenedor.addView(enviar);
-	
-	
-	
-	
-	
-	}
 	public static boolean isIntentAvailable(Context context, String action) {
 		final PackageManager packageManager = context.getPackageManager();
 		final Intent intent = new Intent(action);
@@ -336,6 +391,36 @@ public class LevantarInformacion extends Activity{
 	    }
 		@Override
 		protected Void doInBackground(Void... params) {
+			Long idUsuario = 0l;
+			Long idDetenido = 0l;
+			
+			//Obtencion de el ultimo usuario registrado
+			try {
+				CollectionResponseUsuario lastUser = usuarioEndpoint.getLast().execute();
+				if(lastUser != null && lastUser.getItems().size() > 0 ){
+					idUsuario =  lastUser.getItems().get(0).getId();
+				}
+				
+				Usuario user = new Usuario();
+				user.setApm("app materno");
+				user.setApp("appelido paterno");
+				user.setEdad(35l);
+				user.setId(idUsuario+1);
+				user.setName("nombre");
+				user.setSexo("masculino");
+				usuarioEndpoint.insertUsuario(user).execute();
+				
+				
+				
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+
+
+			
 			Utl_HttpClient resposeGson = new Utl_HttpClient();
 			String urlBlobStore = resposeGson.getUrlBlobStore("http://1-dot-civic-athlete-851.appspot.com/blob/androidserveurl");
 			Utl_Imagen.procesarImagen(path);
@@ -343,67 +428,38 @@ public class LevantarInformacion extends Activity{
 			if(urlBlobStore != null){
 				try {
 				//	int formato = Utl_Imagen.getFormatoInt(imagen.getFormato());
-					resposeGson.setMultimedia(urlBlobStore, path,
+					String blobkey =  resposeGson.setMultimedia(urlBlobStore, path,
 							new String(),new String(), 
 							new String(), new String(), 
 							new String(), new String());
 
-					//if(blobStore != null){
-					//	Log.i("BlobStore url", blobStore.getServingUrl());
-					//	Log.i("BlobStore blobKey", blobStore.getBlobKey());
-						//ContentValues values = new ContentValues();
-
-						///values.put(ConstantesBD.ColMultimedia[6], blobStore.getServingUrl());
-						//values.put(ConstantesBD.ColMultimedia[7], blobStore.getBlobKey());
-						//values.put(ConstantesBD.ColMultimedia[8], Utl_Constantes.REG_SINC);
-
-					//	int val = bus_obras.updateMultimedia(imagen.getIdMultimedia(), values);
-					//	Log.i(Utl_Constantes.TAG_UPDATE_MULTIMEDIA, val + "");
-						//return true;
-				//	}else{
+					Detenido detenidoInf = new Detenido();
+					detenidoInf.setCargo("pasarse un alto");
+					detenidoInf.setDelito("delito 2");
+					try {
+						CollectionResponseDetenido lastDetenido =  detenidoEndpoint.getLast().execute();
+						if (lastDetenido!=null && lastDetenido.getItems().size() > 0) {
+							idDetenido = lastDetenido.getItems().get(0).getId();
+						}
+						detenidoInf.setId(idDetenido+1);
+						detenidoInf.setEvidencia(blobkey);
+						detenidoInf.setIdUsuario(idUsuario);
+						detenidoEndpoint.insertDetenido(detenidoInf).execute();
+						Log.i("insercion del detenido", "detenido insertado correctamente");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 						Log.i("BlobStore","null");
-						//return false;
-				//	}
+			
 					// Actualizar BD
 				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					//Log.i(TAG, "Error :" + e);
-					//Toast.makeText(context, "Error de Red", Toast.LENGTH_SHORT).show();
-					//return false;
+				
 				}
 			}
 		
-			// TODO Auto-generated method stub
-			
 
-			
-			
-//			Usuarioendpoint.Builder usuariosbuilder = new Usuarioendpoint.Builder(
-//			AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
-//			new HttpRequestInitializer() {
-//
-//				@Override
-//				public void initialize(HttpRequest arg0) {
-//					// TODO Auto-generated method stub
-//				}
-//			});
-//			usuarioEndpoint = CloudEndpointUtils.updateBuilder(
-//			usuariosbuilder).build();
-//			try {
-//				CollectionResponseUsuario usuario = usuarioEndpoint.listUsuario().execute();
-//				for (Usuario items : usuario.getItems()) {
-//					if(items.getName().equalsIgnoreCase(usuariotext.getText().toString()) && items.getPassword().equalsIgnoreCase(password.getText().toString())){
-//						Log.i("validacion de usuario", "el usuario si existe");
-//						userExist=true;
-//						}
-//					}
-//				
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-			
-			
 		
 
 			return null;

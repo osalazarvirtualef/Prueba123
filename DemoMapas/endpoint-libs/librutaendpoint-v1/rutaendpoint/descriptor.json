@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/rutaendpoint/v1/20150217170014/java/1.18.0-rc/demomapas.com-rutaendpoint-v1-20150217170014-java-1.18.0-rc-sources.jar", 
-      "path": "demomapas.com-rutaendpoint-v1-20150217170014-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/rutaendpoint/v1/20150218235938/java/1.18.0-rc/demomapas.com-rutaendpoint-v1-20150218235938-java-1.18.0-rc-sources.jar", 
+      "path": "demomapas.com-rutaendpoint-v1-20150218235938-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2015-02-17 17:00"
+      "timestamp": "2015-02-18 23:59"
     }, 
     {
-      "path": "demomapas.com-rutaendpoint-v1-20150217170014-java-1.18.0-rc.jar.properties", 
+      "path": "demomapas.com-rutaendpoint-v1-20150218235938-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "model", 
   "language_version": "1.18.0-rc", 
   "id": "rutaendpoint:v1", 
-  "revision": 20150217170014
+  "revision": 20150218235938
 }

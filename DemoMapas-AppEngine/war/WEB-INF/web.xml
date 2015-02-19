@@ -26,7 +26,10 @@
     <servlet-name>Upload</servlet-name>
     <url-pattern>/upload</url-pattern>
   </servlet-mapping>
-
+   <servlet-mapping>
+       <servlet-name>Upload</servlet-name>
+       <url-pattern>/blob/upload</url-pattern>
+   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Serve</servlet-name>
     <url-pattern>/serve</url-pattern>

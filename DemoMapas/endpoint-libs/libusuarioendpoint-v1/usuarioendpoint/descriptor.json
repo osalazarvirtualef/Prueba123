@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/usuarioendpoint/v1/20150217170018/java/1.18.0-rc/demomapas.com-usuarioendpoint-v1-20150217170018-java-1.18.0-rc-sources.jar", 
-      "path": "demomapas.com-usuarioendpoint-v1-20150217170018-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/usuarioendpoint/v1/20150218235943/java/1.18.0-rc/demomapas.com-usuarioendpoint-v1-20150218235943-java-1.18.0-rc-sources.jar", 
+      "path": "demomapas.com-usuarioendpoint-v1-20150218235943-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2015-02-17 17:00"
+      "timestamp": "2015-02-18 23:59"
     }, 
     {
-      "path": "demomapas.com-usuarioendpoint-v1-20150217170018-java-1.18.0-rc.jar.properties", 
+      "path": "demomapas.com-usuarioendpoint-v1-20150218235943-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "model", 
   "language_version": "1.18.0-rc", 
   "id": "usuarioendpoint:v1", 
-  "revision": 20150217170018
+  "revision": 20150218235943
 }

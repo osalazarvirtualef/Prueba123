@@ -48,6 +48,31 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "detenidoendpoint.getLast" : {
+      "path" : "collectionresponse_detenido",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.demomapas.model.DetenidoEndpoint.getLast",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "detenidoendpoint.removeDetenido" : {
       "path" : "detenido/{id}",
       "httpMethod" : "DELETE",
@@ -142,6 +167,13 @@
           },
           "delito" : {
             "type" : "string"
+          },
+          "idUsuario" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "evidencia" : {
+            "type" : "string"
           }
         }
       },
@@ -165,6 +197,11 @@
       "com.demomapas.model.DetenidoEndpoint.getDetenido" : {
         "response" : {
           "$ref" : "Detenido"
+        }
+      },
+      "com.demomapas.model.DetenidoEndpoint.getLast" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Detenido"
         }
       },
       "com.demomapas.model.DetenidoEndpoint.removeDetenido" : {

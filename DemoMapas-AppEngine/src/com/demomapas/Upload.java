@@ -15,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
@@ -48,8 +47,7 @@ public class Upload extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 
 	throws ServletException, IOException {
-	//	XmppSincronizacion xmpp = new XmppSincronizacion();
-	//	xmpp.enviaMensaje("osalazar@adquem.com", "llegue a la peticion");
+		
 		log.warning("llegue al upload");
 		List<BlobKey> blobs = blobstoreService.getUploads(req).get("file");
 		BlobInfoFactory bi = new BlobInfoFactory();
@@ -74,22 +72,20 @@ public class Upload extends HttpServlet {
 	//	if(Integer.parseInt(req.getParameter("tipoArchivo"))==Constants.Minuta) tipo = Integer.valueOf(Constants.imagen);
 	//	xmpp.enviaMensaje("osalazar@adquem.com", "el valor de tipo es: "+tipo);
 		
-		
+		 log.warning("aqui si llego");
 		
 		
 		// /
-
+		 
 		switch (tipo) {
 		
 
 		case 0:
+			log.warning("entre al metodo case 0");
 
-			//multimedia = new Multimedia();
-
-			//multimediaEndpoint = new MultimediaEndpoint();
+		
 
 			path = blobKey.getKeyString();
-			log.warning(path);
 
 			// /
 
@@ -100,9 +96,10 @@ public class Upload extends HttpServlet {
 					.withBlobKey(blobKey);
 
 			String servingUrl = imagesService.getServingUrl(servingOptions);
+			log.warning("serving Url: "+servingUrl);
 
 			res.setStatus(HttpServletResponse.SC_OK);
-			//xmpp.enviaMensaje("osalazar@adquem.com", " ok1");
+		
 
 			res.setContentType("application/json");
 
@@ -111,11 +108,12 @@ public class Upload extends HttpServlet {
 			try {
 
 				json.put("servingUrl", servingUrl);
+				log.warning("try: ");
 
 			} catch (JSONException e) {
 
 				// TODO Auto-generated catch block
-
+				log.warning("catch");
 				e.printStackTrace();
 
 			}
@@ -133,7 +131,7 @@ public class Upload extends HttpServlet {
 			}
 
 			out.print(json.toString());
-			//xmpp.enviaMensaje("osalazar@adquem.com", " out print 1");
+
 
 			out.flush();
 
@@ -147,117 +145,31 @@ public class Upload extends HttpServlet {
 
 			// insertaMultimedia();
 
-		
+			 
 
-			//extension = mb.tipoFormato(formato);
+			
 
-			//multimedia.setFormato(Long.parseLong(req.getParameter("formato")));
-
-			//multimedia.setDescripcion(req.getParameter("descripcion"));
-
-			//multimedia.setFecha(time);
-
-			//multimedia.setIdMultimedia(returnId() + 1);
-
-			//multimedia.setIdReferencia(Long.parseLong(req
-			//		.getParameter("idReferencia")));// identificador unico de
-													// obra o proyecto
+			
 
 			// multimedia.setIdReferencia(Integer.parseInt(req.getParameter("idReferencia")));//identificador
 			// unico de obra o proyecto
 
-			//multimedia.setPath(path);// blobkey
-
-			//multimedia.setTipoArchivo(Integer.parseInt(req
-			//		.getParameter("tipoArchivo")));// imagen o video
-
-			//multimedia.setTipoReferencia(Integer.parseInt(req
-			//		.getParameter("tipoReferencia")));// si pertenece a obra o
-														// proyecto puedes ser
-														// el id de obra o de
-														// proyecto y hay que
-														// distinguirlos
-
-			try {
-
-			//	multimediaEndpoint.insertMultimedia(multimedia);
-
-			} catch (Exception e) {
-
-				// TODO: handle exception
-
-				error += e.getMessage();
-
-				out.write(new Gson().toJson(error));
-
-				res.setStatus(HttpServletResponse.SC_OK);
-			//	xmpp.enviaMensaje("osalazar@adquem.com", " ok2");
-
-				res.setContentType("application/json");
-
-				try {
-
-					json.put("servingUrl", servingUrl);
-			//		xmpp.enviaMensaje("osalazar@adquem.com", " json put 1");
-
-				} catch (JSONException e1) {
-
-					// TODO Auto-generated catch block
-
-					e1.printStackTrace();
-
-				}
-
-				try {
-
-					json.put("blobKey", blobKey.getKeyString());
-			//		xmpp.enviaMensaje("osalazar@adquem.com", " blobkey get string 1");
-
-				} catch (JSONException e1) {
-
-					// TODO Auto-generated catch block
-			//		xmpp.enviaMensaje("osalazar@adquem.com", " catch1");
-					e1.printStackTrace();
-
-				}
-
-				out.print(json.toString());
-			//	xmpp.enviaMensaje("osalazar@adquem.com", " out2");
-				out.flush();
-
-				out.close();
-
-				try {
-
-			//		multimediaEndpoint.insertMultimedia(multimedia);
-			//		xmpp.enviaMensaje("osalazar@adquem.com", "insert multimedia ");
-
-				} catch (Exception e1) {
-			//		xmpp.enviaMensaje("osalazar@adquem.com", " error 1 + "+e1.getMessage());
-					// TODO: handle exception
-
-					error += e1.getMessage();
-
-					out.write(new Gson().toJson(error));
-
-				}
-
-			}
+			
+		
 
 			res.setContentType("application/x-download");
-			//xmpp.enviaMensaje("osalazar@adquem.com", "application/x-download");
+		
 
-		//	blobstoreService.serve(blobKey, res);
+			blobstoreService.serve(blobKey, res);
 
 			try {
 
 				json.put("servingUrl", servingUrl);
-			//	xmpp.enviaMensaje("osalazar@adquem.com", " json put 2");
-
+				
 			} catch (JSONException e1) {
 
 				// TODO Auto-generated catch block
-			//	xmpp.enviaMensaje("osalazar@adquem.com", " error json");
+				
 				e1.printStackTrace();
 
 			}
@@ -265,8 +177,7 @@ public class Upload extends HttpServlet {
 			try {
 
 				json.put("blobKey", blobKey.getKeyString());
-			//	xmpp.enviaMensaje("osalazar@adquem.com", " blobkey get string 7654");
-
+				
 			} catch (JSONException e1) {
 
 				// TODO Auto-generated catch block
@@ -276,25 +187,13 @@ public class Upload extends HttpServlet {
 			}
 
 			out.print(json.toString());
-			//xmpp.enviaMensaje("osalazar@adquem.com", " out 2");
+			
 
 			out.flush();
 
 			out.close();
 
-			try {
-
-			//	multimediaEndpoint.insertMultimedia(multimedia);
-
-			} catch (Exception e1) {
-			//	xmpp.enviaMensaje("osalazar@adquem.com", " error: "+ e1.getMessage());
-				// TODO: handle exception
-
-				error += e1.getMessage();
-
-				out.write(new Gson().toJson(error));
-
-			}
+		
 
 			break;
 

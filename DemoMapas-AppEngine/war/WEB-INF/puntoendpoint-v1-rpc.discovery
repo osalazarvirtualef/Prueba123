@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/L5UaGzdfOfpPbNYLM6uZJeUj_PI\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/qM0rqei8ccXVwKn8JzeWX2Jzyuc\"",
  "discoveryVersion": "v1",
  "id": "puntoendpoint:v1",
  "name": "puntoendpoint",
@@ -90,22 +90,46 @@
    "id": "Punto",
    "type": "object",
    "properties": {
+    "fecha": {
+     "type": "string"
+    },
     "id": {
      "type": "string",
      "format": "int64"
     },
-    "latidude": {
+    "idAgente": {
      "type": "string",
      "format": "int64"
     },
+    "latidude": {
+     "type": "string"
+    },
     "longitude": {
-     "type": "string",
-     "format": "int64"
+     "type": "string"
     }
    }
   }
  },
  "methods": {
+  "puntoendpoint.getLast": {
+   "id": "puntoendpoint.getLast",
+   "allowGet": true,
+   "parameters": {
+    "cursor": {
+     "type": "string"
+    },
+    "limit": {
+     "type": "integer",
+     "format": "int32"
+    }
+   },
+   "returns": {
+    "$ref": "CollectionResponse_Punto"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
   "puntoendpoint.getPunto": {
    "id": "puntoendpoint.getPunto",
    "allowGet": true,

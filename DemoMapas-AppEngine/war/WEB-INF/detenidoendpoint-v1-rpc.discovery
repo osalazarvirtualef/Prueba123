@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/DOpONWzZzWxquAGLax6quPCgXmU\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/yBwrryKlOu3gnMqs83qyuFxpxM0\"",
  "discoveryVersion": "v1",
  "id": "detenidoendpoint:v1",
  "name": "detenidoendpoint",
@@ -97,7 +97,14 @@
     "delito": {
      "type": "string"
     },
+    "evidencia": {
+     "type": "string"
+    },
     "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "idUsuario": {
      "type": "string",
      "format": "int64"
     }
@@ -120,6 +127,25 @@
    ],
    "returns": {
     "$ref": "Detenido"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "detenidoendpoint.getLast": {
+   "id": "detenidoendpoint.getLast",
+   "allowGet": true,
+   "parameters": {
+    "cursor": {
+     "type": "string"
+    },
+    "limit": {
+     "type": "integer",
+     "format": "int32"
+    }
+   },
+   "returns": {
+    "$ref": "CollectionResponse_Detenido"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

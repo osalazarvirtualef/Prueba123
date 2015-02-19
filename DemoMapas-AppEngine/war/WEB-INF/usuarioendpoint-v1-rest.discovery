@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/O7Jr37eejsVOYBAkm7Xv4nIPrpA\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/6lU72wmhkT14cnUMUn9rcVcvPgk\"",
  "discoveryVersion": "v1",
  "id": "usuarioendpoint:v1",
  "name": "usuarioendpoint",
@@ -117,6 +117,28 @@
   }
  },
  "methods": {
+  "getLast": {
+   "id": "usuarioendpoint.getLast",
+   "path": "collectionresponse_usuario",
+   "httpMethod": "GET",
+   "parameters": {
+    "cursor": {
+     "type": "string",
+     "location": "query"
+    },
+    "limit": {
+     "type": "integer",
+     "format": "int32",
+     "location": "query"
+    }
+   },
+   "response": {
+    "$ref": "CollectionResponse_Usuario"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
   "getUsuario": {
    "id": "usuarioendpoint.getUsuario",
    "path": "usuario/{id}",

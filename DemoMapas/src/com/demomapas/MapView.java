@@ -18,6 +18,8 @@ import com.demomapas.model.tareaendpoint.model.CollectionResponseTarea;
 import com.demomapas.model.tareaendpoint.model.Tarea;
 import com.demomapas.model.zonaendpoint.Zonaendpoint;
 import com.demomapas.model.zonaendpoint.model.Zona;
+import com.demomapas.servicios.Iniciar_Servicio_Localizacion;
+import com.demomapas.servicios.Servicio_Localizacion;
 import com.google.android.gms.internal.lt;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,8 +35,10 @@ import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -49,9 +53,12 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,6 +81,11 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 	ArrayList<Tarea> tareasUsuario = new ArrayList<Tarea>();
 	public static Zona z = new Zona();
 	ProgressDialog progressDialog;
+	double latitude;
+	double longitude;
+	Intent intent_servicio_Loc;
+	static Iniciar_Servicio_Localizacion iniciar_servicio_Loc;
+	
 	
 	
 
@@ -83,6 +95,20 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Preferences = getApplicationContext().getSharedPreferences(
+				"settings", 0);
+		//iniciamos el servicio
+		if(iniciar_Servicios())
+			Log.i("servicio de aplicativo de la PGJ", "trabajando");
+		else 
+			iniciar_ServiciosNow();
+		
+		
+	
+		
+		
+		
+		
 	      //Create a new progress dialog.  
 		
         progressDialog = new ProgressDialog(MapView.this);  
@@ -105,8 +131,7 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 		 dialog = new AlertDialog.Builder(this);
 		 inicializaEndpoints();
 		//LinearLayout rLGreen = ((LinearLayout) button.getParent());
-		Preferences = getApplicationContext().getSharedPreferences(
-				"settings", 0);
+	
 		 usuario = Preferences.getLong("idAgente", 0l);
 		   Log.i("el id del usuario en el mapa es: ", usuario.toString());
 		Display display = getWindowManager().getDefaultDisplay();
@@ -126,30 +151,35 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 		    location = locationManager.getLastKnownLocation(provider);
 		                
 		    locationManager.requestLocationUpdates(provider, 2000, 1, this);
-
+	    	
 		    
 		    
-		    if(location!=null)
+		    if(location!=null){
 		    	onLocationChanged(location);
+		        latitude = location.getLatitude();
+				longitude = location.getLongitude();
+				Log.i("latitud", latitude+"\n");
+				Log.i("longitud", longitude+"\n");
+		    }
 		    else
+		    {
 		    	Toast.makeText(getBaseContext(), "Location can't be retrieved", Toast.LENGTH_SHORT).show();
+		    	 latitude = 19.426303;
+			     longitude = -99.148442;
+		    }
 		    
 		}else{
 			Toast.makeText(getBaseContext(), "No Provider Found", Toast.LENGTH_SHORT).show();
 		}
 		// Getting the name of the provider that meets the criteria
 	
-		double latitude = location.getLatitude();
-		double longitude = location.getLongitude();
-		Log.i("latitud", latitude+"\n");
-		Log.i("longitud", longitude+"\n");
+		
 		
 		
 
 		  
 		CameraUpdate center=
-		        CameraUpdateFactory.newLatLng(new LatLng(latitude,
-		                                                 longitude));
+		        CameraUpdateFactory.newLatLng(new LatLng(latitude,longitude));
 		    CameraUpdate zoom=CameraUpdateFactory.zoomTo(12);
 
 		 
@@ -242,6 +272,49 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 								zonabuilder).build();
 		
 	}
+	public boolean iniciar_Servicios(){
+		boolean b = false;
+		// Iniciar Serivicio de Localizacion
+		boolean check_service_loc =  isMyServiceRunning("com.demomobilitydos.servicios.Servicio_Localizacion");
+
+		if(check_service_loc)
+			b=true;
+		return b;
+	}
+	public boolean isMyServiceRunning(String serviceClassName){
+		final ActivityManager activityManager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+		final List<RunningServiceInfo> services = activityManager.getRunningServices(Integer.MAX_VALUE);
+for(int y=0;y<services.size();y++){
+		
+			Log.e(services.get(y).service.getClassName(),"es la lista de servicios");
+			if (services.get(y).service.getClassName().equals(serviceClassName)){
+				return true;
+			}
+		}
+		return false;
+	}
+	public void iniciar_ServiciosNow(){
+
+		// Iniciar Serivicio de Localizacion
+		boolean check_service_loc =  isMyServiceRunning("com.demomapas.servicios.Servicio_Localizacion");
+		//Log.i("Status servicio Localizacion", ""+check_service_loc);
+		if(check_service_loc){
+			Log.i("servicio corriendo", "servicio corriendo");
+			intent_servicio_Loc=new Intent(getApplicationContext(), Servicio_Localizacion.class);
+			iniciar_servicio_Loc = new Iniciar_Servicio_Localizacion();
+		}else{
+			Log.i("servicio detenido", "servicio detenido");
+			intent_servicio_Loc=new Intent(getApplicationContext(), Servicio_Localizacion.class);
+			iniciar_servicio_Loc = new Iniciar_Servicio_Localizacion();
+			iniciar_servicio_Loc.onReceive(getApplicationContext(), intent_servicio_Loc);
+			
+			boolean check_service_loc2 =  isMyServiceRunning("com.demomapas.servicios.Servicio_Localizacion");
+			if(check_service_loc2)Log.i("yuju el servicio esta corriendo", "siiiiiiiiiiiiiiiiii");
+		}
+
+		// Iniciar Serivicio de Sincronizacion
+		
+	}
 
 	private void pintarMarcadores() {
 		// TODO Auto-generated method stub
@@ -282,7 +355,7 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 		// TODO Auto-generated method stub
 		Log.i("marker clicked", marker.getTitle());
 		  Intent intent = new Intent(MapView.this,LevantarInformacion.class);
-		  intent.putExtra("idTask", marker.getTitle());
+		  intent.putExtra("idDetenido", marker.getTitle());
           startActivity(intent);
 
 		return false;

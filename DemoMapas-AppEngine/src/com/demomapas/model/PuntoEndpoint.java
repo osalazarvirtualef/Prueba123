@@ -1,7 +1,6 @@
 package com.demomapas.model;
 
 import com.demomapas.EMF;
-
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -9,6 +8,7 @@ import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.datanucleus.query.JPACursorHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -163,6 +163,48 @@ public class PuntoEndpoint {
 
 	private static EntityManager getEntityManager() {
 		return EMF.get().createEntityManager();
+	}
+	@ApiMethod(name = "getLast")
+	public CollectionResponse<Punto> getLast(
+			@Nullable @Named("cursor") String cursorString,
+			@Nullable @Named("limit") Integer limit) {
+
+		EntityManager mgr = null;
+		Cursor cursor = null;
+		List<Punto> execute = null;
+		List<Punto> execute2 = new ArrayList();
+
+		try {
+			mgr = getEntityManager();
+			Query query = mgr.createQuery("select from Punto as Punto  ORDER BY Punto.Id DESC");
+			if (cursorString != null && cursorString != "") {
+				cursor = Cursor.fromWebSafeString(cursorString);
+				query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
+			}
+
+			if (limit != null) {
+				query.setFirstResult(0);
+				query.setMaxResults(limit);
+			}
+
+			execute = (List<Punto>) query.getResultList();
+			cursor = JPACursorHelper.getCursor(execute);
+			if (cursor != null)
+				cursorString = cursor.toWebSafeString();
+
+			// Tight loop for fetching all entities from datastore and accomodate
+			// for lazy fetch.
+			if(execute != null && execute.size()!=0){
+				execute2.add(execute.get(0));
+			}
+			for (Punto obj : execute)
+				;
+		} finally {
+			mgr.close();
+		}
+
+		return CollectionResponse.<Punto> builder().setItems(execute2)
+				.setNextPageToken(cursorString).build();
 	}
 
 }
