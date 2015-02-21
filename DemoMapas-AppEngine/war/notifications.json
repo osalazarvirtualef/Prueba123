@@ -1,0 +1,28 @@
+{
+    "notifications" : [
+        {
+            "name" : "Alta",
+            "icon" : "glyphicon glyphicon-bell fa-2x",
+            "href" : "/notification",
+            "description" : "Alta de usuario AARTY."
+        },
+        {
+            "name" : "Baja",
+            "icon" : "glyphicon glyphicon-bell fa-2x",
+            "href" : "/notification",
+            "description" : "Baja de usuario WES34."
+        },
+        {
+            "name" : "Cambio",
+            "icon" : "glyphicon glyphicon-bell fa-2x",
+            "href" : "/notification",
+            "description" : "Cambio de usuario ERT456 a ruta externa."
+        },
+        {
+            "name" : "Asignado",
+            "icon" : "glyphicon glyphicon-bell fa-2x",
+            "href" : "/notification",
+            "description" : "Asignación de usuario ER2334 con nueva ruta."
+        }
+    ]
+}

@@ -5,47 +5,87 @@
     android:id="@+id/contenedorInfo"
     android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/nombre"
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nombre:"
-        android:ems="10" >
+        android:layout_height="wrap_content" >
 
-        <requestFocus />
-    </EditText>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="564dp"
+            android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/app"
-        android:hint="Apellido Paterno:"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" />
+            <EditText
+                android:id="@+id/nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nombre:" />
 
-    <EditText
-        android:id="@+id/apm"
-        android:hint="Apellido Materno:"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" />
+            <EditText
+                android:id="@+id/app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellido Paterno"
+                android:ems="10" >
 
-    <EditText
-        android:id="@+id/delito"
-        android:hint="Delito:"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" />
+                <requestFocus />
+            </EditText>
 
-    <ImageView
-        android:id="@+id/foto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/common_full_open_on_phone" />
+            <EditText
+                android:id="@+id/apm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellido Materno:"
+                android:ems="10" />
 
-    <Button
-        android:id="@+id/boton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+            <EditText
+                android:id="@+id/edad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Edad:" />
+
+            <EditText
+                android:id="@+id/cargo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Cargo:" />
+
+            <EditText
+                android:id="@+id/delito"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Delito:" />
+
+            <ImageView
+                android:id="@+id/foto"
+                android:layout_width="122dp"
+                android:layout_height="120dp"
+                android:src="@drawable/pgj" />
+
+            <Button
+                android:id="@+id/TomarEvidencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tomar evidencia" />
+
+            <EditText
+                android:id="@+id/fecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Fecha:" />
+
+            <Button
+                android:id="@+id/enviar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enviar información" />
+
+        </LinearLayout>
+    </ScrollView>
     
 </LinearLayout>

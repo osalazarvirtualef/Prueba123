@@ -89,7 +89,7 @@ public class Servicio_Localizacion extends Service implements LocationListener{
 		preferences = getApplicationContext().getSharedPreferences(
 				"settings", 0);
 		Log.i("accedi al preferences", "accedi al preferences");
-		int valor =preferences.getInt("timer", 5);//aqui configuramos los minutos
+		int valor =preferences.getInt("timer", 1);//aqui configuramos los minutos
 		Log.i("el valor del timer es", ""+valor);
 		tiempo = 1000*60*valor;
 		Log.i("el tiempo del timer es", "el tiempo del timer es"+ tiempo);
@@ -112,15 +112,7 @@ public class Servicio_Localizacion extends Service implements LocationListener{
 	
 		timer=new Timer();
 
-		
-		try {
-			locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, Servicio_Localizacion.this);//con este funciona para las 3 redes
-				
-		} catch (Exception e) {
-			// TODO: handle exception
-			Log.i("Error Servicio Sincronizacion", "Ocurrio un error: "+ e);
-		}
+	
 	
 
 		
@@ -195,7 +187,8 @@ public class Servicio_Localizacion extends Service implements LocationListener{
 		
 			
 			 
-		//locationManager.removeUpdates(Servicio_Localizacion.this);
+		locationManager.removeUpdates(Servicio_Localizacion.this);
+		Log.i("apague el location manager", "apaga");
 			return null;
 		}
 		@Override
@@ -226,7 +219,8 @@ public class Servicio_Localizacion extends Service implements LocationListener{
 		super.onStart(intent, startId);
 		preferences = getApplicationContext().getSharedPreferences(
 		"settings", 0);
-
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		//locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, Servicio_Localizacion.this);//con este funciona para las 3 redes
 		
 		timer.scheduleAtFixedRate(new TimerTask() {
 
@@ -235,7 +229,7 @@ public class Servicio_Localizacion extends Service implements LocationListener{
 				// TODO Auto-generated method stub
 				try {
 					locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-					locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, Servicio_Localizacion.this);//con este funciona para las 3 redes
+					//locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, Servicio_Localizacion.this);//con este funciona para las 3 redes
 					locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);     
 
 

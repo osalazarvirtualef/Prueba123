@@ -14,6 +14,7 @@ import com.demomapas.model.detenidoendpoint.model.CollectionResponseDetenido;
 import com.demomapas.model.detenidoendpoint.model.Detenido;
 import com.demomapas.model.rutaendpoint.Rutaendpoint;
 import com.demomapas.model.tareaendpoint.Tareaendpoint;
+import com.demomapas.model.tareaendpoint.model.Tarea;
 import com.demomapas.model.usuarioendpoint.Usuarioendpoint;
 import com.demomapas.model.usuarioendpoint.model.CollectionResponseUsuario;
 import com.demomapas.model.usuarioendpoint.model.Usuario;
@@ -24,6 +25,7 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -52,9 +54,12 @@ import android.widget.VideoView;
 public class LevantarInformacion extends Activity{
 
 	private EditText nombre;
-	private EditText apm;
-	private EditText app;
+	private EditText edad;
+	private EditText cargo;
 	private EditText delito;
+	private EditText fecha;
+	private EditText app;
+	private EditText apm;
 	static Bitmap imagenphoto;
 	LinearLayout contenedor;
 	public static String path;
@@ -66,8 +71,14 @@ public class LevantarInformacion extends Activity{
 	static SharedPreferences Preferences;
 	Usuarioendpoint usuarioEndpoint;
 	Detenidoendpoint detenidoEndpoint;
-	
+	Tareaendpoint tareaEndpoint;
+	private String Tarea;
 	private Long detenido;
+	private Long agente;
+	public Tarea Task;
+	public Detenido Requerido;
+	public Usuario user;
+	ProgressDialog progressDialog;
 	
 	private static final int ACTION_TAKE_PHOTO_B = 1;
 	
@@ -120,6 +131,20 @@ public class LevantarInformacion extends Activity{
 					}
 		      	});
 				detenidoEndpoint = CloudEndpointUtils.updateBuilder(detenidobuilder).build();
+				/*
+				 * 
+				 * inicializacion endpoint tarea
+				 */
+				Tareaendpoint.Builder tareabuilder = new Tareaendpoint.Builder(
+						AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+						new HttpRequestInitializer() {
+
+							@Override
+							public void initialize(HttpRequest arg0) {
+								// TODO Auto-generated method stub
+							}
+				      	});
+						tareaEndpoint = CloudEndpointUtils.updateBuilder(tareabuilder).build();
 		
 	}
 	
@@ -319,26 +344,54 @@ public class LevantarInformacion extends Activity{
 			super.onCreate(savedInstanceState);
 			setTitle("Informacion Detenido");
 			inicializa_endpoints();
+			new InicializaCampos().execute();
 			Bundle bundle = getIntent().getExtras();
-			String Detenido = bundle.getString("idDetenido");
-			Log.i("id de la tarea", Detenido);
+			Tarea = bundle.getString("idTarea");
+			Log.i("id de la tarea", Tarea);
 			setContentView(R.layout.infouser);
+			  progressDialog = new ProgressDialog(LevantarInformacion.this);  
+		        //Set the progress dialog to display a horizontal bar .  
+		        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);  
+		        //Set the dialog title to 'Loading...'.  
+		        progressDialog.setTitle("Informacion Requerida...");  
+		        //Set the dialog message to 'Loading application View, please wait...'.  
+		        progressDialog.setMessage("Descargando...");  
+		        //This dialog can't be canceled by pressing the back key.  
+		        progressDialog.setCancelable(false);  
+		        //This dialog isn't indeterminate.  
+		        progressDialog.setIndeterminate(false);  
+		        //The maximum number of progress items is 100.  
+		        progressDialog.setMax(100);  
+		        //Set the current progress to zero.  
+		        progressDialog.setProgress(0);  
+		        //Display the progress dialog.  
+		        progressDialog.show(); 
+			
+			
+			
+			
+			
 			Preferences = getApplicationContext().getSharedPreferences("settings", 0);
-			detenido = Preferences.getLong("idAgente", 0l);
-			Log.i("el id del usuario en el mapa es: ", detenido.toString());
-			contenedor = (LinearLayout)findViewById(R.id.contenedorInfo);
+			agente = Preferences.getLong("idAgente", 0l);
+			//Log.i("el id del usuario en el mapa es: ", detenido.toString());
+		//	contenedor = (LinearLayout)findViewById(R.id.contenedorInfo);
 			nombre = (EditText)findViewById(R.id.nombre);
+			edad = (EditText)findViewById(R.id.edad);
+			cargo = (EditText)findViewById(R.id.cargo);
+			delito = (EditText)findViewById(R.id.delito);
+			fecha = (EditText)findViewById(R.id.fecha);
 			app = (EditText)findViewById(R.id.app);
 			apm = (EditText)findViewById(R.id.apm);
-			delito = (EditText)findViewById(R.id.delito);
 			mImageView = (ImageView)findViewById(R.id.foto);
-			Button picBtn = (Button) findViewById(R.id.boton);
+			//mImageView.setBackgroundResource(R.drawable.pgj);
+			new InicializaCampos().execute();
+			Button picBtn = (Button) findViewById(R.id.TomarEvidencia);
 			setBtnListenerOrDisable( 
 					picBtn, 
 					mTakePicOnClickListener,
 					MediaStore.ACTION_IMAGE_CAPTURE
 					);
-			Button enviar = new Button(getApplicationContext());
+			Button enviar = (Button)findViewById(R.id.enviar);//new Button(getApplicationContext());
 			enviar.setText("enviar informacion");
 			enviar.setOnClickListener(new View.OnClickListener() {
 
@@ -346,6 +399,7 @@ public class LevantarInformacion extends Activity{
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					Toast.makeText(getApplicationContext(), "listo para enviar informacion", Toast.LENGTH_LONG).show();
+			
 					new EnviarInformacion().execute();
 
 				}
@@ -355,7 +409,7 @@ public class LevantarInformacion extends Activity{
 			} else {
 				mAlbumStorageDirFactory = new BaseAlbumDirFactory();
 			}
-			contenedor.addView(enviar);
+		//	contenedor.addView(enviar);
 
 
 
@@ -383,12 +437,66 @@ public class LevantarInformacion extends Activity{
 			btn.setClickable(false);
 		}
 	}
+	
+	public class InicializaCampos extends AsyncTask<Void, Void, Void>{
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+		}
+		@Override
+		protected Void doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			try {
+				Task = tareaEndpoint.getTarea(new Long(Tarea)).execute();
+				Log.i("traje la tarea", "traje la tarea");
+				Requerido = detenidoEndpoint.getDetenido(Task.getIdDetenido()).execute();
+				Log.i("id del usuario", Requerido.getIdUsuario()+"");
+				user = usuarioEndpoint.getUsuario(Requerido.getIdUsuario()).execute();
+				
+				
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			return null;
+		}
+		@Override
+		protected void onPostExecute(Void result) {
+			// TODO Auto-generated method stub
+			nombre.setText(user.getName());
+			app.setText(user.getApp());
+			apm.setText(user.getApm());
+			edad.setText(user.getEdad()+"");
+			cargo.setText(Requerido.getCargo());
+			delito.setText(Requerido.getDelito());
+			fecha.setText(Task.getFecha());
+			progressDialog.dismiss();
+			super.onPostExecute(result);
+		}
+		
+	}
+	
 	public class EnviarInformacion extends AsyncTask<Void, Void, Void> {
 
 		
 		private EnviarInformacion() {
 	      
 	    }
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			progressDialog.setTitle("Espere...");
+			progressDialog.setMessage("Enviando Mensaje");
+			progressDialog.show(); 
+			super.onPreExecute();
+		}
 		@Override
 		protected Void doInBackground(Void... params) {
 			Long idUsuario = 0l;
@@ -401,14 +509,14 @@ public class LevantarInformacion extends Activity{
 					idUsuario =  lastUser.getItems().get(0).getId();
 				}
 				
-				Usuario user = new Usuario();
-				user.setApm("app materno");
-				user.setApp("appelido paterno");
-				user.setEdad(35l);
-				user.setId(idUsuario+1);
-				user.setName("nombre");
-				user.setSexo("masculino");
-				usuarioEndpoint.insertUsuario(user).execute();
+				Usuario user2 = new Usuario();
+				user2.setApm(apm.getText().toString());
+				user2.setApp(app.getText().toString());
+				user2.setEdad(new Long(edad.getText().toString()));
+				user2.setId(user.getId());
+				user2.setName(nombre.getText().toString());
+				user2.setSexo(user.getSexo());
+				usuarioEndpoint.updateUsuario(user2).execute();
 				
 				
 				
@@ -434,18 +542,30 @@ public class LevantarInformacion extends Activity{
 							new String(), new String());
 
 					Detenido detenidoInf = new Detenido();
-					detenidoInf.setCargo("pasarse un alto");
-					detenidoInf.setDelito("delito 2");
+					detenidoInf.setCargo(cargo.getText().toString());
+					detenidoInf.setDelito(delito.getText().toString());
 					try {
 						CollectionResponseDetenido lastDetenido =  detenidoEndpoint.getLast().execute();
 						if (lastDetenido!=null && lastDetenido.getItems().size() > 0) {
 							idDetenido = lastDetenido.getItems().get(0).getId();
 						}
-						detenidoInf.setId(idDetenido+1);
+						detenidoInf.setId(Requerido.getId());
 						detenidoInf.setEvidencia(blobkey);
-						detenidoInf.setIdUsuario(idUsuario);
-						detenidoEndpoint.insertDetenido(detenidoInf).execute();
+						detenidoInf.setIdUsuario(Requerido.getIdUsuario());
+						detenidoEndpoint.updateDetenido(detenidoInf).execute();
 						Log.i("insercion del detenido", "detenido insertado correctamente");
+						
+						Tarea taskupdate = new Tarea();
+						taskupdate.setEstado(true);
+						taskupdate.setFecha(fecha.getText().toString());
+						taskupdate.setId(Task.getId());
+						taskupdate.setIdAgente(Task.getIdAgente());
+						taskupdate.setIdDetenido(Task.getIdDetenido());
+						taskupdate.setIdZona(Task.getIdZona());
+						tareaEndpoint.updateTarea(taskupdate).execute();
+						Log.i("actualizada la tarea", "actualizada la tarea");
+						  startActivity(new Intent(LevantarInformacion.this, MapView.class));
+						  finish();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -468,7 +588,7 @@ public class LevantarInformacion extends Activity{
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
 			
-			
+			progressDialog.dismiss();
 				
 			
 			

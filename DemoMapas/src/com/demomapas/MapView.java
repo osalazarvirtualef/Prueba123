@@ -95,20 +95,15 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		setTitle("Ubicación Requeridos");
 		Preferences = getApplicationContext().getSharedPreferences(
 				"settings", 0);
 		//iniciamos el servicio
-		if(iniciar_Servicios())
-			Log.i("servicio de aplicativo de la PGJ", "trabajando");
-		else 
-			iniciar_ServiciosNow();
-		
-		
+//		if(iniciar_Servicios())
+//			Log.i("servicio de aplicativo de la PGJ", "trabajando");
+//		else 
+//			iniciar_ServiciosNow();
 	
-		
-		
-		
-		
 	      //Create a new progress dialog.  
 		
         progressDialog = new ProgressDialog(MapView.this);  
@@ -148,7 +143,7 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 		if(provider!=null && !provider.equals("")){
 			
 			// Get the location from the given provider 
-		    location = locationManager.getLastKnownLocation(provider);
+		//    location = locationManager.getLastKnownLocation(provider);
 		                
 		    locationManager.requestLocationUpdates(provider, 2000, 1, this);
 	    	
@@ -174,7 +169,7 @@ public class MapView extends FragmentActivity implements LocationListener,OnMark
 		// Getting the name of the provider that meets the criteria
 	
 		
-		
+		locationManager.removeUpdates(this);
 		
 
 		  
@@ -355,8 +350,9 @@ for(int y=0;y<services.size();y++){
 		// TODO Auto-generated method stub
 		Log.i("marker clicked", marker.getTitle());
 		  Intent intent = new Intent(MapView.this,LevantarInformacion.class);
-		  intent.putExtra("idDetenido", marker.getTitle());
+		  intent.putExtra("idTarea", marker.getTitle());
           startActivity(intent);
+          finish();
 
 		return false;
 	}
@@ -378,48 +374,54 @@ for(int y=0;y<services.size();y++){
 		protected ArrayList<TareasUsuario> doInBackground(Void... params) {
 			// TODO Auto-generated method stub
 					
+			try {
+				CollectionResponseTarea tareas =  tareaEndpoint.listTarea().execute();
+				for (Tarea elementos : tareas.getItems()) {
+					if(elementos.getIdAgente() == usuario)
+						tareasUsuario.add(elementos);
+				}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+					
+					
 					ArrayList<Ruta> rutaUsuario = new ArrayList<Ruta>();
-					Ruta rutaPropia = new Ruta();
-					try {
-						CollectionResponseRuta Rutas = rutaEndpoint.listRuta().execute();
-						System.out.println();
-						for (Ruta elementos : Rutas.getItems()) {
-							if (elementos.getIdAgente() == usuario) {
-								int m = elementos.getTareasIds().size();
-								for(int t=0 ; t<elementos.getTareasIds().size() ; t++){
-									tareasUsuario.add(tareaEndpoint.getTarea(elementos.getTareasIds().get(t)).execute());
-									
-								}
-							}	
-					}
-					Log.i("la cantidad de elementos es: ", tareasUsuario.size()+"");
-					//LatLng parametros2 = new LatLng(19.428524, -99.170938);
-					for (Tarea  items : tareasUsuario) {
-						
-						try {
-							MapView.z = zonaEndpoint.getZona(items.getIdZona()).execute();
-						
-							TareasUsuario t = new TareasUsuario();
-							t.setUbicacion(new LatLng(MapView.z.getLat(), MapView.z.getLongitud()));
-							t.setStatus(items.getEstado());
-							t.setIdTarea(items.getId());
-							points.add(t);
-							
-					
-						
-							
-						//	mMap.addMarker(new MarkerOptions().position(new LatLng(z.getLat(), z.getLongitud())).title("marcador2") .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					
-					}
-				
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					//						CollectionResponseRuta Rutas = rutaEndpoint.listRuta().execute();
+					//						System.out.println();
+					//						for (Ruta elementos : Rutas.getItems()) {
+					//							if (elementos.getIdAgente() == usuario) {
+					//								int m = elementos.getTareasIds().size();
+					//								for(int t=0 ; t<elementos.getTareasIds().size() ; t++){
+					//									tareasUsuario.add(tareaEndpoint.getTarea(elementos.getTareasIds().get(t)).execute());
+					//									
+					//								}
+					//							}	
+					//					}
+										Log.i("la cantidad de elementos es: ", tareasUsuario.size()+"");
+										//LatLng parametros2 = new LatLng(19.428524, -99.170938);
+										for (Tarea  items : tareasUsuario) {
+											
+											try {
+												MapView.z = zonaEndpoint.getZona(items.getIdZona()).execute();
+											
+												TareasUsuario t = new TareasUsuario();
+												t.setUbicacion(new LatLng(MapView.z.getLat(), MapView.z.getLongitud()));
+												t.setStatus(items.getEstado());
+												t.setIdTarea(items.getId());
+												points.add(t);
+												
+										
+											
+												
+											//	mMap.addMarker(new MarkerOptions().position(new LatLng(z.getLat(), z.getLongitud())).title("marcador2") .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+											} catch (IOException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+										
+										}
 
 					
 			return points;
