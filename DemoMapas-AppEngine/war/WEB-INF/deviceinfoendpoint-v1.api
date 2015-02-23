@@ -33,7 +33,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.DeviceInfoEndpoint.listDeviceInfo",
+      "rosyMethod" : "com.virtualef.pgj.dto.DeviceInfoEndpoint.listDeviceInfo",
       "request" : {
         "parameters" : {
           "cursor" : {
@@ -51,17 +51,22 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "deviceinfoendpoint.updateDeviceInfo" : {
-      "path" : "deviceinfo",
-      "httpMethod" : "PUT",
+    "deviceinfoendpoint.getDeviceInfo" : {
+      "path" : "deviceinfo/{id}",
+      "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.DeviceInfoEndpoint.updateDeviceInfo",
+      "rosyMethod" : "com.virtualef.pgj.dto.DeviceInfoEndpoint.getDeviceInfo",
       "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
+        "parameters" : {
+          "id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -74,31 +79,10 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.DeviceInfoEndpoint.insertDeviceInfo",
+      "rosyMethod" : "com.virtualef.pgj.dto.DeviceInfoEndpoint.insertDeviceInfo",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "deviceinfoendpoint.getDeviceInfo" : {
-      "path" : "deviceinfo/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.DeviceInfoEndpoint.getDeviceInfo",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "empty"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -111,7 +95,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.DeviceInfoEndpoint.removeDeviceInfo",
+      "rosyMethod" : "com.virtualef.pgj.dto.DeviceInfoEndpoint.removeDeviceInfo",
       "request" : {
         "parameters" : {
           "id" : {
@@ -123,6 +107,22 @@
       },
       "response" : {
         "body" : "empty"
+      }
+    },
+    "deviceinfoendpoint.updateDeviceInfo" : {
+      "path" : "deviceinfo",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.virtualef.pgj.dto.DeviceInfoEndpoint.updateDeviceInfo",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
       }
     }
   },
@@ -165,12 +165,17 @@
       }
     },
     "methods" : {
-      "com.demomapas.model.DeviceInfoEndpoint.listDeviceInfo" : {
+      "com.virtualef.pgj.dto.DeviceInfoEndpoint.listDeviceInfo" : {
         "response" : {
           "$ref" : "CollectionResponse_DeviceInfo"
         }
       },
-      "com.demomapas.model.DeviceInfoEndpoint.updateDeviceInfo" : {
+      "com.virtualef.pgj.dto.DeviceInfoEndpoint.getDeviceInfo" : {
+        "response" : {
+          "$ref" : "DeviceInfo"
+        }
+      },
+      "com.virtualef.pgj.dto.DeviceInfoEndpoint.insertDeviceInfo" : {
         "request" : {
           "$ref" : "DeviceInfo"
         },
@@ -178,20 +183,15 @@
           "$ref" : "DeviceInfo"
         }
       },
-      "com.demomapas.model.DeviceInfoEndpoint.insertDeviceInfo" : {
+      "com.virtualef.pgj.dto.DeviceInfoEndpoint.removeDeviceInfo" : {
+      },
+      "com.virtualef.pgj.dto.DeviceInfoEndpoint.updateDeviceInfo" : {
         "request" : {
           "$ref" : "DeviceInfo"
         },
         "response" : {
           "$ref" : "DeviceInfo"
         }
-      },
-      "com.demomapas.model.DeviceInfoEndpoint.getDeviceInfo" : {
-        "response" : {
-          "$ref" : "DeviceInfo"
-        }
-      },
-      "com.demomapas.model.DeviceInfoEndpoint.removeDeviceInfo" : {
       }
     }
   }

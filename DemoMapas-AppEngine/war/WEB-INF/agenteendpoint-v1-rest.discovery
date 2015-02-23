@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/S2bjqHZK2JQ-ajHRqlolLckT6AE\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/JiqT8Jzf9Q4zUQ9nDjNZAs-D50g\"",
  "discoveryVersion": "v1",
  "id": "agenteendpoint:v1",
  "name": "agenteendpoint",
@@ -79,8 +79,7 @@
    "type": "object",
    "properties": {
     "id": {
-     "type": "string",
-     "format": "int64"
+     "$ref": "Key"
     },
     "idUsuario": {
      "type": "string"
@@ -110,12 +109,40 @@
      "type": "string"
     }
    }
+  },
+  "Key": {
+   "id": "Key",
+   "type": "object",
+   "properties": {
+    "appId": {
+     "type": "string"
+    },
+    "complete": {
+     "type": "boolean"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "kind": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "namespace": {
+     "type": "string"
+    },
+    "parent": {
+     "$ref": "Key"
+    }
+   }
   }
  },
  "methods": {
   "getAgente": {
    "id": "agenteendpoint.getAgente",
-   "path": "agente/{id}/{usuario}/{password}",
+   "path": "agente/{id}",
    "httpMethod": "GET",
    "parameters": {
     "id": {
@@ -123,22 +150,10 @@
      "required": true,
      "format": "int64",
      "location": "path"
-    },
-    "password": {
-     "type": "string",
-     "required": true,
-     "location": "path"
-    },
-    "usuario": {
-     "type": "string",
-     "required": true,
-     "location": "path"
     }
    },
    "parameterOrder": [
-    "id",
-    "usuario",
-    "password"
+    "id"
    ],
    "response": {
     "$ref": "Agente"

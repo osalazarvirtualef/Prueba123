@@ -27,22 +27,6 @@
   "ownerName" : "demomapas.com",
   "packagePath" : "model",
   "methods" : {
-    "multimediaendpoint.updateMultimedia" : {
-      "path" : "multimedia",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.MultimediaEndpoint.updateMultimedia",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "multimediaendpoint.removeMultimedia" : {
       "path" : "multimedia/{id}",
       "httpMethod" : "DELETE",
@@ -50,7 +34,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.MultimediaEndpoint.removeMultimedia",
+      "rosyMethod" : "com.virtualef.pgj.dto.MultimediaEndpoint.removeMultimedia",
       "request" : {
         "parameters" : {
           "id" : {
@@ -64,47 +48,17 @@
         "body" : "empty"
       }
     },
-    "multimediaendpoint.listMultimedia" : {
+    "multimediaendpoint.updateMultimedia" : {
       "path" : "multimedia",
-      "httpMethod" : "GET",
+      "httpMethod" : "PUT",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.MultimediaEndpoint.listMultimedia",
+      "rosyMethod" : "com.virtualef.pgj.dto.MultimediaEndpoint.updateMultimedia",
       "request" : {
-        "parameters" : {
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "limit" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "multimediaendpoint.getMultimedia" : {
-      "path" : "multimedia/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.MultimediaEndpoint.getMultimedia",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -117,10 +71,56 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.MultimediaEndpoint.insertMultimedia",
+      "rosyMethod" : "com.virtualef.pgj.dto.MultimediaEndpoint.insertMultimedia",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "multimediaendpoint.getMultimedia" : {
+      "path" : "multimedia/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.virtualef.pgj.dto.MultimediaEndpoint.getMultimedia",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "multimediaendpoint.listMultimedia" : {
+      "path" : "multimedia",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.virtualef.pgj.dto.MultimediaEndpoint.listMultimedia",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -163,7 +163,9 @@
       }
     },
     "methods" : {
-      "com.demomapas.model.MultimediaEndpoint.updateMultimedia" : {
+      "com.virtualef.pgj.dto.MultimediaEndpoint.removeMultimedia" : {
+      },
+      "com.virtualef.pgj.dto.MultimediaEndpoint.updateMultimedia" : {
         "request" : {
           "$ref" : "Multimedia"
         },
@@ -171,24 +173,22 @@
           "$ref" : "Multimedia"
         }
       },
-      "com.demomapas.model.MultimediaEndpoint.removeMultimedia" : {
+      "com.virtualef.pgj.dto.MultimediaEndpoint.insertMultimedia" : {
+        "request" : {
+          "$ref" : "Multimedia"
+        },
+        "response" : {
+          "$ref" : "Multimedia"
+        }
       },
-      "com.demomapas.model.MultimediaEndpoint.listMultimedia" : {
+      "com.virtualef.pgj.dto.MultimediaEndpoint.getMultimedia" : {
+        "response" : {
+          "$ref" : "Multimedia"
+        }
+      },
+      "com.virtualef.pgj.dto.MultimediaEndpoint.listMultimedia" : {
         "response" : {
           "$ref" : "CollectionResponse_Multimedia"
-        }
-      },
-      "com.demomapas.model.MultimediaEndpoint.getMultimedia" : {
-        "response" : {
-          "$ref" : "Multimedia"
-        }
-      },
-      "com.demomapas.model.MultimediaEndpoint.insertMultimedia" : {
-        "request" : {
-          "$ref" : "Multimedia"
-        },
-        "response" : {
-          "$ref" : "Multimedia"
         }
       }
     }

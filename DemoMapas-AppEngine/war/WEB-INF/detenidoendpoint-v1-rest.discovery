@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/yBwrryKlOu3gnMqs83qyuFxpxM0\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/shUDWqoKjARgm8memD1Y9ZtzvFo\"",
  "discoveryVersion": "v1",
  "id": "detenidoendpoint:v1",
  "name": "detenidoendpoint",
@@ -103,12 +103,39 @@
      "type": "string"
     },
     "id": {
-     "type": "string",
-     "format": "int64"
+     "$ref": "Key"
     },
     "idUsuario": {
      "type": "string",
      "format": "int64"
+    }
+   }
+  },
+  "Key": {
+   "id": "Key",
+   "type": "object",
+   "properties": {
+    "appId": {
+     "type": "string"
+    },
+    "complete": {
+     "type": "boolean"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "kind": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "namespace": {
+     "type": "string"
+    },
+    "parent": {
+     "$ref": "Key"
     }
    }
   }
@@ -131,28 +158,6 @@
    ],
    "response": {
     "$ref": "Detenido"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "getLast": {
-   "id": "detenidoendpoint.getLast",
-   "path": "collectionresponse_detenido",
-   "httpMethod": "GET",
-   "parameters": {
-    "cursor": {
-     "type": "string",
-     "location": "query"
-    },
-    "limit": {
-     "type": "integer",
-     "format": "int32",
-     "location": "query"
-    }
-   },
-   "response": {
-    "$ref": "CollectionResponse_Detenido"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

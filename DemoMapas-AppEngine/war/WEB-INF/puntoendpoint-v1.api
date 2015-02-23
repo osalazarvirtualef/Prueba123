@@ -26,14 +26,67 @@
   "ownerDomain" : "demomapas.com",
   "ownerName" : "demomapas.com",
   "methods" : {
-    "puntoendpoint.listPunto" : {
+    "puntoendpoint.updatePunto" : {
       "path" : "punto",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.virtualef.pgj.dto.PuntoEndpoint.updatePunto",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "puntoendpoint.insertPunto" : {
+      "path" : "punto",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.virtualef.pgj.dto.PuntoEndpoint.insertPunto",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "puntoendpoint.getPunto" : {
+      "path" : "punto/{id}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.PuntoEndpoint.listPunto",
+      "rosyMethod" : "com.virtualef.pgj.dto.PuntoEndpoint.getPunto",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "puntoendpoint.getLast" : {
+      "path" : "collectionresponse_punto",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.virtualef.pgj.dto.PuntoEndpoint.getLast",
       "request" : {
         "parameters" : {
           "cursor" : {
@@ -51,19 +104,23 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "puntoendpoint.getPunto" : {
-      "path" : "punto/{id}",
+    "puntoendpoint.listPunto" : {
+      "path" : "punto",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.PuntoEndpoint.getPunto",
+      "rosyMethod" : "com.virtualef.pgj.dto.PuntoEndpoint.listPunto",
       "request" : {
         "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
           }
         },
         "body" : "empty"
@@ -79,7 +136,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.PuntoEndpoint.removePunto",
+      "rosyMethod" : "com.virtualef.pgj.dto.PuntoEndpoint.removePunto",
       "request" : {
         "parameters" : {
           "id" : {
@@ -92,82 +149,10 @@
       "response" : {
         "body" : "empty"
       }
-    },
-    "puntoendpoint.insertPunto" : {
-      "path" : "punto",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.PuntoEndpoint.insertPunto",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "puntoendpoint.updatePunto" : {
-      "path" : "punto",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.PuntoEndpoint.updatePunto",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "puntoendpoint.getLast" : {
-      "path" : "collectionresponse_punto",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.demomapas.model.PuntoEndpoint.getLast",
-      "request" : {
-        "parameters" : {
-          "cursor" : {
-            "type" : "string",
-            "required" : false
-          },
-          "limit" : {
-            "type" : "int32",
-            "required" : false
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
     }
   },
   "descriptor" : {
     "schemas" : {
-      "CollectionResponse_Punto" : {
-        "id" : "CollectionResponse_Punto",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Punto"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
-      },
       "Punto" : {
         "id" : "Punto",
         "type" : "object",
@@ -190,22 +175,25 @@
             "format" : "int64"
           }
         }
+      },
+      "CollectionResponse_Punto" : {
+        "id" : "CollectionResponse_Punto",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Punto"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
       }
     },
     "methods" : {
-      "com.demomapas.model.PuntoEndpoint.listPunto" : {
-        "response" : {
-          "$ref" : "CollectionResponse_Punto"
-        }
-      },
-      "com.demomapas.model.PuntoEndpoint.getPunto" : {
-        "response" : {
-          "$ref" : "Punto"
-        }
-      },
-      "com.demomapas.model.PuntoEndpoint.removePunto" : {
-      },
-      "com.demomapas.model.PuntoEndpoint.insertPunto" : {
+      "com.virtualef.pgj.dto.PuntoEndpoint.updatePunto" : {
         "request" : {
           "$ref" : "Punto"
         },
@@ -213,7 +201,7 @@
           "$ref" : "Punto"
         }
       },
-      "com.demomapas.model.PuntoEndpoint.updatePunto" : {
+      "com.virtualef.pgj.dto.PuntoEndpoint.insertPunto" : {
         "request" : {
           "$ref" : "Punto"
         },
@@ -221,10 +209,22 @@
           "$ref" : "Punto"
         }
       },
-      "com.demomapas.model.PuntoEndpoint.getLast" : {
+      "com.virtualef.pgj.dto.PuntoEndpoint.getPunto" : {
+        "response" : {
+          "$ref" : "Punto"
+        }
+      },
+      "com.virtualef.pgj.dto.PuntoEndpoint.getLast" : {
         "response" : {
           "$ref" : "CollectionResponse_Punto"
         }
+      },
+      "com.virtualef.pgj.dto.PuntoEndpoint.listPunto" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Punto"
+        }
+      },
+      "com.virtualef.pgj.dto.PuntoEndpoint.removePunto" : {
       }
     }
   }

@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/PwdyYditAU8pruPPYpjQGeGpxJ4\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/ni2W8JYJB2yPyoa5cwzoJa_aZ6k\"",
  "discoveryVersion": "v1",
  "id": "tareaendpoint:v1",
  "name": "tareaendpoint",
@@ -91,7 +91,19 @@
    "id": "Tarea",
    "type": "object",
    "properties": {
+    "calle": {
+     "type": "string"
+    },
+    "colonia": {
+     "type": "string"
+    },
+    "cp": {
+     "type": "string"
+    },
     "estado": {
+     "type": "string"
+    },
+    "estatus": {
      "type": "boolean"
     },
     "fecha": {
@@ -109,9 +121,16 @@
      "type": "string",
      "format": "int64"
     },
-    "idZona": {
-     "type": "string",
-     "format": "int64"
+    "lat": {
+     "type": "number",
+     "format": "double"
+    },
+    "longitud": {
+     "type": "number",
+     "format": "double"
+    },
+    "municipio": {
+     "type": "string"
     }
    }
   }

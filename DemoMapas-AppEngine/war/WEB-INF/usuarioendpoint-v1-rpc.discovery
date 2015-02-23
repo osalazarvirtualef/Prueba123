@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/6lU72wmhkT14cnUMUn9rcVcvPgk\"",
+ "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/O7Jr37eejsVOYBAkm7Xv4nIPrpA\"",
  "discoveryVersion": "v1",
  "id": "usuarioendpoint:v1",
  "name": "usuarioendpoint",
@@ -115,25 +115,6 @@
   }
  },
  "methods": {
-  "usuarioendpoint.getLast": {
-   "id": "usuarioendpoint.getLast",
-   "allowGet": true,
-   "parameters": {
-    "cursor": {
-     "type": "string"
-    },
-    "limit": {
-     "type": "integer",
-     "format": "int32"
-    }
-   },
-   "returns": {
-    "$ref": "CollectionResponse_Usuario"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
   "usuarioendpoint.getUsuario": {
    "id": "usuarioendpoint.getUsuario",
    "allowGet": true,

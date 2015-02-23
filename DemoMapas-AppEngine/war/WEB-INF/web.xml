@@ -5,7 +5,7 @@
   <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
   <init-param>
    <param-name>services</param-name>
-   <param-value>com.demomapas.model.AgenteEndpoint,com.demomapas.model.DetenidoEndpoint,com.demomapas.model.DeviceInfoEndpoint,com.demomapas.model.MessageEndpoint,com.demomapas.model.MultimediaEndpoint,com.demomapas.model.PuntoEndpoint,com.demomapas.model.RutaEndpoint,com.demomapas.model.TareaEndpoint,com.demomapas.model.UsuarioEndpoint,com.demomapas.model.ZonaEndpoint</param-value>
+   <param-value>com.virtualef.pgj.dao.AgentDao,com.virtualef.pgj.dao.RequireDao,com.virtualef.pgj.dao.TaskDao,com.virtualef.pgj.dao.UserDao,com.virtualef.pgj.dto.DeviceInfoEndpoint,com.virtualef.pgj.dto.MessageEndpoint,com.virtualef.pgj.dto.MultimediaEndpoint,com.virtualef.pgj.dto.PuntoEndpoint</param-value>
   </init-param>
  </servlet>
  <servlet-mapping>
