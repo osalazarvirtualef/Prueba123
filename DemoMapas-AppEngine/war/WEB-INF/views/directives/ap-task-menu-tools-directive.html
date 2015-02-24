@@ -1,0 +1,96 @@
+<a ng-click="menuNavControl()" class="close pull-left"><span class="glyphicon glyphicon-chevron-left small"></span></a>
+<tabset>
+	<tab heading="Agregar" select="model.onSelectObject()">
+		<br />
+		<div class="ap-task-menu-tools-directive-container">
+			<form name="form" ng-submit="form.$valid && model.addObject(form)" role="form" novalidate>
+				<div class="col-sm-6">
+					<input type="text" ng-model="model.object.idAgent" typeahead="agent.id as agent.user.name for agent in model.agents | filter:$viewValue | limitTo:8" class="form-control" placeholder="agentes" required>
+				</div>
+				<div class="col-sm-6">
+					<input type="text" ng-model="model.object.idRequire" typeahead="require.id as require.user.name for require in model.requires | filter:$viewValue | limitTo:8" class="form-control" placeholder="requires" required>
+				</div>
+				<div class="col-sm-12">
+					<div class="input-group">
+						<input type="text" ng-model="model.zone" class="form-control" placeholder="Dirección..." ng-disabled="model.isDisabledSearch">
+						<span class="input-group-btn">
+							<button ng-click="model.onSelectZone()"  class="btn btn-primary" type="button" ng-disabled="model.isDisabledSearch">
+								<i class="glyphicon glyphicon-search"></i>
+							</button> </span>
+					</div>
+				</div>
+				<div collapse="model.isCollapsedAddress" class="form-group">
+					<div class="col-sm-10">
+						<input type="text" ng-model="model.object.street" class="form-control" placeholder="calle" ng-disabled="model.isDisabledSearch">
+					</div>
+					<div class="col-sm-2">
+						<input type="text" ng-model="model.object.number" class="form-control" placeholder="número" ng-disabled="model.isDisabledSearch">
+					</div>
+					<div class="col-sm-12">
+						<input type="text" ng-model="model.object.colony" class="form-control" placeholder="colonia" ng-disabled="model.isDisabledSearch">
+					</div>
+					<div class="col-sm-12">
+						<input type="text" ng-model="model.object.town" class="form-control" placeholder="municipio" ng-disabled="model.isDisabledSearch">
+					</div>
+					<div class="col-sm-12">
+						<input type="text" ng-model="model.object.state" class="form-control" placeholder="estado" ng-disabled="model.isDisabledSearch">
+					</div>
+					<div class="col-sm-4">
+						<input type="text" ng-model="model.object.country" class="form-control" placeholder="paìs" ng-disabled="model.isDisabledSearch">
+					</div>					
+					<div class="col-sm-3">
+						<input type="text" ng-model="model.object.zipCode" class="form-control" placeholder="paìs" ng-disabled="model.isDisabledSearch">
+					</div>
+					<div class="col-sm-5">
+						<input type="text" ng-model="model.object.date" class="form-control" placeholder="paìs" ng-disabled="model.isDisabledSearch">
+					</div>
+					<div class="col-sm-12">
+						<div class="btn-group" role="group">
+							<span class="input-group-addon form-control">
+								<input type="radio" name="sex" ng-model="model.object.status" value="true" ng-disabled="model.isDisabledSearch">
+								<span class="label label-default">ACTIVA</span>
+								<input type="radio" name="sex" ng-model="model.object.status" value="false" ng-disabled="model.isDisabledSearch">
+								<span class="label label-default">INACTIVA</span> </span>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<button type="submit" class="btn btn-primary btn-sm pull-right">
+							<i class="glyphicon glyphicon-floppy-saved">Aceptar</i>
+						</button>
+						<button type="button" ng-click="model.onCalcelZone()" class="btn btn-sm btn-danger pull-right">
+							<i class="glyphicon glyphicon-floppy-remove">Cancelar</i>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</tab>
+	<tab heading="Eliminar" disabled="model.isDisabledDelete" active="model.isActiveDelete">
+		<table st-table="model.objects" st-pipe="model.getObjects" class="table">
+			<thead>
+				<tr>
+					<th ng-repeat="model in modelConfig" st-sort="{{model.property}}">{{model.property}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="object in model.objects">
+					<td ng-repeat="model in modelConfig">{{object[model.property]}}</td>
+					<!-- <td>
+					<button type="button" ng-click="model.preUpdateObject(object)" class="btn btn-sm btn-success">
+						<i class="glyphicon glyphicon-floppy-disk">Editar</i>
+					</button></td>-->
+					<td>
+					<button type="button" ng-click="model.deleteObject(object.id)" class="btn btn-sm btn-danger">
+						<i class="glyphicon glyphicon-remove-circle">Eliminar</i>
+					</button></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="5" class="text-center"><td class="text-center" st-pagination="" st-items-by-page="model.itemsByPagePaginator" colspan="4"></td>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</tab>
+</tabset>

@@ -121,8 +121,7 @@ public class TaskDao {
 		EntityManager mgr = getEntityManager();
 		System.out.println("Prueba");
 		try {
-			taskdto.setId(com.virtualef.pgj.dao.ApiDaoSynchronize.getInstance()
-					.getNextId(TaskDto.class.getName(), mgr));
+			taskdto.setId(com.virtualef.pgj.dao.ApiDaoSynchronize.getInstance().getNextId(TaskDto.class.getName(), mgr));
 			if (containsTaskDto(taskdto)) {
 				throw new EntityExistsException("Object already exists");
 			}

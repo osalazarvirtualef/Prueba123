@@ -1,0 +1,1 @@
+define(["app"],function(e){e.service("MapService",["$http","$q",function(e,t){function r(){}var n=t.defer();return r.prototype.getMenus=function(){return e.get("menus.json").success(function(e){e?n.resolve(e):n.reject()}),n.promise},r.prototype.getNotifications=function(){return e.get("notifications.json").success(function(e){e?n.resolve(e):n.reject()}),n.promise},new r}])});
