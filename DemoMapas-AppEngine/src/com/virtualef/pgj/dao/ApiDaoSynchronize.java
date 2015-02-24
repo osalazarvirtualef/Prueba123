@@ -15,7 +15,7 @@ final class ApiDaoSynchronize {
 	}
 	
 	public long getNextId(String table, EntityManager mgr) {
-		Query query = mgr.createQuery("SELECT COUNT(id) FROM " + table + " id");
+		Query query = mgr.createQuery("SELECT MAX(id) FROM " + table + " id");
 		return (long) query.getSingleResult() + 1;
 	}
 }
