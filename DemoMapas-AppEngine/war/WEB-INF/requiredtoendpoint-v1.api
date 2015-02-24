@@ -1,0 +1,220 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://civic-athlete-851.appspot.com/_ah/api",
+  "name" : "requiredtoendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://civic-athlete-851.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "virtualef.com",
+  "ownerName" : "virtualef.com",
+  "packagePath" : "pgj.dao",
+  "methods" : {
+    "requiredtoendpoint.removeRequireDto" : {
+      "path" : "requiredto/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.virtualef.pgj.dao.RequireDao.removeRequireDto",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "requiredtoendpoint.insertRequireDto" : {
+      "path" : "requiredto",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.virtualef.pgj.dao.RequireDao.insertRequireDto",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "requiredtoendpoint.updateRequireDto" : {
+      "path" : "requiredto",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.virtualef.pgj.dao.RequireDao.updateRequireDto",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "requiredtoendpoint.getRequireDto" : {
+      "path" : "requiredto/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.virtualef.pgj.dao.RequireDao.getRequireDto",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "requiredtoendpoint.listRequireDto" : {
+      "path" : "requiredto",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.virtualef.pgj.dao.RequireDao.listRequireDto",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "RequireDto" : {
+        "id" : "RequireDto",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "charge" : {
+            "type" : "string"
+          },
+          "crime" : {
+            "type" : "string"
+          },
+          "idUser" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "evidencia" : {
+            "type" : "string"
+          },
+          "user" : {
+            "$ref" : "UserDto"
+          }
+        }
+      },
+      "UserDto" : {
+        "id" : "UserDto",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "sex" : {
+            "type" : "string"
+          },
+          "age" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "CollectionResponse_RequireDto" : {
+        "id" : "CollectionResponse_RequireDto",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "RequireDto"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "com.virtualef.pgj.dao.RequireDao.removeRequireDto" : {
+      },
+      "com.virtualef.pgj.dao.RequireDao.insertRequireDto" : {
+        "request" : {
+          "$ref" : "RequireDto"
+        },
+        "response" : {
+          "$ref" : "RequireDto"
+        }
+      },
+      "com.virtualef.pgj.dao.RequireDao.updateRequireDto" : {
+        "request" : {
+          "$ref" : "RequireDto"
+        },
+        "response" : {
+          "$ref" : "RequireDto"
+        }
+      },
+      "com.virtualef.pgj.dao.RequireDao.getRequireDto" : {
+        "response" : {
+          "$ref" : "RequireDto"
+        }
+      },
+      "com.virtualef.pgj.dao.RequireDao.listRequireDto" : {
+        "response" : {
+          "$ref" : "CollectionResponse_RequireDto"
+        }
+      }
+    }
+  }
+}
