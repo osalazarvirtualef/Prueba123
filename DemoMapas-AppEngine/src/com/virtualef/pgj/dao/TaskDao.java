@@ -8,6 +8,7 @@ import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
 import com.virtualef.pgj.dto.TaskDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -21,11 +22,11 @@ import javax.persistence.Query;
 public class TaskDao {
 
 	/**
-	 * This method lists all the entities inserted in datastore.
-	 * It uses HTTP GET method and paging support.
+	 * This method lists all the entities inserted in datastore. It uses HTTP
+	 * GET method and paging support.
 	 *
 	 * @return A CollectionResponse class containing the list of all entities
-	 * persisted and a cursor to the next page.
+	 *         persisted and a cursor to the next page.
 	 */
 	@SuppressWarnings({ "unchecked", "unused" })
 	@ApiMethod(name = "listTaskDto")
@@ -42,14 +43,15 @@ public class TaskDao {
 		try {
 			mgr = getEntityManager();
 			Query queryTask = mgr.createQuery("select from TaskDto as TaskDto");
-			
+
 			listTask = (List<TaskDto>) queryTask.getResultList();
-			
+
 			for (TaskDto task : listTask) {
 				task.setUserAgent(agentDao.getAgentDto(task.getIdAgent()));
-				task.setUserRequire(requireDao.getRequireDto(task.getIdRequire()));
+				task.setUserRequire(requireDao.getRequireDto(task
+						.getIdRequire()));
 			}
-			
+
 		} finally {
 			mgr.close();
 		}
@@ -59,9 +61,11 @@ public class TaskDao {
 	}
 
 	/**
-	 * This method gets the entity having primary key id. It uses HTTP GET method.
+	 * This method gets the entity having primary key id. It uses HTTP GET
+	 * method.
 	 *
-	 * @param id the primary key of the java bean.
+	 * @param id
+	 *            the primary key of the java bean.
 	 * @return The entity with primary key id.
 	 */
 	@ApiMethod(name = "getTaskDto")
@@ -76,37 +80,41 @@ public class TaskDao {
 		}
 		return taskdto;
 	}
-	
+
 	/**
-	 * This inserts a new entity into App Engine datastore. If the entity already
-	 * exists in the datastore, an exception is thrown.
-	 * It uses HTTP POST method.
+	 * This inserts a new entity into App Engine datastore. If the entity
+	 * already exists in the datastore, an exception is thrown. It uses HTTP
+	 * POST method.
 	 *
-	 * @param taskdto the entity to getTaskDtoByAgentId.
+	 * @param taskdto
+	 *            the entity to getTaskDtoByAgentId.
 	 * @return The inserted entity.
 	 */
-	@SuppressWarnings({ "unchecked" })
 	@ApiMethod(name = "getTaskDtoByAgentId")
 	public CollectionResponse<TaskDto> getTaskDtoByAgentId(@Named("id") Long id) {
-		EntityManager mgr = null;
-		List<TaskDto> listTaskdto = null;
+		List<TaskDto> listTaskdto = new ArrayList<TaskDto>();
 		System.out.println("Prueba");
-		try {			
-			mgr = getEntityManager();
-			Query queryTask = mgr.createQuery("select from TaskDto as TaskDto where TaskDto.idAgent ==" + id);			
-			listTaskdto = (List<TaskDto>) queryTask.getResultList();		
+		try {
+			CollectionResponse<TaskDto> collectionIds = this.listTaskDto(null,
+					null);
+			for (TaskDto taskDto : collectionIds.getItems()) {
+				if (taskDto.getId() == id) {
+					listTaskdto.add(taskDto);
+				}
+			}
 		} finally {
-			mgr.close();
 		}
-		return CollectionResponse.<TaskDto> builder().setItems(listTaskdto).build();
+		return CollectionResponse.<TaskDto> builder().setItems(listTaskdto)
+				.build();
 	}
 
 	/**
-	 * This inserts a new entity into App Engine datastore. If the entity already
-	 * exists in the datastore, an exception is thrown.
-	 * It uses HTTP POST method.
+	 * This inserts a new entity into App Engine datastore. If the entity
+	 * already exists in the datastore, an exception is thrown. It uses HTTP
+	 * POST method.
 	 *
-	 * @param taskdto the entity to be inserted.
+	 * @param taskdto
+	 *            the entity to be inserted.
 	 * @return The inserted entity.
 	 */
 	@ApiMethod(name = "insertTaskDto")
@@ -114,7 +122,8 @@ public class TaskDao {
 		EntityManager mgr = getEntityManager();
 		System.out.println("Prueba");
 		try {
-			taskdto.setId(com.virtualef.pgj.dao.ApiDaoSynchronize.getInstance().getNextId(TaskDto.class.getName(), mgr));
+			taskdto.setId(com.virtualef.pgj.dao.ApiDaoSynchronize.getInstance()
+					.getNextId(TaskDto.class.getName(), mgr));
 			if (containsTaskDto(taskdto)) {
 				throw new EntityExistsException("Object already exists");
 			}
@@ -126,11 +135,12 @@ public class TaskDao {
 	}
 
 	/**
-	 * This method is used for updating an existing entity. If the entity does not
-	 * exist in the datastore, an exception is thrown.
-	 * It uses HTTP PUT method.
+	 * This method is used for updating an existing entity. If the entity does
+	 * not exist in the datastore, an exception is thrown. It uses HTTP PUT
+	 * method.
 	 *
-	 * @param taskdto the entity to be updated.
+	 * @param taskdto
+	 *            the entity to be updated.
 	 * @return The updated entity.
 	 */
 	@ApiMethod(name = "updateTaskDto")
@@ -149,10 +159,11 @@ public class TaskDao {
 	}
 
 	/**
-	 * This method removes the entity with primary key id.
-	 * It uses HTTP DELETE method.
+	 * This method removes the entity with primary key id. It uses HTTP DELETE
+	 * method.
 	 *
-	 * @param id the primary key of the entity to be deleted.
+	 * @param id
+	 *            the primary key of the entity to be deleted.
 	 */
 	@ApiMethod(name = "removeTaskDto")
 	public void removeTaskDto(@Named("id") Long id) {
