@@ -37,7 +37,7 @@ public class UserDao {
 		EntityManager mgr = null;
 		Cursor cursor = null;
 		List<UserDto> execute = null;
-
+		System.out.println("Prueba");
 		try {
 			mgr = getEntityManager();
 			Query query = mgr.createQuery("select from UserDto as UserDto");

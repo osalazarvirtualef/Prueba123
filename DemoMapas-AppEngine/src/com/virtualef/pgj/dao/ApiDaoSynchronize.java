@@ -7,7 +7,7 @@ final class ApiDaoSynchronize {
 	private final static ApiDaoSynchronize INSTANCE = new ApiDaoSynchronize();
 	
 	private ApiDaoSynchronize() {
-		
+		System.out.println("Prueba");
 	}
 	
 	public synchronized static ApiDaoSynchronize getInstance() {

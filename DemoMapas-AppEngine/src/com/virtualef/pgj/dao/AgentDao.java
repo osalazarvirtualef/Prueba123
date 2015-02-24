@@ -38,7 +38,7 @@ public class AgentDao {
 		List<AgentDto> listAgent = null;
 		List<com.virtualef.pgj.dto.UserDto> listUser = null;
 		
-
+		System.out.println("Prueba");
 		try {
 			mgr = getEntityManager();
 			Query queryAgent = mgr.createQuery("select from AgentDto as AgentDto");
@@ -73,6 +73,7 @@ public class AgentDao {
 		EntityManager mgr = getEntityManager();
 		AgentDto agentdto = null;
 		com.virtualef.pgj.dto.UserDto userdto = null;
+		System.out.println("Prueba");
 		try {
 			agentdto = mgr.find(AgentDto.class, id);
 			userdto = mgr.find(com.virtualef.pgj.dto.UserDto.class, agentdto.getIdUser());
@@ -94,6 +95,7 @@ public class AgentDao {
 	@ApiMethod(name = "insertAgentDto")
 	public AgentDto insertAgentDto(AgentDto agentdto) {
 		EntityManager mgr = getEntityManager();
+		System.out.println("Prueba");
 		try {
 			agentdto.setId(com.virtualef.pgj.dao.ApiDaoSynchronize.getInstance().getNextId(AgentDto.class.getName(), mgr));
 			if (containsAgentDto(agentdto)) {
@@ -117,6 +119,7 @@ public class AgentDao {
 	@ApiMethod(name = "updateAgentDto")
 	public AgentDto updateAgentDto(AgentDto agentdto) {
 		EntityManager mgr = getEntityManager();
+		System.out.println("Prueba");
 		try {
 			if (!containsAgentDto(agentdto)) {
 				throw new EntityNotFoundException("Object does not exist");
@@ -137,6 +140,7 @@ public class AgentDao {
 	@ApiMethod(name = "removeAgentDto")
 	public void removeAgentDto(@Named("id") Long id) {
 		EntityManager mgr = getEntityManager();
+		System.out.println("Prueba");
 		try {
 			AgentDto agentdto = mgr.find(AgentDto.class, id);
 			mgr.remove(agentdto);
@@ -148,6 +152,7 @@ public class AgentDao {
 	private boolean containsAgentDto(AgentDto agentdto) {
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
+		System.out.println("Prueba");
 		try {
 			AgentDto item = mgr.find(AgentDto.class, agentdto.getId());
 			if (item == null) {

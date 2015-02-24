@@ -88,6 +88,7 @@ public class RequireDao {
 	@ApiMethod(name = "insertRequireDto")
 	public RequireDto insertRequireDto(RequireDto requiredto) {
 		EntityManager mgr = getEntityManager();
+		System.out.println("Prueba");
 		try {
 			requiredto.setId(com.virtualef.pgj.dao.ApiDaoSynchronize.getInstance().getNextId(RequireDto.class.getName(), mgr));
 			if (containsRequireDto(requiredto)) {
@@ -111,6 +112,7 @@ public class RequireDao {
 	@ApiMethod(name = "updateRequireDto")
 	public RequireDto updateRequireDto(RequireDto requiredto) {
 		EntityManager mgr = getEntityManager();
+		System.out.println("Prueba");
 		try {
 			if (!containsRequireDto(requiredto)) {
 				throw new EntityNotFoundException("Object does not exist");
@@ -141,6 +143,7 @@ public class RequireDao {
 
 	private boolean containsRequireDto(RequireDto requiredto) {
 		EntityManager mgr = getEntityManager();
+		System.out.println("Prueba");
 		boolean contains = true;
 		try {
 			RequireDto item = mgr.find(RequireDto.class, requiredto.getId());

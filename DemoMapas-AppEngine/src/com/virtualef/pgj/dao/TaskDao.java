@@ -67,6 +67,7 @@ public class TaskDao {
 	@ApiMethod(name = "getTaskDto")
 	public TaskDto getTaskDto(@Named("id") Long id) {
 		EntityManager mgr = getEntityManager();
+		System.out.println("Prueba");
 		TaskDto taskdto = null;
 		try {
 			taskdto = mgr.find(TaskDto.class, id);
@@ -89,6 +90,7 @@ public class TaskDao {
 	public CollectionResponse<TaskDto> getTaskDtoByAgentId(@Named("id") Long id) {
 		EntityManager mgr = null;
 		List<TaskDto> listTaskdto = null;
+		System.out.println("Prueba");
 		try {			
 			mgr = getEntityManager();
 			Query queryTask = mgr.createQuery("select from TaskDto as TaskDto where TaskDto.idAgent ==" + id);			
@@ -110,6 +112,7 @@ public class TaskDao {
 	@ApiMethod(name = "insertTaskDto")
 	public TaskDto insertTaskDto(TaskDto taskdto) {
 		EntityManager mgr = getEntityManager();
+		System.out.println("Prueba");
 		try {
 			taskdto.setId(com.virtualef.pgj.dao.ApiDaoSynchronize.getInstance().getNextId(TaskDto.class.getName(), mgr));
 			if (containsTaskDto(taskdto)) {
@@ -133,6 +136,7 @@ public class TaskDao {
 	@ApiMethod(name = "updateTaskDto")
 	public TaskDto updateTaskDto(TaskDto taskdto) {
 		EntityManager mgr = getEntityManager();
+		System.out.println("Prueba");
 		try {
 			if (!containsTaskDto(taskdto)) {
 				throw new EntityNotFoundException("Object does not exist");
