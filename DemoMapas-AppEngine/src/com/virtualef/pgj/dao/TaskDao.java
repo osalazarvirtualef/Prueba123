@@ -95,10 +95,9 @@ public class TaskDao {
 		List<TaskDto> listTaskdto = new ArrayList<TaskDto>();
 		System.out.println("Prueba");
 		try {
-			CollectionResponse<TaskDto> collectionIds = this.listTaskDto(null,
-					null);
+			CollectionResponse<TaskDto> collectionIds = this.listTaskDto(null, null);
 			for (TaskDto taskDto : collectionIds.getItems()) {
-				if (taskDto.getId() == id) {
+				if (taskDto.getIdAgent() == id) {
 					listTaskdto.add(taskDto);
 				}
 			}
