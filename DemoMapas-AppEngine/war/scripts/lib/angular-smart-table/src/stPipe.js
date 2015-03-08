@@ -1,1 +1,0 @@
-ng.module("smart-table").directive("stPipe",function(){return{require:"stTable",scope:{stPipe:"="},link:{pre:function(e,t,n,r){ng.isFunction(e.stPipe)&&(r.preventPipeOnWatch(),r.pipe=function(){return e.stPipe(r.tableState(),r)})},post:function(e,t,n,r){r.pipe()}}}});

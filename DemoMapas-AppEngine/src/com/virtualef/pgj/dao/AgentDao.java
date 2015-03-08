@@ -1,160 +1,97 @@
 package com.virtualef.pgj.dao;
 
 import com.demomapas.EMF;
-import com.google.api.server.spi.config.Api;
-import com.google.api.server.spi.config.ApiMethod;
-import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
-import com.google.appengine.api.datastore.Cursor;
-import com.virtualef.pgj.dto.AgentDto;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-import javax.inject.Named;
 import javax.persistence.EntityExistsException;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.Query;
 
-@Api(name = "agentdtoendpoint", namespace = @ApiNamespace(ownerDomain = "virtualef.com", ownerName = "virtualef.com", packagePath = "pgj.dao"))
-public class AgentDao {
+public class AgentDao implements AgentDaoInterface {
 
-	/**
-	 * This method lists all the entities inserted in datastore.
-	 * It uses HTTP GET method and paging support.
-	 *
-	 * @return A CollectionResponse class containing the list of all entities
-	 * persisted and a cursor to the next page.
-	 */
-	@SuppressWarnings({ "unchecked", "unused" })
-	@ApiMethod(name = "listAgentDto")
-	public CollectionResponse<AgentDto> listAgentDto(
-			@Nullable @Named("cursor") String cursorString,
-			@Nullable @Named("limit") Integer limit) {
-
+	@Override
+	@SuppressWarnings({ "unchecked" })
+	public CollectionResponse<com.virtualef.pgj.dto.AgentDto> listObject() {
 		EntityManager mgr = null;
-		Cursor cursor = null;
-		List<AgentDto> listAgent = null;
-		List<com.virtualef.pgj.dto.UserDto> listUser = null;
-		
-		System.out.println("Prueba");
+		List<com.virtualef.pgj.dto.AgentDto> execute = null;
+
 		try {
 			mgr = getEntityManager();
-			Query queryAgent = mgr.createQuery("select from AgentDto as AgentDto");
-			Query queryUser = mgr.createQuery("select from UserDto as UserDto");
-			
-			listAgent = (List<AgentDto>) queryAgent.getResultList();
-			listUser = (List<com.virtualef.pgj.dto.UserDto>) queryUser.getResultList();
-			
-			for (AgentDto agent : listAgent) {
-				for (com.virtualef.pgj.dto.UserDto user : listUser) {
-					if (agent.getIdUser() == user.getId()) {
-						agent.setUser(user);
-					}
-				}
-			}
+			Query query = mgr.createQuery("select from AgentDto as AgentDto");
+
+			execute = (List<com.virtualef.pgj.dto.AgentDto>) query.getResultList();
+		} catch (Exception e) {
 			
 		} finally {
 			mgr.close();
 		}
-
-		return CollectionResponse.<AgentDto> builder().setItems(listAgent).setNextPageToken(cursorString).build();
+		return CollectionResponse.<com.virtualef.pgj.dto.AgentDto> builder().setItems(execute).build();
 	}
 
-	/**
-	 * This method gets the entity having primary key id. It uses HTTP GET method.
-	 *
-	 * @param id the primary key of the java bean.
-	 * @return The entity with primary key id.
-	 */
-	@ApiMethod(name = "getAgentDto")
-	public AgentDto getAgentDto(@Named("id") Long id) {
+	@Override
+	public com.virtualef.pgj.dto.AgentDto getObject(Long id) {
 		EntityManager mgr = getEntityManager();
-		AgentDto agentdto = null;
-		com.virtualef.pgj.dto.UserDto userdto = null;
-		System.out.println("Prueba");
+		com.virtualef.pgj.dto.AgentDto agentdto = null;
+		
 		try {
-			agentdto = mgr.find(AgentDto.class, id);
-			userdto = mgr.find(com.virtualef.pgj.dto.UserDto.class, agentdto.getIdUser());
-			agentdto.setUser(userdto);
+			agentdto = mgr.find(com.virtualef.pgj.dto.AgentDto.class, id);
 		} finally {
 			mgr.close();
 		}
 		return agentdto;
 	}
 
-	/**
-	 * This inserts a new entity into App Engine datastore. If the entity already
-	 * exists in the datastore, an exception is thrown.
-	 * It uses HTTP POST method.
-	 *
-	 * @param agentdto the entity to be inserted.
-	 * @return The inserted entity.
-	 */
-	@ApiMethod(name = "insertAgentDto")
-	public AgentDto insertAgentDto(AgentDto agentdto) {
+	@Override
+	public com.virtualef.pgj.dto.AgentDto insertObject(com.virtualef.pgj.dto.AgentDto agentDto) {
 		EntityManager mgr = getEntityManager();
-		System.out.println("Prueba");
+		
 		try {
-			agentdto.setId(com.virtualef.pgj.dao.ApiDaoSynchronize.getInstance().getNextId(AgentDto.class.getName(), mgr));
-			if (containsAgentDto(agentdto)) {
+			if (containsAgentByAttributes(agentDto) && containsPersonByAttributes(agentDto.getPerson())) {
 				throw new EntityExistsException("Object already exists");
 			}
-			mgr.persist(agentdto);
+			mgr.persist(agentDto);
 		} finally {
 			mgr.close();
 		}
-		return agentdto;
+		return agentDto;
 	}
 
-	/**
-	 * This method is used for updating an existing entity. If the entity does not
-	 * exist in the datastore, an exception is thrown.
-	 * It uses HTTP PUT method.
-	 *
-	 * @param agentdto the entity to be updated.
-	 * @return The updated entity.
-	 */
-	@ApiMethod(name = "updateAgentDto")
-	public AgentDto updateAgentDto(AgentDto agentdto) {
+	@Override
+	public com.virtualef.pgj.dto.AgentDto updateObject(com.virtualef.pgj.dto.AgentDto agentDto) {
 		EntityManager mgr = getEntityManager();
-		System.out.println("Prueba");
+		
 		try {
-			if (!containsAgentDto(agentdto)) {
+			if (!containsAgentDto(agentDto)) {
 				throw new EntityNotFoundException("Object does not exist");
 			}
-			mgr.persist(agentdto);
+			mgr.persist(agentDto);
 		} finally {
 			mgr.close();
 		}
-		return agentdto;
+		return agentDto;
 	}
 
-	/**
-	 * This method removes the entity with primary key id.
-	 * It uses HTTP DELETE method.
-	 *
-	 * @param id the primary key of the entity to be deleted.
-	 */
-	@ApiMethod(name = "removeAgentDto")
-	public void removeAgentDto(@Named("id") Long id) {
+	@Override
+	public void removeObject(Long id) {
 		EntityManager mgr = getEntityManager();
-		System.out.println("Prueba");
+		
 		try {
-			AgentDto agentdto = mgr.find(AgentDto.class, id);
+			com.virtualef.pgj.dto.AgentDto agentdto = mgr.find(com.virtualef.pgj.dto.AgentDto.class, id);
 			mgr.remove(agentdto);
 		} finally {
 			mgr.close();
 		}
 	}
-
-	private boolean containsAgentDto(AgentDto agentdto) {
+	
+	private boolean containsAgentDto(com.virtualef.pgj.dto.AgentDto agentDto) {
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
-		System.out.println("Prueba");
+		
 		try {
-			AgentDto item = mgr.find(AgentDto.class, agentdto.getId());
+			com.virtualef.pgj.dto.AgentDto item = mgr.find(com.virtualef.pgj.dto.AgentDto.class, agentDto.getKey());
 			if (item == null) {
 				contains = false;
 			}
@@ -163,9 +100,50 @@ public class AgentDao {
 		}
 		return contains;
 	}
+	
+	private boolean containsAgentByAttributes(com.virtualef.pgj.dto.AgentDto agentDto) {
+		EntityManager mgr = getEntityManager();
+		boolean exist = true;
 
+		try {
+			Query query = mgr
+					.createQuery("select from AgentDto as AgentDto where AgentDto.tuition = :"
+							+ agentDto.getTuition() + " and AgentDto.alias = :" + agentDto.getAlias());
+			query.getSingleResult();
+		} catch (Exception e) {
+			exist = false;
+		} finally {
+
+		}
+		return exist;
+	}
+
+	private boolean containsPersonByAttributes(com.virtualef.pgj.dto.PersonDto person) {
+		EntityManager mgr = getEntityManager();
+		boolean exist = true;		
+
+		try {
+			Query query = mgr
+					.createQuery("select from PersonDto as PersonDto where PersonDto.name = :"
+							+ person.getName()
+							+ " and PersonDto.firstName = :"
+							+ person.getFirstName()
+							+ " and PersonDto.lastName = :"
+							+ person.getLastName()
+							+ " and PersonDto.sex = :"
+							+ person.getSex()
+							+ " and PersonDto.age = :"
+							+ person.getAge());
+			query.getSingleResult();
+		} catch (Exception e) {
+			exist = false;
+		} finally {
+
+		}
+		return exist;
+	}
+	
 	private static EntityManager getEntityManager() {
 		return EMF.get().createEntityManager();
 	}
-
 }
