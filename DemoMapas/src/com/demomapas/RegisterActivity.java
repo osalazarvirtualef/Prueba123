@@ -347,7 +347,8 @@ protected void onStop() {
 		agentEndpoint = endpoints.InicializacionAgent();
 		try {
 
-			GetAgentByAlias agent  = agentEndpoint.getAgentByAlias(usuariotext.toString(), password.toString());
+			AgentDto agent = agentEndpoint.getAgentByAlias(usuariotext.getText().toString(), password.getText().toString()).execute();
+			
 			Log.i("", "");
 			
 		} catch (IOException e) {
