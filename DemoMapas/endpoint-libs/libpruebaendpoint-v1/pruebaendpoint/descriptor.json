@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/pruebaendpoint/v1/20150331045544/java/1.18.0-rc/virtualef.com-pruebaendpoint-v1-20150331045544-java-1.18.0-rc-sources.jar", 
-      "path": "virtualef.com-pruebaendpoint-v1-20150331045544-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/pruebaendpoint/v1/20150331051338/java/1.18.0-rc/virtualef.com-pruebaendpoint-v1-20150331051338-java-1.18.0-rc-sources.jar", 
+      "path": "virtualef.com-pruebaendpoint-v1-20150331051338-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2015-03-31 04:55"
+      "timestamp": "2015-03-31 05:13"
     }, 
     {
-      "path": "virtualef.com-pruebaendpoint-v1-20150331045544-java-1.18.0-rc.jar.properties", 
+      "path": "virtualef.com-pruebaendpoint-v1-20150331051338-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "pgj.dto", 
   "language_version": "1.18.0-rc", 
   "id": "pruebaendpoint:v1", 
-  "revision": 20150331045544
+  "revision": 20150331051338
 }

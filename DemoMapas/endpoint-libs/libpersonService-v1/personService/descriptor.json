@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/personService/v1/20150331045618/java/1.18.0-rc/virtualef.com-personService-v1-20150331045618-java-1.18.0-rc-sources.jar", 
-      "path": "virtualef.com-personService-v1-20150331045618-java-1.18.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/personService/v1/20150331051445/java/1.18.0-rc/virtualef.com-personService-v1-20150331051445-java-1.18.0-rc-sources.jar", 
+      "path": "virtualef.com-personService-v1-20150331051445-java-1.18.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2015-03-31 04:56"
+      "timestamp": "2015-03-31 05:14"
     }, 
     {
-      "path": "virtualef.com-personService-v1-20150331045618-java-1.18.0-rc.jar.properties", 
+      "path": "virtualef.com-personService-v1-20150331051445-java-1.18.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -675,5 +675,5 @@
   "packagePath": "pgj.service", 
   "language_version": "1.18.0-rc", 
   "id": "personService:v1", 
-  "revision": 20150331045618
+  "revision": 20150331051445
 }
