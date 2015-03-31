@@ -20,8 +20,8 @@ public class AgentDto implements java.io.Serializable {
 	private String tuition;
 	private String alias;
 	private String aliasP;
-	private Long latitude;
-	private Long longitude;
+	private float latitude;
+	private float longitude;
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private PersonDto person;
 
@@ -57,19 +57,19 @@ public class AgentDto implements java.io.Serializable {
 		this.aliasP = aliasP;
 	}
 
-	public Long getLatitude() {
+	public float getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(Long latitude) {
+	public void setLatitude(float latitude) {
 		this.latitude = latitude;
 	}
 
-	public Long getLongitude() {
+	public float getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(Long longitude) {
+	public void setLongitude(float longitude) {
 		this.longitude = longitude;
 	}
 

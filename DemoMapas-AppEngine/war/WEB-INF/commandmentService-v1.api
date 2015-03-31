@@ -27,14 +27,14 @@
   "ownerName" : "virtualef.com",
   "packagePath" : "pgj.service",
   "methods" : {
-    "commandmentService.getCommandment" : {
+    "commandmentService.getCommandmentByAgentId" : {
       "path" : "commandmentdto/{id}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.virtualef.pgj.service.CommandmentService.getObject",
+      "rosyMethod" : "com.virtualef.pgj.service.CommandmentService.getObjectByAgentId",
       "request" : {
         "parameters" : {
           "id" : {
@@ -96,7 +96,7 @@
       }
     },
     "commandmentService.removeCommandments" : {
-      "path" : "object/{id}",
+      "path" : "commandmentdto/{id}",
       "httpMethod" : "DELETE",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
@@ -119,6 +119,21 @@
   },
   "descriptor" : {
     "schemas" : {
+      "CollectionResponse_CommandmentDto" : {
+        "id" : "CollectionResponse_CommandmentDto",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "CommandmentDto"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      },
       "CommandmentDto" : {
         "id" : "CommandmentDto",
         "type" : "object",
@@ -135,12 +150,11 @@
             "type" : "string",
             "format" : "int64"
           },
-          "departure" : {
+          "department" : {
             "type" : "string"
           },
           "date" : {
-            "type" : "string",
-            "format" : "date-time"
+            "type" : "string"
           },
           "observations" : {
             "type" : "string"
@@ -153,6 +167,14 @@
           },
           "require" : {
             "$ref" : "RequireDto"
+          },
+          "idAgent" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "idRequire" : {
+            "type" : "string",
+            "format" : "int64"
           },
           "area" : {
             "type" : "string",
@@ -170,6 +192,9 @@
             "type" : "string",
             "format" : "int64"
           },
+          "status" : {
+            "type" : "boolean"
+          },
           "street" : {
             "type" : "string"
           },
@@ -182,9 +207,6 @@
           "town" : {
             "type" : "string"
           },
-          "city" : {
-            "type" : "string"
-          },
           "state" : {
             "type" : "string"
           },
@@ -192,12 +214,24 @@
             "type" : "string"
           },
           "latitude" : {
-            "type" : "string",
-            "format" : "int64"
+            "type" : "number",
+            "format" : "float"
           },
           "longitude" : {
-            "type" : "string",
-            "format" : "int64"
+            "type" : "number",
+            "format" : "float"
+          },
+          "evidence" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "audio" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
           }
         }
       },
@@ -218,12 +252,12 @@
             "type" : "string"
           },
           "latitude" : {
-            "type" : "string",
-            "format" : "int64"
+            "type" : "number",
+            "format" : "float"
           },
           "longitude" : {
-            "type" : "string",
-            "format" : "int64"
+            "type" : "number",
+            "format" : "float"
           },
           "person" : {
             "$ref" : "PersonDto"
@@ -250,11 +284,11 @@
           "parent" : {
             "$ref" : "Key"
           },
-          "complete" : {
-            "type" : "boolean"
-          },
           "namespace" : {
             "type" : "string"
+          },
+          "complete" : {
+            "type" : "boolean"
           }
         }
       },
@@ -290,37 +324,16 @@
           "key" : {
             "$ref" : "Key"
           },
-          "evidencia" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          },
           "person" : {
             "$ref" : "PersonDto"
-          }
-        }
-      },
-      "CollectionResponse_CommandmentDto" : {
-        "id" : "CollectionResponse_CommandmentDto",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "CommandmentDto"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
           }
         }
       }
     },
     "methods" : {
-      "com.virtualef.pgj.service.CommandmentService.getObject" : {
+      "com.virtualef.pgj.service.CommandmentService.getObjectByAgentId" : {
         "response" : {
-          "$ref" : "CommandmentDto"
+          "$ref" : "CollectionResponse_CommandmentDto"
         }
       },
       "com.virtualef.pgj.service.CommandmentService.listObject" : {

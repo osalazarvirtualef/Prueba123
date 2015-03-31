@@ -2,7 +2,6 @@ package com.virtualef.pgj.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Query;
@@ -17,13 +16,32 @@ public class CommandmentDao implements CommandmentDaoInterface {
 	@SuppressWarnings({ "unchecked" })
 	public CollectionResponse<CommandmentDto> listObject() {
 		EntityManager mgr = null;
-		List<com.virtualef.pgj.dto.CommandmentDto> execute = null;
+		List<com.virtualef.pgj.dto.CommandmentDto> commandmentsDto = null;
+		List<com.virtualef.pgj.dto.AgentDto> agentsDto = null;
+		List<com.virtualef.pgj.dto.RequireDto> requiresDto = null;
 
 		try {
 			mgr = getEntityManager();
-			Query query = mgr.createQuery("select from CommandmentDto as CommandmentDto");
+			Query query1 = mgr.createQuery("select from CommandmentDto as CommandmentDto");
+			Query query2 = mgr.createQuery("select from AgentDto as AgentDto");
+			Query query3 = mgr.createQuery("select from RequireDto as RequireDto");
 
-			execute = (List<com.virtualef.pgj.dto.CommandmentDto>) query.getResultList();
+			commandmentsDto = (List<com.virtualef.pgj.dto.CommandmentDto>) query1.getResultList();
+			agentsDto = (List<com.virtualef.pgj.dto.AgentDto>) query2.getResultList();
+			requiresDto = (List<com.virtualef.pgj.dto.RequireDto>) query3.getResultList();
+			
+			for (com.virtualef.pgj.dto.CommandmentDto commandment : commandmentsDto) {
+				for (com.virtualef.pgj.dto.AgentDto agent : agentsDto) {
+					if (commandment.getIdAgent() == agent.getKey().getId()) {
+						commandment.setAgent(agent);
+					}
+				}
+				for (com.virtualef.pgj.dto.RequireDto require : requiresDto) {
+					if (commandment.getIdRequire() == require.getKey().getId()) {
+						commandment.setRequire(require);
+					}
+				}
+			}
 		} catch (Exception e) {
 
 		} finally {
@@ -31,31 +49,52 @@ public class CommandmentDao implements CommandmentDaoInterface {
 		}
 		return CollectionResponse
 				.<com.virtualef.pgj.dto.CommandmentDto> builder()
-				.setItems(execute).build();
+				.setItems(commandmentsDto).build();
 	}
 
 	@Override
-	public CommandmentDto getObject(Long id) {
-		EntityManager mgr = getEntityManager();
-		com.virtualef.pgj.dto.CommandmentDto commandmentDto = null;
+	public CollectionResponse<CommandmentDto> getObjectByAgentId(Long id) {
+		EntityManager mgr = null;
+		List<com.virtualef.pgj.dto.CommandmentDto> commandmentsDto = null;
+		List<com.virtualef.pgj.dto.AgentDto> agentsDto = null;
+		List<com.virtualef.pgj.dto.RequireDto> requiresDto = null;
 
 		try {
-			commandmentDto = mgr.find(
-					com.virtualef.pgj.dto.CommandmentDto.class, id);
+			mgr = getEntityManager();
+			Query query = mgr.createQuery("select from CommandmentDto as CommandmentDto where CommandmentDto.idAgent = " + id);
+			Query query2 = mgr.createQuery("select from AgentDto as AgentDto");
+			Query query3 = mgr.createQuery("select from RequireDto as RequireDto");
+			
+			commandmentsDto = (List<com.virtualef.pgj.dto.CommandmentDto>) query.getResultList();
+			agentsDto = (List<com.virtualef.pgj.dto.AgentDto>) query2.getResultList();
+			requiresDto = (List<com.virtualef.pgj.dto.RequireDto>) query3.getResultList();
+			for (com.virtualef.pgj.dto.CommandmentDto commandment : commandmentsDto) {
+				for (com.virtualef.pgj.dto.AgentDto agent : agentsDto) {
+					if (commandment.getIdAgent() == agent.getKey().getId()) {
+						commandment.setAgent(agent);
+					}
+				}
+				for (com.virtualef.pgj.dto.RequireDto require : requiresDto) {
+					if (commandment.getIdRequire() == require.getKey().getId()) {
+						commandment.setRequire(require);
+					}
+				}
+			}
+		} catch (Exception e) {
+
 		} finally {
 			mgr.close();
 		}
-		return commandmentDto;
-	}
+		return CollectionResponse
+				.<com.virtualef.pgj.dto.CommandmentDto> builder()
+				.setItems(commandmentsDto).build();
+	}	
 
 	@Override
 	public CommandmentDto insertObject(CommandmentDto commandmentDto) {
 		EntityManager mgr = getEntityManager();
-
+		
 		try {
-			if (containsCommandmentByAttributes(commandmentDto)) {
-				throw new EntityExistsException("Object already exists");
-			}
 			mgr.persist(commandmentDto);
 		} finally {
 			mgr.close();
@@ -66,9 +105,11 @@ public class CommandmentDao implements CommandmentDaoInterface {
 	@Override
 	public CommandmentDto updateObject(CommandmentDto commandmentDto) {
 		EntityManager mgr = getEntityManager();
-
+		com.virtualef.pgj.dto.CommandmentDto commandment, commandmentPersist;
+		
 		try {
-			if (!containsCommandmentDto(commandmentDto)) {
+			commandment = mgr.find(com.virtualef.pgj.dto.CommandmentDto.class, commandmentDto.getId());
+			if (commandment == null) {
 				throw new EntityNotFoundException("Object does not exist");
 			}
 			mgr.persist(commandmentDto);
@@ -90,40 +131,27 @@ public class CommandmentDao implements CommandmentDaoInterface {
 		}
 	}
 
-	private boolean containsCommandmentDto(
-			com.virtualef.pgj.dto.CommandmentDto commandmentDto) {
-		EntityManager mgr = getEntityManager();
-		boolean contains = true;
-
-		try {
-			com.virtualef.pgj.dto.CommandmentDto item = mgr.find(
-					com.virtualef.pgj.dto.CommandmentDto.class,
-					commandmentDto.getId());
-			if (item == null) {
-				contains = false;
-			}
-		} finally {
-			mgr.close();
-		}
-		return contains;
-	}
-
-	private boolean containsCommandmentByAttributes(com.virtualef.pgj.dto.CommandmentDto commandmentDto) {
+	private boolean containsPersonByAttributes(com.virtualef.pgj.dto.PersonDto person) {
 		EntityManager mgr = getEntityManager();
 		boolean exist = false;
-
-		// try {
-		// Query query = mgr
-		// .createQuery("select from AgentDto as AgentDto where AgentDto.tuition = :"
-		// + agentDto.getTuition()
-		// + " and AgentDto.alias = :"
-		// + agentDto.getAlias());
-		// query.getSingleResult();
-		// } catch (Exception e) {
-		// exist = false;
-		// } finally {
-		//
-		// }
+		
+		try {
+			Query query = mgr
+					.createQuery("select from PersonDto as PersonDto where PersonDto.name = :"
+							+ person.getName()
+							+ " and PersonDto.firstName = :"
+							+ person.getFirstName()
+							+ " and PersonDto.lastName = :"
+							+ person.getLastName()
+							+ " and PersonDto.sex = :"
+							+ person.getSex()
+							+ " and PersonDto.age = :"
+							+ person.getAge());
+			query.getSingleResult();
+		} catch (Exception e) {			
+			exist = true;
+		} finally {
+		}
 		return exist;
 	}
 

@@ -9,6 +9,7 @@ public class Multimedia {
 	Long id;
 	private String path;
 	private Long idTarea;
+	
 	public Long getId() {
 		return id;
 	}
@@ -27,7 +28,4 @@ public class Multimedia {
 	public void setIdTarea(Long idTarea) {
 		this.idTarea = idTarea;
 	}
-	
-	
-
 }

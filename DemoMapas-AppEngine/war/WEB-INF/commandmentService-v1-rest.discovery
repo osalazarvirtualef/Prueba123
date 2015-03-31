@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/GCyH4PEQdZXE_TB1OnMi-2Bz36U\"",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/s_9af2iov4PWv2wVSGsG49LpQ3I\"",
  "discoveryVersion": "v1",
  "id": "commandmentService:v1",
  "name": "commandmentService",
@@ -88,12 +88,12 @@
      "$ref": "Key"
     },
     "latitude": {
-     "type": "string",
-     "format": "int64"
+     "type": "number",
+     "format": "float"
     },
     "longitude": {
-     "type": "string",
-     "format": "int64"
+     "type": "number",
+     "format": "float"
     },
     "person": {
      "$ref": "PersonDto"
@@ -129,8 +129,11 @@
      "type": "string",
      "format": "int64"
     },
-    "city": {
-     "type": "string"
+    "audio": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
     },
     "colony": {
      "type": "string"
@@ -151,13 +154,26 @@
      "format": "int64"
     },
     "date": {
-     "type": "string",
-     "format": "date-time"
-    },
-    "departure": {
      "type": "string"
     },
+    "department": {
+     "type": "string"
+    },
+    "evidence": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
     "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "idAgent": {
+     "type": "string",
+     "format": "int64"
+    },
+    "idRequire": {
      "type": "string",
      "format": "int64"
     },
@@ -165,12 +181,12 @@
      "type": "string"
     },
     "latitude": {
-     "type": "string",
-     "format": "int64"
+     "type": "number",
+     "format": "float"
     },
     "longitude": {
-     "type": "string",
-     "format": "int64"
+     "type": "number",
+     "format": "float"
     },
     "number": {
      "type": "string"
@@ -191,6 +207,9 @@
     },
     "state": {
      "type": "string"
+    },
+    "status": {
+     "type": "boolean"
     },
     "street": {
      "type": "string"
@@ -257,12 +276,6 @@
    "id": "RequireDto",
    "type": "object",
    "properties": {
-    "evidencia": {
-     "type": "array",
-     "items": {
-      "type": "string"
-     }
-    },
     "key": {
      "$ref": "Key"
     },
@@ -273,8 +286,8 @@
   }
  },
  "methods": {
-  "getCommandment": {
-   "id": "commandmentService.getCommandment",
+  "getCommandmentByAgentId": {
+   "id": "commandmentService.getCommandmentByAgentId",
    "path": "commandmentdto/{id}",
    "httpMethod": "GET",
    "parameters": {
@@ -289,7 +302,7 @@
     "id"
    ],
    "response": {
-    "$ref": "CommandmentDto"
+    "$ref": "CollectionResponse_CommandmentDto"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
@@ -323,7 +336,7 @@
   },
   "removeCommandments": {
    "id": "commandmentService.removeCommandments",
-   "path": "object/{id}",
+   "path": "commandmentdto/{id}",
    "httpMethod": "DELETE",
    "parameters": {
     "id": {

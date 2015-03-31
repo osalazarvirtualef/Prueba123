@@ -19,7 +19,6 @@ public class RequireDto implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Key key;
-	private List<String> evidencia;
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private PersonDto person;
 
@@ -29,14 +28,6 @@ public class RequireDto implements java.io.Serializable {
 
 	public void setKey(Key key) {
 		this.key = key;
-	}
-
-	public List<String> getEvidencia() {
-		return evidencia;
-	}
-
-	public void setEvidencia(List<String> evidencia) {
-		this.evidencia = evidencia;
 	}
 
 	public PersonDto getPerson() {

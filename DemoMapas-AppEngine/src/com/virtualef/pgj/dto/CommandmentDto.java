@@ -1,11 +1,9 @@
 package com.virtualef.pgj.dto;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class CommandmentDto implements java.io.Serializable {
@@ -16,27 +14,31 @@ public class CommandmentDto implements java.io.Serializable {
 	private Long id;
 	private Long record;
 	private Long order;
-	private String departure;
-	private java.util.Date date;
+	private String department;
+	private String date;
 	private String observations;
 	private String inquest;
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Transient
 	private AgentDto agent;
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Transient
 	private RequireDto require;
+	private Long idAgent;
+	private Long idRequire;
 	private Long area;
 	private Long crime;
 	private Long court;
 	private Long commandmentType;
+	private boolean status;
 	private String street;
 	private String colony;
 	private String number;
 	private String town;
-	private String city;
 	private String state;
 	private String country;
-	private Long latitude;
-	private Long longitude;
+	private float latitude;
+	private float longitude;
+	private String[] evidence;
+	private String[] audio;
 
 	public Long getId() {
 		return id;
@@ -60,22 +62,6 @@ public class CommandmentDto implements java.io.Serializable {
 
 	public void setOrder(Long order) {
 		this.order = order;
-	}
-
-	public String getDeparture() {
-		return departure;
-	}
-
-	public void setDeparture(String departure) {
-		this.departure = departure;
-	}
-
-	public java.util.Date getDate() {
-		return date;
-	}
-
-	public void setDate(java.util.Date date) {
-		this.date = date;
 	}
 
 	public String getObservations() {
@@ -134,6 +120,14 @@ public class CommandmentDto implements java.io.Serializable {
 		this.court = court;
 	}
 
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
 	public Long getCommandmentType() {
 		return commandmentType;
 	}
@@ -174,14 +168,6 @@ public class CommandmentDto implements java.io.Serializable {
 		this.town = town;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
 	public String getState() {
 		return state;
 	}
@@ -198,19 +184,67 @@ public class CommandmentDto implements java.io.Serializable {
 		this.country = country;
 	}
 
-	public Long getLatitude() {
+	public float getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(Long latitude) {
+	public void setLatitude(float latitude) {
 		this.latitude = latitude;
 	}
 
-	public Long getLongitude() {
+	public float getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(Long longitude) {
+	public void setLongitude(float longitude) {
 		this.longitude = longitude;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String[] getEvidence() {
+		return evidence;
+	}
+
+	public void setEvidence(String[] evidence) {
+		this.evidence = evidence;
+	}
+
+	public String[] getAudio() {
+		return audio;
+	}
+
+	public void setAudio(String[] audio) {
+		this.audio = audio;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public Long getIdAgent() {
+		return idAgent;
+	}
+
+	public void setIdAgent(Long idAgent) {
+		this.idAgent = idAgent;
+	}
+
+	public Long getIdRequire() {
+		return idRequire;
+	}
+
+	public void setIdRequire(Long idRequire) {
+		this.idRequire = idRequire;
 	}
 }

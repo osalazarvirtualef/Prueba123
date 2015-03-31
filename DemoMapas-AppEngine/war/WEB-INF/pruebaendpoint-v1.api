@@ -43,22 +43,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "pruebaendpoint.updatePrueba" : {
-      "path" : "prueba",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.virtualef.pgj.dto.PruebaEndpoint.updatePrueba",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "pruebaendpoint.removePrueba" : {
       "path" : "prueba/{id}",
       "httpMethod" : "DELETE",
@@ -100,6 +84,22 @@
           }
         },
         "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "pruebaendpoint.updatePrueba" : {
+      "path" : "prueba",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.virtualef.pgj.dto.PruebaEndpoint.updatePrueba",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -161,11 +161,11 @@
           "parent" : {
             "$ref" : "Key"
           },
-          "complete" : {
-            "type" : "boolean"
-          },
           "namespace" : {
             "type" : "string"
+          },
+          "complete" : {
+            "type" : "boolean"
           }
         }
       },
@@ -194,19 +194,19 @@
           "$ref" : "Prueba"
         }
       },
+      "com.virtualef.pgj.dto.PruebaEndpoint.removePrueba" : {
+      },
+      "com.virtualef.pgj.dto.PruebaEndpoint.listPrueba" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Prueba"
+        }
+      },
       "com.virtualef.pgj.dto.PruebaEndpoint.updatePrueba" : {
         "request" : {
           "$ref" : "Prueba"
         },
         "response" : {
           "$ref" : "Prueba"
-        }
-      },
-      "com.virtualef.pgj.dto.PruebaEndpoint.removePrueba" : {
-      },
-      "com.virtualef.pgj.dto.PruebaEndpoint.listPrueba" : {
-        "response" : {
-          "$ref" : "CollectionResponse_Prueba"
         }
       },
       "com.virtualef.pgj.dto.PruebaEndpoint.getPrueba" : {

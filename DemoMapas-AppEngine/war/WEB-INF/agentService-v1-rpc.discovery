@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/fW4EGZ2c4_oJx7iZi3sOH4Cab3E\"",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/wiMpQz5-o2ZRfD3g8-487MgPiXg\"",
  "discoveryVersion": "v1",
  "id": "agentService:v1",
  "name": "agentService",
@@ -86,12 +86,12 @@
      "$ref": "Key"
     },
     "latitude": {
-     "type": "string",
-     "format": "int64"
+     "type": "number",
+     "format": "float"
     },
     "longitude": {
-     "type": "string",
-     "format": "int64"
+     "type": "number",
+     "format": "float"
     },
     "person": {
      "$ref": "PersonDto"
@@ -183,6 +183,30 @@
    },
    "parameterOrder": [
     "id"
+   ],
+   "returns": {
+    "$ref": "AgentDto"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "agentService.getAgentByAlias": {
+   "id": "agentService.getAgentByAlias",
+   "allowGet": true,
+   "parameters": {
+    "alias": {
+     "type": "string",
+     "required": true
+    },
+    "aliasP": {
+     "type": "string",
+     "required": true
+    }
+   },
+   "parameterOrder": [
+    "alias",
+    "aliasP"
    ],
    "returns": {
     "$ref": "AgentDto"

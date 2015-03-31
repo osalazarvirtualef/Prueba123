@@ -1,12 +1,12 @@
 package com.virtualef.pgj.dto;
 
 import com.demomapas.EMF;
-
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.CollectionResponse;
 import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.datanucleus.query.JPACursorHelper;
 
 import java.util.List;
@@ -117,10 +117,15 @@ public class PruebaEndpoint {
 	public Prueba updatePrueba(Prueba prueba) {
 		EntityManager mgr = getEntityManager();
 		try {
-			if (!containsPrueba(prueba)) {
+			Prueba item = mgr.find(Prueba.class, prueba.getKey().getId());
+			if (item != null) {
+				Key parentKey = item.getKey();
+				item = prueba;
+				item.setKey(parentKey);
+				mgr.persist(item);
+			} else {
 				throw new EntityNotFoundException("Object does not exist");
 			}
-			mgr.persist(prueba);
 		} finally {
 			mgr.close();
 		}
@@ -148,7 +153,9 @@ public class PruebaEndpoint {
 		EntityManager mgr = getEntityManager();
 		boolean contains = true;
 		try {
-			Prueba item = mgr.find(Prueba.class, prueba.getKey());
+			Prueba item = mgr.find(Prueba.class, prueba.getKey().getId());
+			System.out.println("item diff null");
+			System.out.println(item == null);
 			if (item == null) {
 				contains = false;
 			}
@@ -163,3 +170,4 @@ public class PruebaEndpoint {
 	}
 
 }
+

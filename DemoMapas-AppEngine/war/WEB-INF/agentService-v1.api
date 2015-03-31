@@ -28,13 +28,13 @@
   "packagePath" : "pgj.service",
   "methods" : {
     "agentService.removeAgent" : {
-      "path" : "object/{id}",
+      "path" : "agentdto/{id}",
       "httpMethod" : "DELETE",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.virtualef.pgj.service.AgentService.removeObject",
+      "rosyMethod" : "com.virtualef.pgj.service.AgentService.removeAgent",
       "request" : {
         "parameters" : {
           "id" : {
@@ -48,6 +48,21 @@
         "body" : "empty"
       }
     },
+    "agentService.getAgents" : {
+      "path" : "agentdto",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.virtualef.pgj.service.AgentService.getAgents",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "agentService.insertAgent" : {
       "path" : "agentdto",
       "httpMethod" : "POST",
@@ -55,7 +70,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.virtualef.pgj.service.AgentService.insertObject",
+      "rosyMethod" : "com.virtualef.pgj.service.AgentService.insertAgent",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -64,15 +79,25 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "agentService.getAgents" : {
-      "path" : "agentdto",
+    "agentService.getAgentByAlias" : {
+      "path" : "agentdto/{alias}/{aliasP}",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.virtualef.pgj.service.AgentService.listObject",
+      "rosyMethod" : "com.virtualef.pgj.service.AgentService.getAgentByAlias",
       "request" : {
+        "parameters" : {
+          "alias" : {
+            "type" : "string",
+            "required" : true
+          },
+          "aliasP" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
         "body" : "empty"
       },
       "response" : {
@@ -86,7 +111,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.virtualef.pgj.service.AgentService.updateObject",
+      "rosyMethod" : "com.virtualef.pgj.service.AgentService.updateAgent",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -102,7 +127,7 @@
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.virtualef.pgj.service.AgentService.getObject",
+      "rosyMethod" : "com.virtualef.pgj.service.AgentService.getAgent",
       "request" : {
         "parameters" : {
           "id" : {
@@ -119,6 +144,21 @@
   },
   "descriptor" : {
     "schemas" : {
+      "CollectionResponse_AgentDto" : {
+        "id" : "CollectionResponse_AgentDto",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "AgentDto"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      },
       "AgentDto" : {
         "id" : "AgentDto",
         "type" : "object",
@@ -136,12 +176,12 @@
             "type" : "string"
           },
           "latitude" : {
-            "type" : "string",
-            "format" : "int64"
+            "type" : "number",
+            "format" : "float"
           },
           "longitude" : {
-            "type" : "string",
-            "format" : "int64"
+            "type" : "number",
+            "format" : "float"
           },
           "person" : {
             "$ref" : "PersonDto"
@@ -168,11 +208,11 @@
           "parent" : {
             "$ref" : "Key"
           },
-          "complete" : {
-            "type" : "boolean"
-          },
           "namespace" : {
             "type" : "string"
+          },
+          "complete" : {
+            "type" : "boolean"
           }
         }
       },
@@ -200,40 +240,17 @@
             "format" : "int64"
           }
         }
-      },
-      "CollectionResponse_AgentDto" : {
-        "id" : "CollectionResponse_AgentDto",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "AgentDto"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
       }
     },
     "methods" : {
-      "com.virtualef.pgj.service.AgentService.removeObject" : {
+      "com.virtualef.pgj.service.AgentService.removeAgent" : {
       },
-      "com.virtualef.pgj.service.AgentService.insertObject" : {
-        "request" : {
-          "$ref" : "AgentDto"
-        },
-        "response" : {
-          "$ref" : "AgentDto"
-        }
-      },
-      "com.virtualef.pgj.service.AgentService.listObject" : {
+      "com.virtualef.pgj.service.AgentService.getAgents" : {
         "response" : {
           "$ref" : "CollectionResponse_AgentDto"
         }
       },
-      "com.virtualef.pgj.service.AgentService.updateObject" : {
+      "com.virtualef.pgj.service.AgentService.insertAgent" : {
         "request" : {
           "$ref" : "AgentDto"
         },
@@ -241,7 +258,20 @@
           "$ref" : "AgentDto"
         }
       },
-      "com.virtualef.pgj.service.AgentService.getObject" : {
+      "com.virtualef.pgj.service.AgentService.getAgentByAlias" : {
+        "response" : {
+          "$ref" : "AgentDto"
+        }
+      },
+      "com.virtualef.pgj.service.AgentService.updateAgent" : {
+        "request" : {
+          "$ref" : "AgentDto"
+        },
+        "response" : {
+          "$ref" : "AgentDto"
+        }
+      },
+      "com.virtualef.pgj.service.AgentService.getAgent" : {
         "response" : {
           "$ref" : "AgentDto"
         }

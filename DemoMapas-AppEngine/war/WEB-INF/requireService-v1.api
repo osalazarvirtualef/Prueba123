@@ -44,7 +44,7 @@
       }
     },
     "requireService.removeRequire" : {
-      "path" : "object/{id}",
+      "path" : "requiredto/{id}",
       "httpMethod" : "DELETE",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
@@ -126,12 +126,6 @@
           "key" : {
             "$ref" : "Key"
           },
-          "evidencia" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          },
           "person" : {
             "$ref" : "PersonDto"
           }
@@ -157,11 +151,11 @@
           "parent" : {
             "$ref" : "Key"
           },
-          "complete" : {
-            "type" : "boolean"
-          },
           "namespace" : {
             "type" : "string"
+          },
+          "complete" : {
+            "type" : "boolean"
           }
         }
       },

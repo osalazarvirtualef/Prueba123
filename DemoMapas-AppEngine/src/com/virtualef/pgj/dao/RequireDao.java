@@ -47,9 +47,9 @@ public class RequireDao implements com.virtualef.pgj.dao.RequireDaoInterface {
 	public com.virtualef.pgj.dto.RequireDto insertObject(com.virtualef.pgj.dto.RequireDto requireDto) {
 		EntityManager mgr = getEntityManager();
 		
-		try {
+		try {			
 			if (containsPersonByAttributes(requireDto.getPerson())) {
-				throw new EntityExistsException("Object already exists");
+				throw new EntityNotFoundException("Object does not exist");
 			}
 			mgr.persist(requireDto);
 		} finally {
@@ -61,12 +61,17 @@ public class RequireDao implements com.virtualef.pgj.dao.RequireDaoInterface {
 	@Override
 	public com.virtualef.pgj.dto.RequireDto updateObject(com.virtualef.pgj.dto.RequireDto requireDto) {
 		EntityManager mgr = getEntityManager();
+		com.virtualef.pgj.dto.RequireDto require, requirePersist;
 		
 		try {
-			if (!containsRequireDto(requireDto)) {
+			require = mgr.find(com.virtualef.pgj.dto.RequireDto.class, requireDto.getKey().getId());
+			if (require == null) {
 				throw new EntityNotFoundException("Object does not exist");
 			}
-			mgr.persist(requireDto);
+			requirePersist = requireDto;
+			requirePersist.setKey(require.getKey());
+			requirePersist.getPerson().setKey(require.getPerson().getKey());
+			mgr.persist(requirePersist);
 		} finally {
 			mgr.close();
 		}
@@ -85,36 +90,21 @@ public class RequireDao implements com.virtualef.pgj.dao.RequireDaoInterface {
 		}
 	}
 
-	private boolean containsRequireDto(com.virtualef.pgj.dto.RequireDto requiredto) {
+	private boolean containsPersonByAttributes(com.virtualef.pgj.dto.PersonDto person) {
 		EntityManager mgr = getEntityManager();
-		boolean contains = true;
-		try {
-			com.virtualef.pgj.dto.RequireDto item = mgr.find(com.virtualef.pgj.dto.RequireDto.class, requiredto.getKey());
-			if (item == null) {
-				contains = false;
-			}
-		} finally {
-			mgr.close();
-		}
-		return contains;
-	}
-
-	private boolean containsPersonByAttributes(
-			com.virtualef.pgj.dto.PersonDto person) {
-		EntityManager mgr = getEntityManager();
-		boolean exist = true;
+		boolean exist = true;		
 
 		try {
 			Query query = mgr
-					.createQuery("select from PersonDto as PersonDto where PersonDto.name = :"
+					.createQuery("SELECT p from PersonDto p WHERE p.name = '"
 							+ person.getName()
-							+ " and PersonDto.firstName = :"
+							+ "' AND p.firstName = '"
 							+ person.getFirstName()
-							+ " and PersonDto.lastName = :"
+							+ "' AND p.lastName = '"
 							+ person.getLastName()
-							+ " and PersonDto.sex = :"
+							+ "' AND p.sex = '"
 							+ person.getSex()
-							+ " and PersonDto.age = :"
+							+ "' AND age = "
 							+ person.getAge());
 			query.getSingleResult();
 		} catch (Exception e) {

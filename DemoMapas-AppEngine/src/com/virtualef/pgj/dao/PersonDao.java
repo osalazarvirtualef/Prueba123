@@ -92,26 +92,25 @@ public class PersonDao implements com.virtualef.pgj.dao.PersonDaoInterface {
 		return false;
 	}
 
-	private boolean containsPersonByAttributes(
-			com.virtualef.pgj.dto.PersonDto person) {
-		EntityManager mgr = getEntityManager();
-		
+	private boolean containsPersonByAttributes(com.virtualef.pgj.dto.PersonDto person) {
+		EntityManager mgr = getEntityManager();		
 		boolean exist = true;
 
 		try {
 			Query query = mgr
-					.createQuery("select from PersonDto as PersonDto where PersonDto.name = :"
+					.createQuery("SELECT p from PersonDto p WHERE p.name = '"
 							+ person.getName()
-							+ " and PersonDto.firstName = :"
+							+ "' AND p.firstName = '"
 							+ person.getFirstName()
-							+ " and PersonDto.lastName = :"
+							+ "' AND p.lastName = '"
 							+ person.getLastName()
-							+ " and PersonDto.sex = :"
+							+ "' AND p.sex = '"
 							+ person.getSex()
-							+ " and PersonDto.age = :"
+							+ "' AND age = "
 							+ person.getAge());
 			query.getSingleResult();
 		} catch (Exception e) {
+			System.out.println("Entra en catch");
 			exist = false;
 		} finally {
 

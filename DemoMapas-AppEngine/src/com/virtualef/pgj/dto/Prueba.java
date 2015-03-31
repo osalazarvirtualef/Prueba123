@@ -27,4 +27,8 @@ public class Prueba {
 	public void setPruebas(String pruebas) {
 		this.pruebas = pruebas;
 	}
+	@Override
+	public String toString() {
+		return "Prueba [key=" + key + ", pruebas=" + pruebas + "]";
+	}
 }

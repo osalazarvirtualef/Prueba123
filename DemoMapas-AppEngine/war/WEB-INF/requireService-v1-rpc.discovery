@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"c05bU6zpvXPOpQakG5gG3IOJh8Y/XF9CIAVRseAOJdToft5eD9PeAZw\"",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/zAFnQ53EwK7Ze8KX9QIVHY5ipRo\"",
  "discoveryVersion": "v1",
  "id": "requireService:v1",
  "name": "requireService",
@@ -144,12 +144,6 @@
    "id": "RequireDto",
    "type": "object",
    "properties": {
-    "evidencia": {
-     "type": "array",
-     "items": {
-      "type": "string"
-     }
-    },
     "key": {
      "$ref": "Key"
     },

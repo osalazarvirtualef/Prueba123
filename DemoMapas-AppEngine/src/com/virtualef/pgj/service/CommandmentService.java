@@ -16,27 +16,27 @@ public class CommandmentService implements com.virtualef.pgj.dao.CommandmentDaoI
 		commandmentDao = (com.virtualef.pgj.dao.CommandmentDao) com.virtualef.pgj.dao.DaoFactory.getDao(com.virtualef.pgj.dao.CommandmentDao.class);
 	}
 	
-	@ApiMethod(name = "getCommandments")
+	@ApiMethod(name = "getCommandments", path="commandmentdto")
 	public CollectionResponse<CommandmentDto> listObject() {
 		return commandmentDao.listObject();
 	}
-
-	@ApiMethod(name = "getCommandment")
-	public CommandmentDto getObject(@Named("id") Long id) {
-		return commandmentDao.getObject(id);
+	
+	@ApiMethod(name = "getCommandmentByAgentId", path="commandmentdto/{id}")
+	public CollectionResponse<CommandmentDto> getObjectByAgentId(@Named("id") Long id) {
+		return commandmentDao.getObjectByAgentId(id);
 	}
 
-	@ApiMethod(name = "insertCommandment")
+	@ApiMethod(name = "insertCommandment", path="commandmentdto")
 	public CommandmentDto insertObject(CommandmentDto commandmentDto) {
 		return commandmentDao.insertObject(commandmentDto);
 	}
 
-	@ApiMethod(name = "updateCommandments")
+	@ApiMethod(name = "updateCommandments", path="commandmentdto")
 	public CommandmentDto updateObject(CommandmentDto commandmentDto) {
 		return commandmentDao.updateObject(commandmentDto);
 	}
 
-	@ApiMethod(name = "removeCommandments")
+	@ApiMethod(name = "removeCommandments", path="commandmentdto/{id}")
 	public void removeObject(@Named("id") Long id) {		
 		commandmentDao.removeObject(id);
 	}
