@@ -57,6 +57,10 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Intent intent = new Intent(this, RegisterActivity.class);
+//		//Intent intent = new Intent(this, MapView.class);
+//		finish();
+		startActivity(intent);
 //		//LinearLayout rLGreen = ((LinearLayout) button.getParent());
 //		Display display = getWindowManager().getDefaultDisplay();
 //		contenedor = (RelativeLayout) findViewById(R.id.contenedorMain);
@@ -143,23 +147,23 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 		///////// hasta aqui
 //
 //		// Start up RegisterActivity right away
-		Preferences = getApplicationContext().getSharedPreferences(
-				"settings", 0);
-	    boolean initialized = Preferences.getBoolean("FirstTime", false);
-	    if (initialized) {
-	    	Intent intent = new Intent(this, MapView.class);
-			//Intent intent = new Intent(this, MapView.class);
-			finish();
-			startActivity(intent);
-	    }
-	    else{
-		Intent intent = new Intent(this, RegisterActivity.class);
-		//Intent intent = new Intent(this, MapView.class);
-		finish();
-		startActivity(intent);
-		// Since this is just a wrapper to start the main activity,
-		// finish it after launching RegisterActivity
-	    }
+//		Preferences = getApplicationContext().getSharedPreferences(
+//				"settings", 0);
+//	    boolean initialized = Preferences.getBoolean("FirstTime", false);
+//	    if (initialized) {
+//	    	Intent intent = new Intent(this, MapView.class);
+//			//Intent intent = new Intent(this, MapView.class);
+//			finish();
+//			startActivity(intent);
+//	    }
+//	    else{
+//		Intent intent = new Intent(this, RegisterActivity.class);
+//		//Intent intent = new Intent(this, MapView.class);
+//		finish();
+//		startActivity(intent);
+//		// Since this is just a wrapper to start the main activity,
+//		// finish it after launching RegisterActivity
+//	    }
 	}
 	@Override
 	public void onLocationChanged(Location location) {

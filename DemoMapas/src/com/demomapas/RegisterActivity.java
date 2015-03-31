@@ -7,16 +7,13 @@ import com.demomapas.deviceinfoendpoint.model.DeviceInfo;
 import com.demomapas.messageEndpoint.MessageEndpoint;
 import com.demomapas.messageEndpoint.model.CollectionResponseMessageData;
 import com.demomapas.messageEndpoint.model.MessageData;
-import com.demomapas.model.agenteendpoint.Agenteendpoint;
-import com.demomapas.model.agenteendpoint.Agenteendpoint.GetAgente;
-import com.demomapas.model.agenteendpoint.model.Agente;
-import com.demomapas.model.usuarioendpoint.Usuarioendpoint;
-import com.demomapas.model.usuarioendpoint.model.CollectionResponseUsuario;
-import com.demomapas.model.usuarioendpoint.model.Usuario;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.virtualef.pgj.service.agentService.AgentService;
+import com.virtualef.pgj.service.agentService.AgentService.GetAgentByAlias;
+import com.virtualef.pgj.service.agentService.model.AgentDto;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -61,14 +58,16 @@ import android.widget.Toast;
  * LOCAL_ANDROID_RUN flag in CloudEndpointUtils.java. See the javadoc in these
  * classes for more details.
  * 
- * For a comprehensive walkthrough, check out the documentation at
+ * For a comprehensive walkonthrough, check out the documentation at
  * http://developers.google.com/eclipse/docs/cloud_endpoints
  */
 public class RegisterActivity extends Activity implements OnClickListener {
 	DeviceInfo device = new DeviceInfo();
 	Deviceinfoendpoint deviceiInfoendpoint = null;
-	Agenteendpoint agenteEndpoint = null;
-	Agente Agente = new Agente();
+//	Agenteendpoint agenteEndpoint = null;
+//	Agente Agente = new Agente();
+	AgentDto Agent = new AgentDto();
+	AgentService agentEndpoint = null;
 	private EditText usuariotext;
 	private EditText password;
 	private boolean userExist = false;
@@ -96,7 +95,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
     	finish();
     }
     setContentView(R.layout.activity_register);
-    Intent intent = new Intent(this, MapView.class);
+   // Intent intent = new Intent(this, MapView.class);
     Button regButton = (Button) findViewById(R.id.regButton);
 
     registerListener = new OnTouchListener() {
@@ -329,8 +328,8 @@ protected void onStop() {
 		ProgressDialog progress;
 		DeviceInfo device = new DeviceInfo();
 		Deviceinfoendpoint deviceiInfoendpoint = null;
-		Agenteendpoint agentEndpoint = null;
-		Agente Agent = new  Agente();
+//		Agenteendpoint agentEndpoint = null;
+//		Agente Agent = new  Agente();
 		
 		private validarUsuario(Context context) {
 	        this.context = context.getApplicationContext();
@@ -340,6 +339,45 @@ protected void onStop() {
 			usuariotext = (EditText)findViewById(R.id.usuario);
 			password = (EditText)findViewById(R.id.password);
 			// TODO Auto-generated method stub
+		
+			
+			//hacemos la inicializacion del endpoint de Agemte
+			
+		EndPointsInicializacion endpoints = new EndPointsInicializacion();
+		agentEndpoint = endpoints.InicializacionAgent();
+		try {
+
+			GetAgentByAlias agent  = agentEndpoint.getAgentByAlias(usuariotext.toString(), password.toString());
+			Log.i("", "");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			
 			
@@ -357,31 +395,31 @@ protected void onStop() {
 //					deviceInfoendpointbuilder).build();
 			
 			
-			Agenteendpoint.Builder agentebuilder = new Agenteendpoint.Builder(
-			AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
-			new HttpRequestInitializer() {
-
-				@Override
-				public void initialize(HttpRequest arg0) {
-					// TODO Auto-generated method stub
-				}
-			});
-			agenteEndpoint = CloudEndpointUtils.updateBuilder(
-			agentebuilder).build();
-			try {
-				Log.i("usuario", usuariotext.getText().toString());
-				Log.i("password", password.getText().toString());
-				Agente = agenteEndpoint.getAgente(0l,usuariotext.getText().toString(),password.getText().toString()).execute();
-				Log.i("", "");
-				if(Agente != null)
-				userExist = true;
-				
-			
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			Agenteendpoint.Builder agentebuilder = new Agenteendpoint.Builder(
+//			AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
+//			new HttpRequestInitializer() {
+//
+//				@Override
+//				public void initialize(HttpRequest arg0) {
+//					// TODO Auto-generated method stub
+//				}
+//			});
+//			agenteEndpoint = CloudEndpointUtils.updateBuilder(
+//			agentebuilder).build();
+//			try {
+//				Log.i("usuario", usuariotext.getText().toString());
+//				Log.i("password", password.getText().toString());
+//				Agente = agenteEndpoint.getAgente(0l,usuariotext.getText().toString(),password.getText().toString()).execute();
+//				Log.i("", "");
+//				if(Agente != null)
+//				userExist = true;
+//				
+//			
+//				
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			
 			
 		
@@ -392,38 +430,38 @@ protected void onStop() {
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
 			
-			if(!userExist){
-				Toast.makeText(getApplicationContext(), "El usuario no existe compruebe sus datos", Toast.LENGTH_LONG).show();
-			}
-			else{
-			  //  updateState(State.REGISTERING);
-	            try {
-	              GCMIntentService.register(getApplicationContext());
-	              Log.i("registrado","registrado");
-	           
-	      		
-	              startActivity(new Intent(RegisterActivity.this, MapView.class));
-	              editor = Preferences.edit();
-	              editor.putBoolean("FirstTime", true);
-	              editor.putLong("idAgente", Agente.getId());
-	              editor.commit();
-	              finish();
-	           
-	            } catch (Exception e) {
-	              Log.e(RegisterActivity.class.getName(),
-	                  "Exception received when attempting to register for Google Cloud "
-	                      + "Messaging. Perhaps you need to set your virtual device's "
-	                      + " target to Google APIs? "
-	                      + "See https://developers.google.com/eclipse/docs/cloud_endpoints_android"
-	                      + " for more information.", e);
-//	              showDialog("There was a problem when attempting to register for "
-//	                  + "Google Cloud Messaging. If you're running in the emulator, "
-//	                  + "is the target of your virtual device set to 'Google APIs?' "
-//	                  + "See the Android log for more details.");
-	            // updateState(State.UNREGISTERED);
-	            }
-				
-			}
+//			if(!userExist){
+//				Toast.makeText(getApplicationContext(), "El usuario no existe compruebe sus datos", Toast.LENGTH_LONG).show();
+//			}
+//			else{
+//			  //  updateState(State.REGISTERING);
+//	            try {
+//	              GCMIntentService.register(getApplicationContext());
+//	              Log.i("registrado","registrado");
+//	           
+//	      		
+//	              startActivity(new Intent(RegisterActivity.this, MapView.class));
+//	              editor = Preferences.edit();
+//	              editor.putBoolean("FirstTime", true);
+//	              editor.putLong("idAgente", Agente.getId());
+//	              editor.commit();
+//	              finish();
+//	           
+//	            } catch (Exception e) {
+//	              Log.e(RegisterActivity.class.getName(),
+//	                  "Exception received when attempting to register for Google Cloud "
+//	                      + "Messaging. Perhaps you need to set your virtual device's "
+//	                      + " target to Google APIs? "
+//	                      + "See https://developers.google.com/eclipse/docs/cloud_endpoints_android"
+//	                      + " for more information.", e);
+////	              showDialog("There was a problem when attempting to register for "
+////	                  + "Google Cloud Messaging. If you're running in the emulator, "
+////	                  + "is the target of your virtual device set to 'Google APIs?' "
+////	                  + "See the Android log for more details.");
+//	            // updateState(State.UNREGISTERED);
+//	            }
+//				
+//			}
 			
 			super.onPostExecute(result);
 		}
