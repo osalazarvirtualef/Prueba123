@@ -350,6 +350,8 @@ protected void onStop() {
 			AgentDto agent = agentEndpoint.getAgentByAlias(usuariotext.getText().toString(), password.getText().toString()).execute();
 			
 			Log.i("", "");
+			 
+			
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -429,6 +431,8 @@ protected void onStop() {
 		}
 		@Override
 		protected void onPostExecute(Void result) {
+			
+			startActivity(new Intent(RegisterActivity.this, ListaOpciones.class));
 			// TODO Auto-generated method stub
 			
 //			if(!userExist){

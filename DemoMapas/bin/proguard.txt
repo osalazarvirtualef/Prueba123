@@ -1,28 +1,46 @@
-# view AndroidManifest.xml #generated:42
+# view res/layout/lyt_fragmentprincipal.xml #generated:7
+-keep class android.support.v4.view.PagerTitleStrip { <init>(...); }
+
+# view res/layout/lyt_fragmentprincipal.xml #generated:2
+-keep class android.support.v4.view.ViewPager { <init>(...); }
+
+# view AndroidManifest.xml #generated:57
 -keep class com.demomapas.GCMIntentService { <init>(...); }
 
-# view AndroidManifest.xml #generated:66
+# view AndroidManifest.xml #generated:87
 -keep class com.demomapas.InsertaUbicacion { <init>(...); }
 
-# view AndroidManifest.xml #generated:39
+# view AndroidManifest.xml #generated:52
 -keep class com.demomapas.LevantarInformacion { <init>(...); }
 
-# view AndroidManifest.xml #generated:29
+# view AndroidManifest.xml #generated:127
+-keep class com.demomapas.ListaOpciones { <init>(...); }
+
+# view AndroidManifest.xml #generated:39
 -keep class com.demomapas.MainActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:36
+# view AndroidManifest.xml #generated:123
+-keep class com.demomapas.MandamientosJudiciales { <init>(...); }
+
+# view AndroidManifest.xml #generated:131
+-keep class com.demomapas.MandamientosJudicialesList { <init>(...); }
+
+# view AndroidManifest.xml #generated:48
 -keep class com.demomapas.MapView { <init>(...); }
 
-# view AndroidManifest.xml #generated:54
+# view AndroidManifest.xml #generated:119
+-keep class com.demomapas.Principal { <init>(...); }
+
+# view AndroidManifest.xml #generated:74
 -keep class com.demomapas.RegisterActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:88
+# view AndroidManifest.xml #generated:110
 -keep class com.demomapas.servicios.Iniciar_Servicio_Localizacion { <init>(...); }
 
-# view AndroidManifest.xml #generated:67
+# view AndroidManifest.xml #generated:91
 -keep class com.demomapas.servicios.Servicio_Localizacion { <init>(...); }
 
-# view AndroidManifest.xml #generated:43
+# view AndroidManifest.xml #generated:59
 -keep class com.google.android.gcm.GCMBroadcastReceiver { <init>(...); }
 
 # view res/layout/activity_main.xml #generated:8
