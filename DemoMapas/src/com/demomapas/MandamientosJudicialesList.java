@@ -38,7 +38,7 @@ public class MandamientosJudicialesList extends Activity implements OnClickListe
 		
 		
 		TextView OrdenesReaprehension = new TextView(getApplicationContext());
-		OrdenesReaprehension.setText("Ordenes de ReAprehensión");
+		OrdenesReaprehension.setText("Ordenes de Reaprehensión");
 		OrdenesReaprehension.setTextSize(25);
 		OrdenesReaprehension.setGravity(Gravity.CENTER);
 		OrdenesReaprehension.setOnClickListener(this);
@@ -54,7 +54,7 @@ public class MandamientosJudicialesList extends Activity implements OnClickListe
 		OrdenesPresentacion.setLayoutParams(llp);
 		
 		TextView OrdenesComparecencia = new TextView(getApplicationContext());
-		OrdenesComparecencia.setText("Ordenes de Comparecencía");
+		OrdenesComparecencia.setText("Ordenes de Comparecencia");
 		OrdenesComparecencia.setTextSize(25);
 		OrdenesComparecencia.setGravity(Gravity.CENTER);
 		OrdenesComparecencia.setOnClickListener(this);
@@ -115,27 +115,31 @@ public class MandamientosJudicialesList extends Activity implements OnClickListe
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case Constants.OrdenesAprehension:
-			Toast.makeText(null, "aprehension", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "aprehension", Toast.LENGTH_SHORT).show();
+	
 			
 			break;
 		case Constants.OrdenesReaprehension:
-			Toast.makeText(null, "reaprehension", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "reaprehension", Toast.LENGTH_SHORT).show();
+			
 			break;
 		
 		case Constants.OrdenesPresentacion:
-			Toast.makeText(null, "presentacion", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "presentacion", Toast.LENGTH_SHORT).show();
+			
 			break;
 		
 		case Constants.OficiosColaboracion:
-			Toast.makeText(null, "colaboracion", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "colaboracion", Toast.LENGTH_SHORT).show();
+			
 			break;
 		
 		case Constants.OrdenesComparecencia:
-			Toast.makeText(null, "comparecencia", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "comparecencia", Toast.LENGTH_SHORT).show();
 			break;
 		
 		case Constants.Traslados:
-			Toast.makeText(null, "traslados", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "traslados", Toast.LENGTH_SHORT).show();
 			System.out.println();
 			break;
 		

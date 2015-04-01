@@ -1,6 +1,7 @@
  package com.demomapas;
 
 import java.io.IOException;
+import java.text.BreakIterator;
 
 import com.demomapas.deviceinfoendpoint.Deviceinfoendpoint;
 import com.demomapas.deviceinfoendpoint.model.DeviceInfo;
@@ -74,6 +75,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	Intent intent;
 	static SharedPreferences.Editor editor;
 	static SharedPreferences Preferences;
+	public boolean agenteExiatente = false;
 
   enum State {
     REGISTERED, REGISTERING, UNREGISTERED, UNREGISTERING
@@ -87,16 +89,16 @@ public class RegisterActivity extends Activity implements OnClickListener {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setTitle("Registro de Usuario");
+    setTitle("POLICÍA DE INVESTIGACIÓN");
     Preferences = getApplicationContext().getSharedPreferences(
 			"settings", 0);
     boolean initialized = Preferences.getBoolean("FirstTime", false);
     if (initialized) {
     	finish();
     }
-    setContentView(R.layout.activity_register);
+    setContentView(R.layout.activity_register2);
    // Intent intent = new Intent(this, MapView.class);
-    Button regButton = (Button) findViewById(R.id.regButton);
+    Button regButton = (Button) findViewById(R.id.regButton2);
 
     registerListener = new OnTouchListener() {
       @Override
@@ -336,8 +338,8 @@ protected void onStop() {
 	    }
 		@Override
 		protected Void doInBackground(Void... params) {
-			usuariotext = (EditText)findViewById(R.id.usuario);
-			password = (EditText)findViewById(R.id.password);
+			usuariotext = (EditText)findViewById(R.id.editTextUsuario);
+			password = (EditText)findViewById(R.id.editTextContrasena);
 			// TODO Auto-generated method stub
 		
 			
@@ -348,6 +350,7 @@ protected void onStop() {
 		try {
 
 			AgentDto agent = agentEndpoint.getAgentByAlias(usuariotext.getText().toString(), password.getText().toString()).execute();
+			if(agent != null) agenteExiatente = true;
 			
 			Log.i("", "");
 			 
@@ -356,83 +359,23 @@ protected void onStop() {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
+			agenteExiatente = false;
+			
 		}
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		////para el upodate del dispositivo
-//			Deviceinfoendpoint.Builder deviceInfoendpointbuilder = new Deviceinfoendpoint.Builder(
-//					AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
-//					new HttpRequestInitializer() {
-//
-//						@Override
-//						public void initialize(HttpRequest arg0) {
-//							// TODO Auto-generated method stub
-//						}
-//					});
-//			deviceiInfoendpoint = CloudEndpointUtils.updateBuilder(
-//					deviceInfoendpointbuilder).build();
-			
-			
-//			Agenteendpoint.Builder agentebuilder = new Agenteendpoint.Builder(
-//			AndroidHttp.newCompatibleTransport(), new JacksonFactory(),
-//			new HttpRequestInitializer() {
-//
-//				@Override
-//				public void initialize(HttpRequest arg0) {
-//					// TODO Auto-generated method stub
-//				}
-//			});
-//			agenteEndpoint = CloudEndpointUtils.updateBuilder(
-//			agentebuilder).build();
-//			try {
-//				Log.i("usuario", usuariotext.getText().toString());
-//				Log.i("password", password.getText().toString());
-//				Agente = agenteEndpoint.getAgente(0l,usuariotext.getText().toString(),password.getText().toString()).execute();
-//				Log.i("", "");
-//				if(Agente != null)
-//				userExist = true;
-//				
-//			
-//				
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-			
-			
+
 		
 
 			return null;
 		}
 		@Override
 		protected void onPostExecute(Void result) {
-			
+			if(agenteExiatente){
 			startActivity(new Intent(RegisterActivity.this, ListaOpciones.class));
+			finish();
+			}else 
+				Toast.makeText(getApplicationContext(), "Error en el usuario", Toast.LENGTH_LONG).show();
 			// TODO Auto-generated method stub
 			
 //			if(!userExist){

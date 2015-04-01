@@ -132,6 +132,14 @@
             android:name=".MandamientosJudicialesList"
             android:label="@string/title_activity_mandamientos_judiciales_list" >
         </activity>
+        <activity
+            android:name="com.demomapas.mandamientos.OrdenesAprehension"
+            android:label="@string/title_activity_ordenes_aprehension" >
+        </activity>
+        <activity
+            android:name=".Lfve"
+            android:label="@string/title_activity_lfve" >
+        </activity>
     </application>
 
 </manifest>

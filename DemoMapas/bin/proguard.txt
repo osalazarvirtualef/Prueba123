@@ -13,6 +13,9 @@
 # view AndroidManifest.xml #generated:52
 -keep class com.demomapas.LevantarInformacion { <init>(...); }
 
+# view AndroidManifest.xml #generated:139
+-keep class com.demomapas.Lfve { <init>(...); }
+
 # view AndroidManifest.xml #generated:127
 -keep class com.demomapas.ListaOpciones { <init>(...); }
 
@@ -33,6 +36,9 @@
 
 # view AndroidManifest.xml #generated:74
 -keep class com.demomapas.RegisterActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:135
+-keep class com.demomapas.mandamientos.OrdenesAprehension { <init>(...); }
 
 # view AndroidManifest.xml #generated:110
 -keep class com.demomapas.servicios.Iniciar_Servicio_Localizacion { <init>(...); }

@@ -14,5 +14,7 @@
     <string name="title_activity_mandamientos_judiciales">MandamientosJudiciales</string>
     <string name="title_activity_lista_opciones">ListaOpciones</string>
     <string name="title_activity_mandamientos_judiciales_list">MandamientosJudicialesList</string>
+    <string name="title_activity_ordenes_aprehension">OrdenesAprehension</string>
+    <string name="title_activity_lfve">Lfve</string>
 
 </resources>

@@ -63,7 +63,7 @@ public class ListaOpciones extends Activity implements android.view.View.OnClick
 		
 		
 		TextView TransmitirBitacora = new TextView(getApplicationContext());
-		TransmitirBitacora.setText(" Transmitir Bitacora");
+		TransmitirBitacora.setText(" Transmitir Bitácoras");
 		TransmitirBitacora.setLayoutParams(llp);
 		TransmitirBitacora.setTextSize(25);
 		TransmitirBitacora.setGravity(Gravity.CENTER);

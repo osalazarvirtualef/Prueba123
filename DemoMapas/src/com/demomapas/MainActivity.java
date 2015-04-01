@@ -61,6 +61,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 //		//Intent intent = new Intent(this, MapView.class);
 //		finish();
 		startActivity(intent);
+		finish();
 //		//LinearLayout rLGreen = ((LinearLayout) button.getParent());
 //		Display display = getWindowManager().getDefaultDisplay();
 //		contenedor = (RelativeLayout) findViewById(R.id.contenedorMain);
