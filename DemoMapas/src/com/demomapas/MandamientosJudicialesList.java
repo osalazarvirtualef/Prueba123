@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MandamientosJudicialesList extends Activity implements OnClickListener {
 	
@@ -28,49 +29,63 @@ public class MandamientosJudicialesList extends Activity implements OnClickListe
 	    llp.setMargins(0, 30, 0, 0);
 	    
 		TextView OrdenesAprehension = new TextView(getApplicationContext());
-		OrdenesAprehension.setText("Mandamientos Judiciales");
+		OrdenesAprehension.setText("Ordenes de Aprehensión");
 		OrdenesAprehension.setTextSize(25);
 		OrdenesAprehension.setGravity(Gravity.CENTER);
 		OrdenesAprehension.setOnClickListener(this);
 		OrdenesAprehension.setId(Constants.OrdenesAprehension);
+		OrdenesAprehension.setLayoutParams(llp);
 		
 		
 		TextView OrdenesReaprehension = new TextView(getApplicationContext());
-		OrdenesReaprehension.setText("Mandamientos Judiciales");
+		OrdenesReaprehension.setText("Ordenes de ReAprehensión");
 		OrdenesReaprehension.setTextSize(25);
 		OrdenesReaprehension.setGravity(Gravity.CENTER);
 		OrdenesReaprehension.setOnClickListener(this);
 		OrdenesReaprehension.setId(Constants.OrdenesReaprehension);
+		OrdenesReaprehension.setLayoutParams(llp);
 		
 		TextView OrdenesPresentacion = new TextView(getApplicationContext());
-		OrdenesPresentacion.setText("Mandamientos Judiciales");
+		OrdenesPresentacion.setText("Ordenes de Presentación");
 		OrdenesPresentacion.setTextSize(25);
 		OrdenesPresentacion.setGravity(Gravity.CENTER);
 		OrdenesPresentacion.setOnClickListener(this);
 		OrdenesPresentacion.setId(Constants.OrdenesPresentacion);
+		OrdenesPresentacion.setLayoutParams(llp);
 		
 		TextView OrdenesComparecencia = new TextView(getApplicationContext());
-		OrdenesComparecencia.setText("Mandamientos Judiciales");
+		OrdenesComparecencia.setText("Ordenes de Comparecencía");
 		OrdenesComparecencia.setTextSize(25);
 		OrdenesComparecencia.setGravity(Gravity.CENTER);
 		OrdenesComparecencia.setOnClickListener(this);
 		OrdenesComparecencia.setId(Constants.OrdenesComparecencia);
+		OrdenesComparecencia.setLayoutParams(llp);
 		
 		
 		TextView OficiosColaboracion = new TextView(getApplicationContext());
-		OficiosColaboracion.setText("Mandamientos Judiciales");
+		OficiosColaboracion.setText("Oficios de Colaboración");
 		OficiosColaboracion.setTextSize(25);
 		OficiosColaboracion.setGravity(Gravity.CENTER);
 		OficiosColaboracion.setOnClickListener(this);
 		OficiosColaboracion.setId(Constants.OficiosColaboracion);
+		OficiosColaboracion.setLayoutParams(llp);
 		
 		
 		TextView Traslados = new TextView(getApplicationContext());
-		Traslados.setText("Mandamientos Judiciales");
+		Traslados.setText("Traslados");
 		Traslados.setTextSize(25);
 		Traslados.setGravity(Gravity.CENTER);
 		Traslados.setOnClickListener(this);
 		Traslados.setId(Constants.Traslados);
+		Traslados.setLayoutParams(llp);
+		
+		lista.addView(OrdenesAprehension);
+		lista.addView(OrdenesReaprehension);
+		lista.addView(OrdenesPresentacion);
+		lista.addView(OrdenesComparecencia);
+		lista.addView(OficiosColaboracion);
+		lista.addView(Traslados);
+		
 		
 	    
 	    
@@ -98,6 +113,36 @@ public class MandamientosJudicialesList extends Activity implements OnClickListe
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case Constants.OrdenesAprehension:
+			Toast.makeText(null, "aprehension", Toast.LENGTH_LONG).show();
+			
+			break;
+		case Constants.OrdenesReaprehension:
+			Toast.makeText(null, "reaprehension", Toast.LENGTH_LONG).show();
+			break;
+		
+		case Constants.OrdenesPresentacion:
+			Toast.makeText(null, "presentacion", Toast.LENGTH_LONG).show();
+			break;
+		
+		case Constants.OficiosColaboracion:
+			Toast.makeText(null, "colaboracion", Toast.LENGTH_LONG).show();
+			break;
+		
+		case Constants.OrdenesComparecencia:
+			Toast.makeText(null, "comparecencia", Toast.LENGTH_LONG).show();
+			break;
+		
+		case Constants.Traslados:
+			Toast.makeText(null, "traslados", Toast.LENGTH_LONG).show();
+			System.out.println();
+			break;
+		
+
+		default:
+			break;
+		}
 		
 		
 	}
