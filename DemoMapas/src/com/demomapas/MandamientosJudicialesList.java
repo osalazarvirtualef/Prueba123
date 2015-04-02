@@ -2,6 +2,7 @@ package com.demomapas;
 
 import android.app.Activity;
 import android.app.ActionBar.LayoutParams;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -116,6 +117,7 @@ public class MandamientosJudicialesList extends Activity implements OnClickListe
 		switch (v.getId()) {
 		case Constants.OrdenesAprehension:
 			Toast.makeText(getApplicationContext(), "aprehension", Toast.LENGTH_SHORT).show();
+			startActivity(new Intent(MandamientosJudicialesList.this, Principal.class));
 	
 			
 			break;
