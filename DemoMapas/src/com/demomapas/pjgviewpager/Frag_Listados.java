@@ -36,6 +36,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
 public class Frag_Listados extends Fragment {
+	private static final int Estatus = 0;
 	private int Tipo;
 	private static ListView lista;
 
@@ -146,16 +147,16 @@ public class Frag_Listados extends Fragment {
 		listaReferencia.add(referencia13);
 		List<Referencia> listaFiltrada = new ArrayList<Referencia>();
 
-//		if (Estatus != 0) {
-//			for (int i = 0; i < listaReferencia.size(); i++) {
-//				Referencia referenciaFiltrada = listaReferencia.get(i);
-//
-//				if (referenciaFiltrada.getIdEstatus() == Estatus)
-//					listaFiltrada.add(referenciaFiltrada);
-//			}
-//		} else {
-//			listaFiltrada = listaReferencia;
-//		}
+		if (Estatus != 0) {
+			for (int i = 0; i < listaReferencia.size(); i++) {
+				Referencia referenciaFiltrada = listaReferencia.get(i);
+
+				if (referenciaFiltrada.getIdEstatus() == Estatus)
+					listaFiltrada.add(referenciaFiltrada);
+			}
+		} else {
+			listaFiltrada = listaReferencia;
+		}
 		Adp_Base_ListaReferencia adapter = new Adp_Base_ListaReferencia(
 				listaFiltrada, getActivity().getBaseContext());
 		lista.setAdapter(adapter);

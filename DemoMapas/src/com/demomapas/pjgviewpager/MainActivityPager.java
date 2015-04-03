@@ -37,6 +37,13 @@ public class MainActivityPager extends FragmentActivity {
 	public static Stack<Fragment> fragmentos;
 	public static Stack<String> elementos;
 	public static  CollectionResponseCommandmentDto Mandamientos;
+	CollectionResponseCommandmentDto aprehension;
+	CollectionResponseCommandmentDto reaprehension;
+	CollectionResponseCommandmentDto presentacion;
+	CollectionResponseCommandmentDto comparecencia;
+	CollectionResponseCommandmentDto colaboracion;
+	CollectionResponseCommandmentDto traslados;
+	
 	ProgressDialog progressDialog;
 	static SharedPreferences.Editor editor;
 	static SharedPreferences Preferences;
@@ -129,7 +136,10 @@ public class ObtenerInformacion extends AsyncTask<Void, Void, Void> {
 
 			Mandamientos = MandamientoEndpoint.getCommandmentByAgentId(Preferences.getLong(Constants.idAgente,0L)).execute();
 			
-			
+			for (CommandmentDto elementos : Mandamientos.getItems()) {
+				System.out.println();
+				
+			}
 			Log.i("", "");
 			 
 			
