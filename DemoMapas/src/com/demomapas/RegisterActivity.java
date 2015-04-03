@@ -5,9 +5,11 @@ import java.text.BreakIterator;
 
 import com.demomapas.deviceinfoendpoint.Deviceinfoendpoint;
 import com.demomapas.deviceinfoendpoint.model.DeviceInfo;
+import com.demomapas.endpoints.EndPointsInicializacion;
 import com.demomapas.messageEndpoint.MessageEndpoint;
 import com.demomapas.messageEndpoint.model.CollectionResponseMessageData;
 import com.demomapas.messageEndpoint.model.MessageData;
+import com.demomapas.pjgviewpager.MainActivityPager;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
@@ -76,6 +78,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	static SharedPreferences.Editor editor;
 	static SharedPreferences Preferences;
 	public boolean agenteExiatente = false;
+	ProgressDialog progressDialog;
 
   enum State {
     REGISTERED, REGISTERING, UNREGISTERED, UNREGISTERING
@@ -160,7 +163,28 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			new validarUsuario(getApplicationContext()).execute();
+			  progressDialog = new ProgressDialog(RegisterActivity.this);  
+		        //Set the progress dialog to display a horizontal bar .  
+		        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);  
+		        //Set the dialog title to 'Loading...'.  
+		        progressDialog.setTitle("Validando Usuario...");  
+		        //Set the dialog message to 'Loading application View, please wait...'.  
+		        progressDialog.setMessage("Espere...");  
+		        //This dialog can't be canceled by pressing the back key.  
+		        progressDialog.setCancelable(false);  
+		        //This dialog isn't indeterminate.  
+		        progressDialog.setIndeterminate(false);  
+		        //The maximum number of progress items is 100.  
+		        progressDialog.setMax(100);  
+		        //Set the current progress to zero.  
+		        progressDialog.setProgress(0);  
+		        //Display the progress dialog.  
+		        progressDialog.show();
+		new validarUsuario(getApplicationContext()).execute();
+			
+//			Intent intent = new Intent(RegisterActivity.this,MainActivityPager.class);
+//			startActivity(intent);
+//			finish();
 			
 		}
 	});
@@ -350,7 +374,14 @@ protected void onStop() {
 		try {
 
 			AgentDto agent = agentEndpoint.getAgentByAlias(usuariotext.getText().toString(), password.getText().toString()).execute();
-			if(agent != null) agenteExiatente = true;
+			if(agent != null) 
+				{
+				agenteExiatente = true;
+	              editor = Preferences.edit();
+	              //editor.putBoolean("FirstTime", true);
+	              editor.putLong(Constants.idAgente, agent.getKey().getId());
+	              editor.commit();
+				}
 			
 			Log.i("", "");
 			 
@@ -371,8 +402,10 @@ protected void onStop() {
 		}
 		@Override
 		protected void onPostExecute(Void result) {
+			progressDialog.dismiss();
 			if(agenteExiatente){
-			startActivity(new Intent(RegisterActivity.this, ListaOpciones.class));
+			//startActivity(new Intent(RegisterActivity.this, ListaOpciones.class));
+				startActivity(new Intent(RegisterActivity.this, MainActivityPager.class));
 			finish();
 			}else 
 				Toast.makeText(getApplicationContext(), "Error en el usuario", Toast.LENGTH_LONG).show();

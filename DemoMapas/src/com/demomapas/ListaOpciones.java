@@ -1,5 +1,7 @@
 package com.demomapas;
 
+import com.demomapas.pjgviewpager.MainActivityPager;
+
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -17,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ListaOpciones extends Activity implements android.view.View.OnClickListener {
 
@@ -102,16 +105,19 @@ public class ListaOpciones extends Activity implements android.view.View.OnClick
 		switch (v.getId()) {
 		case Constants.MandamientosJudiciales:
 			Log.i("Mandamientos Judiciales", "Mandamientos Judiaciales");
-			startActivity(new Intent(ListaOpciones.this,MandamientosJudicialesList.class));
+			startActivity(new Intent(ListaOpciones.this,MainActivityPager.class));
 			break;
 		case Constants.Documentos:
 			Log.i("Documentos", "Documentos");
+			Toast.makeText(getApplicationContext(), "Documentos", Toast.LENGTH_LONG).show();
 			break;
 		case Constants.Emergencias:
 			Log.i("Emergencia", "Emergencia");
+			Toast.makeText(getApplicationContext(), "Emergencia", Toast.LENGTH_LONG).show();
 			break;
 		case Constants.TransmitirBitacora:
 			Log.i("Transmitir Bitacora", "Transmitir Bitacora");
+			Toast.makeText(getApplicationContext(), "Transmitir Bitacora", Toast.LENGTH_LONG).show();
 			break;
 
 		default:

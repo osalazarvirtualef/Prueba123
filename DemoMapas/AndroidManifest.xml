@@ -133,12 +133,20 @@
             android:label="@string/title_activity_mandamientos_judiciales_list" >
         </activity>
         <activity
-            android:name="com.demomapas.mandamientos.OrdenesAprehension"
+            android:name=".mandamientos.OrdenesAprehension"
             android:label="@string/title_activity_ordenes_aprehension" >
         </activity>
         <activity
             android:name=".Lfve"
             android:label="@string/title_activity_lfve" >
+        </activity>
+        <activity
+            android:name=".pjgviewpager.BasePager"
+            android:label="@string/title_activity_base_pager" >
+        </activity>
+        <activity
+            android:name="com.demomapas.pjgviewpager.MainActivityPager"
+            android:label="@string/title_activity_main_activity_pager" >
         </activity>
     </application>
 

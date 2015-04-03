@@ -13,5 +13,17 @@ public class Constants {
 	public static final  int OficiosColaboracion = 9;
 	public static final  int Traslados = 10;
 	
+	public static final  String OrdenesAprehensionText = "APREHENSION";
+	public static final  String OrdenesReaprehensionText = "REAPREHENSION";
+	public static final  String OrdenesPresentacionText = "PRESENTACION";
+	public static final  String OrdenesComparecenciaText = "COMPARECENCIA";
+	public static final  String OficiosColaboracionText = "COLABORACION";
+	public static final  String TrasladosText = "TRASLADOS";	
+	
+	//valores de preferences
+	
+	public static final String idAgente = "idAgente";
+
+	
 
 }

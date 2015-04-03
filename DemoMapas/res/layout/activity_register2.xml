@@ -47,6 +47,7 @@
                 android:layout_gravity="center"
                 android:nextFocusForward="@+id/editTextContrasena"
                 android:singleLine="true"
+                android:text="pedro"
                 android:ems="10" />
 
             <TextView
@@ -62,6 +63,7 @@
                 android:id="@+id/editTextContrasena"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                 android:text="pedro"
                 android:layout_gravity="center"
                 android:layout_marginTop="22dp"
                 android:ems="10"
