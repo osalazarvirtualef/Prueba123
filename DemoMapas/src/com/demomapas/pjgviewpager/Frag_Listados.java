@@ -70,6 +70,7 @@ public class Frag_Listados extends Fragment {
 		for (CommandmentDto  elemento : MandamientosJudiciales.getItems()) {
 			
 		//	if(elemento.get)
+			System.out.println();
 		}
 		
 		Referencia referencia = new Referencia();
