@@ -22,8 +22,7 @@ public class Adp_ViewPager extends FragmentStatePagerAdapter{
 			return SupportMapFragment.newInstance();
 		case 1:
 			return new Pagina1();
-		case 2:
-			return SupportMapFragment.newInstance();
+		
 		default:
 			break;
 		}
@@ -34,7 +33,7 @@ public class Adp_ViewPager extends FragmentStatePagerAdapter{
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 3;
+		return 2;
 	}
 	@Override
 	public CharSequence getPageTitle(int position) {
@@ -42,14 +41,12 @@ public class Adp_ViewPager extends FragmentStatePagerAdapter{
 		CharSequence ch = null;
 		switch (position) {
 		case 0:
-			ch = "pagina 1";
+			ch = "Vista Mapa";
 			break;
 		case 1:
-			ch = "pagina 2";
+			ch = "Vista Listado";
 			break;
-		case 2: 
-			ch = "pagina 3";
-			break;
+
 
 		default:
 			break;

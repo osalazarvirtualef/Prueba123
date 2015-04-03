@@ -18,7 +18,7 @@ public class Principal extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
-		setTitle("Mandamientos Judiciales");
+		setTitle("Ordenes de Aprehensión");
 		fragmentPrincipal = new FragmentPrincipal();
 		
 		ft = getSupportFragmentManager().beginTransaction();
